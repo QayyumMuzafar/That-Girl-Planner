@@ -878,20 +878,20 @@ button, input, textarea, select, a,
       <!-- Image Reveal Upload -->
       <div style="display:flex;align-items:flex-start;gap:24px;margin-bottom:22px;flex-wrap:wrap;">
         <div style="flex-shrink:0;">
-          <label for="habit-img-input" style="cursor:pointer;display:block;">
-            <div id="habit-img-wrap" style="width:200px;height:200px;border-radius:var(--radius);overflow:hidden;background:var(--ivory);border:2px dashed var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;transition:border-color .2s;position:relative;" onmouseover="this.style.borderColor='var(--rose)'" onmouseout="this.style.borderColor='var(--border)'">
-              <span style="font-size:28px;">🖼️</span>
-              <span style="font-size:11px;font-weight:500;color:var(--text-muted);text-align:center;padding:0 12px;line-height:1.5;">Upload your goal image</span>
+          <div style="flex-shrink:0;">
+            <div id="habit-img-wrap" style="width:200px;height:200px;border-radius:var(--radius);overflow:hidden;background:var(--ivory);border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;position:relative;">
+              <span style="font-size:22px;">⏳</span>
+              <span style="font-size:11px;color:var(--text-muted);">Loading image...</span>
             </div>
-            <input type="file" id="habit-img-input" accept="image/*" style="display:none;" onchange="habitImgUpload(this)">
-          </label>
+          </div>
           <div style="margin-top:8px;text-align:center;">
             <span id="habit-reveal-counter" style="font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);">0/31 days</span>
+            <div id="habit-month-label" style="font-size:10px;color:var(--text-muted);margin-top:3px;letter-spacing:.5px;"></div>
           </div>
         </div>
         <div style="flex:1;min-width:200px;">
           <div class="card-title" style="margin-bottom:8px;">📊 30-Day Habit Tracker</div>
-          <p style="font-size:13px;color:var(--text-soft);line-height:1.7;margin-bottom:12px;">Upload a goal image — it starts completely hidden behind 31 tiles. Each time you complete <strong>all habits for a full day</strong>, one tile disappears to reveal what's underneath. Finish all 31 days to uncover it fully.</p>
+          <p style="font-size:13px;color:var(--text-soft);line-height:1.7;margin-bottom:12px;">A new image appears every month, hidden behind 31 tiles. Each time you complete <strong>all habits for a full day</strong>, one tile disappears to reveal what's underneath. Finish all 31 days to uncover it fully.</p>
           <div style="background:var(--ivory);border-radius:var(--radius-sm);padding:10px 14px;">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
               <span style="font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);">Colour Reveal</span>
@@ -1014,8 +1014,7 @@ HT.innerHTML=hh+'</tbody>';
 // ─── HABIT IMAGE REVEAL ───
 function buildHabitImgWrap(src){
   const wrap = document.getElementById('habit-img-wrap');
-  wrap.style.border = 'none';
-  wrap.style.padding = '0';
+  wrap.style.border = '1px solid var(--border)';
   wrap.style.cursor = 'default';
   wrap.innerHTML = `
     <img src="${src}" style="width:200px;height:200px;object-fit:cover;display:block;border-radius:var(--radius);">
@@ -1029,15 +1028,7 @@ function buildHabitImgWrap(src){
   updateHabitReveal();
 }
 
-function habitImgUpload(input){
-  if(!input.files||!input.files[0]) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    localStorage.setItem('tge_habit_img', e.target.result);
-    buildHabitImgWrap(e.target.result);
-  };
-  reader.readAsDataURL(input.files[0]);
-}
+// Upload function removed — image is now auto-generated monthly
 
 function updateHabitReveal(){
   let completeDays = 0;
@@ -1057,11 +1048,17 @@ function updateHabitReveal(){
   if(pctEl)   pctEl.textContent = pct+'%';
 }
 
-// Restore habit image from localStorage
-(function restoreHabitImg(){
-  const saved = localStorage.getItem('tge_habit_img');
-  if(!saved) return;
-  buildHabitImgWrap(saved);
+// Auto monthly image — changes every month, consistent within the month
+(function loadMonthlyHabitImg(){
+  const now    = new Date();
+  const year   = now.getFullYear();
+  const month  = String(now.getMonth()+1).padStart(2,'0');
+  const seed   = 'tge-'+year+'-'+month;
+  const src    = 'https://picsum.photos/seed/'+seed+'/400/400';
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const label  = document.getElementById('habit-month-label');
+  if(label) label.textContent = months[now.getMonth()]+' '+year;
+  buildHabitImgWrap(src);
 })();
 
 // ─── MAIN CALENDAR ───
