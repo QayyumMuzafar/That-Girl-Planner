@@ -765,6 +765,34 @@ button, input, textarea, select, a,
 
   <!-- DAILY PLANNER -->
   <div class="tab-page" id="tab-daily">
+
+    <!-- PHOTO DUMP -->
+    <div class="card" style="margin-bottom:22px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+        <div>
+          <div class="card-title" style="margin-bottom:4px;">📸 Today's Moments <span id="photos-counter" style="font-family:'Jost',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-left:8px;">0/10 photos</span></div>
+          <p style="font-size:12px;color:var(--text-muted);">Dump your photos here — auto-saved by date so you can look back anytime.</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <button class="cal-btn" onclick="photosNavDay(-1)" style="padding:7px 12px;">← Prev</button>
+          <input type="date" id="photos-date" style="border:1.5px solid var(--border);border-radius:var(--radius-sm);background:var(--white);font-family:'Jost',sans-serif;font-size:13px;color:var(--text);padding:7px 12px;outline:none;cursor:pointer;" onchange="photosLoadDate(this.value)">
+          <button class="cal-btn" onclick="photosNavDay(1)" style="padding:7px 12px;">Next →</button>
+          <span id="photos-saved-badge" style="display:none;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--sage-dark);background:var(--sage-light);padding:4px 12px;border-radius:20px;">✓ Saved</span>
+        </div>
+      </div>
+      <div id="photos-day-label" style="font-family:'Playfair Display',serif;font-size:16px;font-style:italic;color:var(--mocha);margin-bottom:14px;"></div>
+      <label id="photos-dropzone" for="photos-file-input" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border:2px dashed var(--border);border-radius:var(--radius);background:var(--ivory);padding:32px;cursor:pointer;transition:all .2s;min-height:120px;text-align:center;"
+        ondragover="event.preventDefault();this.style.borderColor='var(--rose)';this.style.background='#FDF6F4'"
+        ondragleave="this.style.borderColor='var(--border)';this.style.background='var(--ivory)'"
+        ondrop="event.preventDefault();this.style.borderColor='var(--border)';this.style.background='var(--ivory)';photosHandleFiles(event.dataTransfer.files)">
+        <span style="font-size:32px;">📷</span>
+        <span style="font-size:13.5px;font-weight:500;color:var(--text-soft);">Drop photos here or click to upload</span>
+        <span style="font-size:11px;color:var(--text-muted);">JPG, PNG, HEIC, GIF — multiple files welcome</span>
+        <input type="file" id="photos-file-input" accept="image/*" multiple style="display:none;" onchange="photosHandleFiles(this.files)">
+      </label>
+      <div id="photos-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:18px;"></div>
+    </div>
+
     <div class="grid-2">
       <div>
         <div class="card">
@@ -789,37 +817,6 @@ button, input, textarea, select, a,
           <ul class="checklist" id="evening-list"></ul>
         </div>
       </div>
-    </div>
-
-    <!-- PHOTO DUMP -->
-    <div class="card" style="margin-top:22px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
-        <div>
-          <div class="card-title" style="margin-bottom:4px;">📸 Today's Moments <span id="photos-counter" style="font-family:'Jost',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-left:8px;">0/10 photos</span></div>
-          <p style="font-size:12px;color:var(--text-muted);">Dump your photos here — auto-saved by date so you can look back anytime.</p>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-          <button class="cal-btn" onclick="photosNavDay(-1)" style="padding:7px 12px;">← Prev</button>
-          <input type="date" id="photos-date" style="border:1.5px solid var(--border);border-radius:var(--radius-sm);background:var(--white);font-family:'Jost',sans-serif;font-size:13px;color:var(--text);padding:7px 12px;outline:none;cursor:pointer;" onchange="photosLoadDate(this.value)">
-          <button class="cal-btn" onclick="photosNavDay(1)" style="padding:7px 12px;">Next →</button>
-          <span id="photos-saved-badge" style="display:none;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--sage-dark);background:var(--sage-light);padding:4px 12px;border-radius:20px;">✓ Saved</span>
-        </div>
-      </div>
-      <div id="photos-day-label" style="font-family:'Playfair Display',serif;font-size:16px;font-style:italic;color:var(--mocha);margin-bottom:14px;"></div>
-
-      <!-- Drop zone -->
-      <label id="photos-dropzone" for="photos-file-input" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border:2px dashed var(--border);border-radius:var(--radius);background:var(--ivory);padding:32px;cursor:pointer;transition:all .2s;min-height:120px;text-align:center;"
-        ondragover="event.preventDefault();this.style.borderColor='var(--rose)';this.style.background='#FDF6F4'"
-        ondragleave="this.style.borderColor='var(--border)';this.style.background='var(--ivory)'"
-        ondrop="event.preventDefault();this.style.borderColor='var(--border)';this.style.background='var(--ivory)';photosHandleFiles(event.dataTransfer.files)">
-        <span style="font-size:32px;">📷</span>
-        <span style="font-size:13.5px;font-weight:500;color:var(--text-soft);">Drop photos here or click to upload</span>
-        <span style="font-size:11px;color:var(--text-muted);">JPG, PNG, HEIC, GIF — multiple files welcome</span>
-        <input type="file" id="photos-file-input" accept="image/*" multiple style="display:none;" onchange="photosHandleFiles(this.files)">
-      </label>
-
-      <!-- Photo grid -->
-      <div id="photos-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:18px;"></div>
     </div>
   </div>
 
@@ -878,7 +875,34 @@ button, input, textarea, select, a,
       </div>
     </div>
     <div class="card">
-      <div class="card-title">📊 30-Day Habit Tracker</div>
+      <!-- Image Reveal Upload -->
+      <div style="display:flex;align-items:flex-start;gap:24px;margin-bottom:22px;flex-wrap:wrap;">
+        <div style="flex-shrink:0;">
+          <label for="habit-img-input" style="cursor:pointer;display:block;">
+            <div id="habit-img-wrap" style="width:160px;height:160px;border-radius:var(--radius);overflow:hidden;background:var(--ivory);border:2px dashed var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;transition:border-color .2s;" onmouseover="this.style.borderColor='var(--rose)'" onmouseout="this.style.borderColor='var(--border)'">
+              <span style="font-size:28px;">🖼️</span>
+              <span style="font-size:11px;font-weight:500;color:var(--text-muted);text-align:center;padding:0 12px;line-height:1.5;">Upload your goal image</span>
+            </div>
+            <input type="file" id="habit-img-input" accept="image/*" style="display:none;" onchange="habitImgUpload(this)">
+          </label>
+          <div style="margin-top:8px;text-align:center;">
+            <span id="habit-reveal-counter" style="font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);">0/31 days</span>
+          </div>
+        </div>
+        <div style="flex:1;min-width:200px;">
+          <div class="card-title" style="margin-bottom:8px;">📊 30-Day Habit Tracker</div>
+          <p style="font-size:13px;color:var(--text-soft);line-height:1.7;margin-bottom:12px;">Upload a goal image — it starts in black & white. Each time you complete <strong>all habits for a full day</strong>, colour slowly returns. Finish all 31 days to reveal it completely.</p>
+          <div style="background:var(--ivory);border-radius:var(--radius-sm);padding:10px 14px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+              <span style="font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);">Colour Reveal</span>
+              <span id="habit-reveal-pct" style="font-size:11px;font-weight:600;color:var(--rose-dark);">0%</span>
+            </div>
+            <div class="progress-bar" style="margin:0;">
+              <div id="habit-reveal-bar" class="progress-fill" style="width:0%;transition:width .6s ease;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="habit-grid"><table class="habit-table" id="habit-table"></table></div>
     </div>
   </div>
@@ -981,11 +1005,55 @@ const sb=document.getElementById('schedule-body');
 TIMES.forEach(t=>{const tr=document.createElement('tr');tr.innerHTML=`<td class="time-cell">${t}</td><td><input class="act-input" type="text" placeholder="Add activity..."></td><td class="done-cell"><input type="checkbox" class="habit-check"></td>`;sb.appendChild(tr);});
 
 // ─── HABIT TRACKER ───
-const HABITS=[{name:'Movement',cat:'body'},{name:'Water (8 glasses)',cat:'body'},{name:'No phone first hour',cat:'mind'},{name:'Journaling',cat:'mind'},{name:'Content creation',cat:'business'},{name:'Reading',cat:'mind'},{name:'Gratitude',cat:'spirit'},{name:'Skincare ritual',cat:'body'}];
+const HABITS=[{name:'Movement',cat:'body'},{name:'Water (8 glasses)',cat:'body'},{name:'No phone first hour',cat:'mind'},{name:'Journaling',cat:'mind'},{name:'Reading',cat:'mind'},{name:'Gratitude',cat:'spirit'},{name:'Skincare ritual',cat:'body'}];
 const HT=document.getElementById('habit-table');
 let hh='<thead><tr><th>Habit</th>';for(let i=1;i<=31;i++)hh+=`<th>${i}</th>`;hh+='</tr></thead><tbody>';
-HABITS.forEach(h=>{hh+=`<tr><td>${h.name}<span class="hcat cat-${h.cat}">${h.cat.charAt(0).toUpperCase()+h.cat.slice(1)}</span></td>`;for(let i=1;i<=31;i++)hh+=`<td><input type="checkbox" class="habit-check"></td>`;hh+='</tr>';});
+HABITS.forEach(h=>{hh+=`<tr><td>${h.name}<span class="hcat cat-${h.cat}">${h.cat.charAt(0).toUpperCase()+h.cat.slice(1)}</span></td>`;for(let i=1;i<=31;i++)hh+=`<td><input type="checkbox" class="habit-check" data-day="${i}" onchange="updateHabitReveal()"></td>`;hh+='</tr>';});
 HT.innerHTML=hh+'</tbody>';
+
+// ─── HABIT IMAGE REVEAL ───
+function habitImgUpload(input){
+  if(!input.files||!input.files[0]) return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const wrap=document.getElementById('habit-img-wrap');
+    wrap.style.border='none';
+    wrap.style.padding='0';
+    wrap.innerHTML=`<img id="habit-reveal-img" src="${e.target.result}" style="width:160px;height:160px;object-fit:cover;display:block;filter:grayscale(100%);transition:filter 1s ease;border-radius:var(--radius);">`;
+    localStorage.setItem('tge_habit_img', e.target.result);
+    updateHabitReveal();
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+
+function updateHabitReveal(){
+  const img=document.getElementById('habit-reveal-img');
+  let completeDays=0;
+  for(let d=1;d<=31;d++){
+    const cbs=document.querySelectorAll(`.habit-check[data-day="${d}"]`);
+    if(cbs.length>0 && Array.from(cbs).every(cb=>cb.checked)) completeDays++;
+  }
+  const pct=Math.round(completeDays/31*100);
+  const grayscale=100-pct;
+  if(img) img.style.filter=`grayscale(${grayscale}%)`;
+  const counter=document.getElementById('habit-reveal-counter');
+  const bar=document.getElementById('habit-reveal-bar');
+  const pctEl=document.getElementById('habit-reveal-pct');
+  if(counter) counter.textContent=`${completeDays}/31 days`;
+  if(bar)     bar.style.width=pct+'%';
+  if(pctEl)   pctEl.textContent=pct+'%';
+}
+
+// Restore habit image from localStorage
+(function restoreHabitImg(){
+  const saved=localStorage.getItem('tge_habit_img');
+  if(!saved) return;
+  const wrap=document.getElementById('habit-img-wrap');
+  if(!wrap) return;
+  wrap.style.border='none';wrap.style.padding='0';
+  wrap.innerHTML=`<img id="habit-reveal-img" src="${saved}" style="width:160px;height:160px;object-fit:cover;display:block;filter:grayscale(100%);transition:filter 1s ease;border-radius:var(--radius);">`;
+  updateHabitReveal();
+})();
 
 // ─── MAIN CALENDAR ───
 let calY=NOW.getFullYear(),calM=NOW.getMonth();
