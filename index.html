@@ -307,7 +307,7 @@ button, input, textarea, select, a,
 
 /* Save button — mirrors hamburger, fixed top right */
 #save-btn {
-  display: none;
+  display: flex;
   position: fixed;
   top: max(18px, env(safe-area-inset-top));
   right: 14px;
@@ -1517,11 +1517,13 @@ async function ensureToken(){
 
 // ─── DRIVE API ───
 async function driveFindFile(){
+  const q = encodeURIComponent(`name='${SAVE_FILENAME}' and trashed=false`);
   const r = await fetch(
-    `https://www.googleapis.com/drive/v3/files?q=name='${SAVE_FILENAME}' and trashed=false&fields=files(id)&spaces=drive`,
+    `https://www.googleapis.com/drive/v3/files?q=${q}&fields=files(id,name)&spaces=drive`,
     {headers:{Authorization:`Bearer ${gAccessToken}`}}
   );
   const d = await r.json();
+  if(d.error){ console.error('Drive find error:', d.error); return null; }
   return (d.files && d.files.length > 0) ? d.files[0].id : null;
 }
 
@@ -1530,16 +1532,18 @@ async function driveReadFile(fileId){
     `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`,
     {headers:{Authorization:`Bearer ${gAccessToken}`}}
   );
+  if(!r.ok){ console.error('Drive read error:', r.status); return null; }
   return await r.json();
 }
 
 async function driveWriteFile(content){
   const body = JSON.stringify(content);
   if(gDriveFileId){
-    await fetch(
+    const r = await fetch(
       `https://www.googleapis.com/upload/drive/v3/files/${gDriveFileId}?uploadType=media`,
       {method:'PATCH', headers:{Authorization:`Bearer ${gAccessToken}`,'Content-Type':'application/json'}, body}
     );
+    if(!r.ok) throw new Error('Drive update failed: '+r.status);
   } else {
     const meta = {name:SAVE_FILENAME, mimeType:'application/json'};
     const form = new FormData();
@@ -1549,6 +1553,7 @@ async function driveWriteFile(content){
       'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id',
       {method:'POST', headers:{Authorization:`Bearer ${gAccessToken}`}, body:form}
     );
+    if(!r.ok) throw new Error('Drive create failed: '+r.status);
     const created = await r.json();
     gDriveFileId = created.id;
   }
@@ -1559,9 +1564,18 @@ async function loadFromDrive(){
   if(btn){ btn.disabled=true; btn.innerHTML=ICON_SPIN; }
   try {
     gDriveFileId = await driveFindFile();
-    if(!gDriveFileId){ if(btn){btn.disabled=false;btn.innerHTML=ICON_SAVE;} return; }
+    if(!gDriveFileId){
+      console.log('No saved file found — fresh start');
+      if(btn){btn.disabled=false;btn.innerHTML=ICON_SAVE;}
+      return;
+    }
     const data = await driveReadFile(gDriveFileId);
+    if(!data){ if(btn){btn.disabled=false;btn.innerHTML=ICON_SAVE;} return; }
+
+    // Restore planner fields
     if(data.planner) applyData(data.planner);
+
+    // Restore diary entries to localStorage then reload current date
     if(data.diary){
       Object.entries(data.diary).forEach(([date,entry])=>{
         localStorage.setItem('tge_diary_'+date, JSON.stringify(entry));
@@ -1569,7 +1583,11 @@ async function loadFromDrive(){
       const dd = document.getElementById('diary-date');
       if(dd && dd.value) diaryLoadDate(dd.value);
     }
-  } catch(e){ console.error('Drive load error:',e); }
+
+    console.log('Data loaded from Google Drive ✓');
+  } catch(e){
+    console.error('Drive load error:', e);
+  }
   if(btn){ btn.disabled=false; btn.innerHTML=ICON_SAVE; }
 }
 
