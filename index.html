@@ -1320,12 +1320,13 @@ function updateProgress(inp){
 
 function getDreamData(){
   const data=[];
-  document.querySelectorAll('.dream-card').forEach(card=>{
+  document.querySelectorAll('.dream-card').forEach((card,i)=>{
     const nameEl=card.querySelector('input[placeholder="Dream name..."]');
     const target=parseFloat(card.querySelector('.dream-target')?.value)||0;
     const saved=parseFloat(card.querySelector('.dream-saved')?.value)||0;
-    const name=(nameEl?.value?.trim())||'Dream';
+    const name=(nameEl?.value?.trim())||'Dream '+(i+1);
     const pct=target>0?Math.min(100,Math.round(saved/target*100)):0;
+    // Only show if target is set and not yet 100% complete
     if(target>0&&pct<100) data.push({name,saved,target,pct});
   });
   return data;
@@ -1347,22 +1348,23 @@ function updateSavingsSummary(){
   if(data.length===0){wrap.style.display='none';return;}
   wrap.style.display='block';
 
-  const totalSaved=data.reduce((s,d)=>s+d.saved,0)||1;
+  // Use target amount as the slice weight (not saved), so all dreams show even at $0 saved
+  const totalTarget=data.reduce((s,d)=>s+d.target,0)||1;
   const cx=60,cy=60,r=50;
   let startAngle=-Math.PI/2;
   let paths='';
 
   data.forEach((d,i)=>{
-    const slice=(d.saved/totalSaved)*2*Math.PI;
+    const slice=(d.target/totalTarget)*2*Math.PI;
     const endAngle=startAngle+slice;
     const x1=cx+r*Math.cos(startAngle),y1=cy+r*Math.sin(startAngle);
     const x2=cx+r*Math.cos(endAngle),y2=cy+r*Math.sin(endAngle);
     const large=slice>Math.PI?1:0;
     const color=PIE_COLORS[i%PIE_COLORS.length];
     if(data.length===1){
-      paths+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="${color}" opacity="0.85"/>`;
+      paths+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="${color}" opacity="0.9"/>`;
     } else {
-      paths+=`<path d="M${cx},${cy} L${x1},${y1} A${r},${r} 0 ${large},1 ${x2},${y2} Z" fill="${color}" opacity="0.85"/>`;
+      paths+=`<path d="M${cx},${cy} L${x1.toFixed(3)},${y1.toFixed(3)} A${r},${r} 0 ${large},1 ${x2.toFixed(3)},${y2.toFixed(3)} Z" fill="${color}" opacity="0.9" stroke="white" stroke-width="1.5"/>`;
     }
     startAngle=endAngle;
   });
@@ -1371,7 +1373,7 @@ function updateSavingsSummary(){
   legend.innerHTML=data.map((d,i)=>`
     <div style="display:flex;align-items:center;gap:6px;">
       <span style="width:10px;height:10px;border-radius:50%;background:${PIE_COLORS[i%PIE_COLORS.length]};flex-shrink:0;display:inline-block;"></span>
-      <span style="font-size:11px;color:var(--text-soft);">${d.name} — ${d.pct}%</span>
+      <span style="font-size:11px;color:var(--text-soft);">${d.name} — ${d.pct}% saved</span>
     </div>`).join('');
 }
 let dc=3;
