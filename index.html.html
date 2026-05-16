@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <!-- PWA: Makes the app installable on home screen -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="That Girl">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#3D2B2B">
+  <meta name="application-name" content="That Girl Entrepreneur">
+  <meta name="description" content="Your all-in-one life & business OS">
+
+  <!-- PWA Manifest (inline) -->
+  <link rel="manifest" href="data:application/json;charset=utf-8,%7B%22name%22%3A%22That%20Girl%20Entrepreneur%22%2C%22short_name%22%3A%22That%20Girl%22%2C%22description%22%3A%22Your%20Life%20%26%20Business%20OS%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23FAF7F2%22%2C%22theme_color%22%3A%22%233D2B2B%22%2C%22orientation%22%3A%22portrait%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%3Bcharset%3Dutf-8%2C%253Csvg%2520xmlns%253D%2527http%253A%252F%252Fwww.w3.org%252F2000%252Fsvg%2527%2520viewBox%253D%25270%25200%2520192%2520192%2527%253E%253Crect%2520width%253D%2527192%2527%2520height%253D%2527192%2527%2520rx%253D%252740%2527%2520fill%253D%2527%2523 3D2B2B%2527%252F%253E%253Ctext%2520x%253D%252796%2527%2520y%253D%2527130%2527%2520font-size%253D%2527100%2527%2520text-anchor%253D%2527middle%2527%253E%25F0%259F%258C%25B8%253C%252Ftext%253E%253C%252Fsvg%253E%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
+
+  <!-- Apple touch icon -->
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='40' fill='%233D2B2B'/><text x='96' y='130' font-size='100' text-anchor='middle'>🌸</text></svg>">
+
+<title>That Girl Entrepreneur — My Life OS</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Jost:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#FAF7F2;--ivory:#F5EFE6;--rose:#D4A5A0;--rose-light:#EDD9D5;--rose-dark:#B8837D;--sage:#9DB5A0;--sage-light:#C8DAC8;--sage-dark:#6D9170;--mocha:#3D2B2B;--mocha-light:#6B4F4F;--champagne:#E8D5C0;--gold:#C9A96E;--white:#FFFFFF;--text:#3D2B2B;--text-soft:#7A6060;--text-muted:#A89090;--border:#E8D8D0;--shadow:rgba(61,43,43,.08);--radius:16px;--radius-sm:8px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;display:flex;overflow:hidden;}
+
+/* SIDEBAR */
+.sidebar{width:260px;min-width:260px;background:var(--mocha);height:100vh;display:flex;flex-direction:column;padding:32px 0;position:fixed;left:0;top:0;z-index:100;overflow-y:auto;}
+.logo-text{font-family:'Playfair Display',serif;font-style:italic;font-size:18px;color:var(--champagne);line-height:1.3;}
+.logo-sub{font-size:10px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--rose);margin-top:4px;}
+.sidebar-logo{padding:0 28px 28px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:20px;}
+.sidebar-section{padding:0 16px;margin-bottom:8px;}
+.sidebar-label{font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);padding:12px 12px 6px;}
+.nav-btn{display:flex;align-items:center;gap:10px;width:100%;padding:12px 14px;border:none;background:transparent;color:rgba(255,255,255,.65);font-family:'Jost',sans-serif;font-size:13px;cursor:pointer;border-radius:var(--radius-sm);transition:all .2s;text-align:left;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+.nav-btn:hover{background:rgba(255,255,255,.08);color:rgba(255,255,255,.9);}
+.nav-btn.active{background:rgba(212,165,160,.25);color:var(--champagne);font-weight:500;}
+.nav-icon{font-size:15px;width:20px;text-align:center;}
+.nav-badge{margin-left:auto;background:var(--rose);color:white;font-size:9px;font-weight:600;padding:2px 7px;border-radius:20px;}
+.sidebar-footer{margin-top:auto;padding:20px 28px 0;border-top:1px solid rgba(255,255,255,.08);}
+.sidebar-footer p{font-size:11px;color:rgba(255,255,255,.25);line-height:1.6;}
+
+/* MAIN */
+.main{margin-left:260px;flex:1;height:100vh;overflow-y:auto;}
+.page-header{padding:36px 48px 24px;background:linear-gradient(135deg,var(--ivory),var(--cream));border-bottom:1px solid var(--border);display:flex;align-items:flex-end;justify-content:space-between;}
+.page-title{font-family:'Playfair Display',serif;font-size:30px;font-weight:500;color:var(--mocha);}
+.page-subtitle{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--text-soft);margin-top:5px;}
+.page-date{font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);}
+.tab-page{display:none;padding:36px 48px;}
+.tab-page.active{display:block;}
+
+/* CARDS */
+.card{background:var(--white);border-radius:var(--radius);border:1px solid var(--border);padding:26px;margin-bottom:18px;box-shadow:0 2px 12px var(--shadow);}
+.card-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:500;color:var(--mocha);margin-bottom:14px;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;}
+.section-heading{font-family:'Playfair Display',serif;font-size:19px;font-weight:500;color:var(--mocha);margin:26px 0 14px;}
+
+/* CALLOUTS */
+.callout{border-radius:var(--radius-sm);padding:13px 17px;margin-bottom:10px;font-size:13.5px;line-height:1.6;border-left:3px solid;}
+.callout-rose{background:#FDF0EE;border-color:var(--rose);}
+.callout-sage{background:#EEF5EE;border-color:var(--sage);}
+.callout-blue{background:#EEF0F8;border-color:#8899CC;}
+.callout-gold{background:#FBF5EA;border-color:var(--gold);}
+.callout-purple{background:#F4EEFF;border-color:#9977CC;}
+.callout-soft{background:var(--ivory);border-color:var(--champagne);}
+
+/* FIELDS */
+.editable{border:none;border-bottom:1.5px dashed var(--border);background:transparent;width:100%;font-family:'Jost',sans-serif;font-size:13.5px;color:var(--text);padding:6px 2px;outline:none;min-height:36px;resize:none;display:block;}
+.editable:focus{border-bottom-color:var(--rose);}
+.editable-area{border:1.5px dashed var(--border);border-radius:var(--radius-sm);background:var(--ivory);width:100%;font-family:'Jost',sans-serif;font-size:13.5px;color:var(--text);padding:12px 14px;outline:none;min-height:80px;resize:vertical;}
+.editable-area:focus{border-color:var(--rose);background:var(--white);}
+.field-label{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px;margin-top:14px;}
+
+/* CHECKLISTS — checkbox clicks checkbox, text is editable */
+.checklist{list-style:none;}
+.checklist li{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--ivory);}
+.checklist li:last-child{border-bottom:none;}
+.checklist li.done .cl-text{text-decoration:line-through;color:var(--text-muted);opacity:.6;}
+.cl-cb{appearance:none;width:20px;height:20px;min-width:20px;border:1.5px solid var(--border);border-radius:4px;cursor:pointer;transition:all .2s;margin-top:2px;background:var(--white);flex-shrink:0;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+.cl-cb:checked{background:var(--rose);border-color:var(--rose);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 10'%3E%3Cpath d='M1 5l3.5 3.5L11 1' stroke='white' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;background-size:9px;}
+.cl-text{border:none;background:transparent;font-family:'Jost',sans-serif;font-size:13.5px;color:var(--text);outline:none;flex:1;padding:0;min-width:0;cursor:text;}
+.cl-text:focus{border-bottom:1px dashed var(--rose);}
+
+/* SCHEDULE */
+.schedule-table{width:100%;border-collapse:collapse;}
+.schedule-table th{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);padding:8px 14px;background:var(--ivory);border-bottom:1px solid var(--border);text-align:left;}
+.schedule-table td{padding:0;border-bottom:1px solid var(--ivory);}
+.schedule-table tr:hover td{background:#FDF9F7;}
+.time-cell{font-size:12px;font-weight:500;color:var(--text-muted);padding:10px 14px;width:80px;border-right:1px solid var(--border);}
+.act-input{border:none;background:transparent;width:100%;font-family:'Jost',sans-serif;font-size:13px;color:var(--text);padding:10px 14px;outline:none;}
+.act-input:focus{background:#FDF6F4;}
+.done-cell{padding:10px 14px;width:50px;text-align:center;}
+
+/* HABIT TRACKER */
+.habit-grid{overflow-x:auto;}
+.habit-table{width:100%;border-collapse:collapse;min-width:600px;}
+.habit-table th{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);padding:8px 5px;background:var(--ivory);border-bottom:1px solid var(--border);text-align:center;}
+.habit-table th:first-child{text-align:left;padding-left:14px;}
+.habit-table td{padding:9px 5px;border-bottom:1px solid var(--ivory);text-align:center;font-size:13px;}
+.habit-table td:first-child{text-align:left;padding-left:14px;font-weight:500;}
+.habit-check{appearance:none;width:22px;height:22px;border:1.5px solid var(--border);border-radius:50%;cursor:pointer;transition:all .2s;background:var(--white);}
+.habit-check:checked{background:var(--sage);border-color:var(--sage);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 10'%3E%3Cpath d='M1 5l3.5 3.5L11 1' stroke='white' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;background-size:9px;}
+.hcat{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;margin-left:8px;}
+.cat-body{background:#FDE8E8;color:#C05050;}.cat-mind{background:#E8EEF8;color:#3355AA;}.cat-business{background:#EAF3EA;color:#3A7A3A;}.cat-spirit{background:#F4EEFF;color:#7744AA;}
+
+/* DATA TABLES */
+.data-table{width:100%;border-collapse:collapse;}
+.data-table th{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);padding:10px 14px;background:var(--ivory);border-bottom:1px solid var(--border);text-align:left;}
+.data-table td{padding:10px 14px;border-bottom:1px solid var(--ivory);font-size:13px;}
+.data-table tr:hover td{background:#FDF9F7;}
+
+/* PILLS */
+.pill{display:inline-block;font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;}
+.pill-rose{background:var(--rose-light);color:var(--rose-dark);}
+.pill-sage{background:var(--sage-light);color:var(--sage-dark);}
+.pill-gold{background:#F5E9D2;color:#8B6420;}
+.pill-purple{background:#EDE8F8;color:#6644AA;}
+
+/* SELECTS */
+.tge-select{border:none;background:transparent;font-family:'Jost',sans-serif;font-size:13px;color:var(--text);outline:none;cursor:pointer;padding:2px 20px 2px 4px;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23A89090' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 4px center;}
+.pill-select{border:none;font-family:'Jost',sans-serif;font-size:11px;font-weight:500;padding:4px 20px 4px 10px;border-radius:20px;cursor:pointer;outline:none;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' viewBox='0 0 8 5'%3E%3Cpath d='M1 1l3 3 3-3' stroke='currentColor' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 6px center;letter-spacing:.3px;}
+.ps-passive{background:var(--sage-light);color:var(--sage-dark);}
+.ps-active{background:var(--rose-light);color:var(--rose-dark);}
+.ps-digital{background:#EDE8F8;color:#6644AA;}
+.ps-affiliate{background:#FBF5EA;color:#8B6420;}
+.ps-coaching{background:#EEF0F8;color:#334477;}
+.ps-other{background:var(--ivory);color:var(--text-muted);}
+.ps-selfcare{background:var(--rose-light);color:var(--rose-dark);}
+.ps-education{background:var(--sage-light);color:var(--sage-dark);}
+.ps-business{background:#EDE8F8;color:#6644AA;}
+.ps-home{background:#FBF5EA;color:#8B6420;}
+.ps-fun{background:#EEF0F8;color:#334477;}
+.ps-necessity{background:var(--ivory);color:var(--text-muted);}
+.ps-thriving{background:var(--sage-light);color:var(--sage-dark);}
+.ps-good{background:#EEF5EE;color:#3A7A3A;}
+.ps-low{background:#FBF5EA;color:#8B6420;}
+.ps-drained{background:var(--rose-light);color:var(--rose-dark);}
+.ps-energising{background:var(--sage-light);color:var(--sage-dark);}
+.ps-draining{background:var(--rose-light);color:var(--rose-dark);}
+.ps-neutral{background:#FBF5EA;color:#8B6420;}
+.yesno-sel{border:none;background:transparent;font-family:'Jost',sans-serif;font-size:13px;color:var(--text);outline:none;cursor:pointer;padding:2px 18px 2px 2px;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23A89090' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 2px center;}
+
+/* ADD ROW / DREAM */
+.add-row-btn{display:flex;align-items:center;gap:6px;margin-top:10px;padding:7px 14px;border:1.5px dashed var(--border);background:transparent;border-radius:var(--radius-sm);font-family:'Jost',sans-serif;font-size:12px;font-weight:500;color:var(--text-muted);cursor:pointer;transition:all .2s;}
+.add-row-btn:hover{border-color:var(--rose);color:var(--rose);background:var(--rose-light);}
+.add-dream-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--ivory);border:2px dashed var(--border);border-radius:var(--radius);padding:24px;cursor:pointer;transition:all .2s;font-family:'Jost',sans-serif;font-size:13px;color:var(--text-muted);min-height:200px;}
+.add-dream-btn:hover{border-color:var(--rose);color:var(--rose);background:#FDF6F4;}
+.del-btn{border:none;background:transparent;color:var(--text-muted);cursor:pointer;font-size:13px;padding:2px 6px;border-radius:4px;flex-shrink:0;}
+.del-btn:hover{color:var(--rose-dark);background:var(--rose-light);}
+
+/* PROGRESS */
+.progress-bar{height:8px;background:var(--ivory);border-radius:20px;overflow:hidden;margin:8px 0;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--rose),var(--rose-dark));border-radius:20px;transition:width .5s;}
+.progress-fill.green{background:linear-gradient(90deg,var(--sage-light),var(--sage));}
+.progress-fill.gold{background:linear-gradient(90deg,#E8C87A,var(--gold));}
+
+/* MOOD */
+.mood-selector{display:flex;gap:10px;flex-wrap:wrap;}
+.mood-btn{border:2px solid var(--border);background:var(--white);border-radius:var(--radius);padding:10px 14px;cursor:pointer;font-size:20px;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:4px;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+.mood-btn .mlabel{font-family:'Jost',sans-serif;font-size:10px;font-weight:500;letter-spacing:.5px;color:var(--text-muted);}
+.mood-btn:hover,.mood-btn.selected{border-color:var(--rose);background:var(--rose-light);transform:translateY(-2px);}
+
+/* STAT CARDS */
+.stat-card{background:var(--white);border-radius:var(--radius);border:1px solid var(--border);padding:20px 22px;box-shadow:0 2px 8px var(--shadow);}
+.stat-label{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:7px;}
+.stat-value{font-family:'Playfair Display',serif;font-size:26px;font-weight:500;color:var(--mocha);}
+.stat-sub{font-size:12px;color:var(--text-soft);margin-top:3px;}
+
+/* DREAM CARDS */
+.dream-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:20px;display:flex;flex-direction:column;gap:8px;box-shadow:0 2px 8px var(--shadow);}
+
+/* QUOTE */
+.quote-block{background:var(--mocha);border-radius:var(--radius);padding:26px 30px;position:relative;overflow:hidden;margin-bottom:18px;}
+.quote-block::before{content:'"';font-family:'Playfair Display',serif;font-size:120px;color:rgba(255,255,255,.05);position:absolute;top:-20px;left:16px;line-height:1;}
+.quote-text{font-family:'Playfair Display',serif;font-style:italic;font-size:17px;color:var(--champagne);line-height:1.6;position:relative;z-index:1;}
+.quote-author{font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--rose);margin-top:10px;position:relative;z-index:1;}
+
+/* WELCOME */
+.welcome-banner{background:linear-gradient(135deg,var(--mocha),var(--mocha-light));border-radius:24px;padding:28px 32px;color:var(--champagne);margin-bottom:22px;display:flex;justify-content:space-between;align-items:center;}
+.welcome-banner h2{font-family:'Playfair Display',serif;font-style:italic;font-size:22px;margin-bottom:7px;}
+.welcome-banner p{font-size:13px;color:rgba(255,255,255,.55);max-width:460px;line-height:1.7;}
+.big-date{font-family:'Playfair Display',serif;font-size:40px;color:var(--champagne);line-height:1;}
+.big-month{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--rose);margin-top:3px;}
+
+/* PILLAR */
+.pillar-card{background:var(--white);border-radius:var(--radius);border:1px solid var(--border);padding:18px;text-align:center;}
+.pillar-num{width:34px;height:34px;border-radius:50%;background:var(--mocha);color:var(--champagne);font-family:'Playfair Display',serif;font-size:15px;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;}
+
+/* VISION */
+.vision-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.vision-slot{aspect-ratio:3/4;background:var(--ivory);border-radius:var(--radius-sm);border:2px dashed var(--border);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:7px;cursor:pointer;transition:all .2s;overflow:hidden;position:relative;}
+.vision-slot:hover{border-color:var(--rose);background:var(--rose-light);}
+.vision-slot img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;}
+.vision-slot input[type="file"]{display:none;}
+
+/* BOUNDARY */
+.boundary-card{background:var(--white);border-radius:var(--radius-sm);border-left:4px solid;padding:14px 16px;margin-bottom:9px;}
+.bnd-work{border-color:#8899CC;}.bnd-rel{border-color:var(--rose);}.bnd-social{border-color:var(--sage);}.bnd-fam{border-color:var(--gold);}.bnd-self{border-color:#AA77CC;}
+
+/* ERA */
+.era-current{background:linear-gradient(135deg,var(--mocha),#5C3D3D);border-radius:24px;padding:32px;color:white;margin-bottom:18px;position:relative;overflow:hidden;}
+.era-input-dk{border:none;border-bottom:1px solid rgba(255,255,255,.2);background:transparent;color:var(--champagne);font-family:'Jost',sans-serif;font-size:14px;width:100%;padding:6px 0;outline:none;}
+.era-input-dk::placeholder{color:rgba(255,255,255,.25);}
+.era-input-dk:focus{border-bottom-color:var(--rose);}
+.era-meta{display:flex;gap:22px;margin-top:18px;}
+.era-meta-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:3px;}
+
+/* EMOJI PICKER */
+.emoji-btn{font-size:28px;cursor:pointer;border:2px solid transparent;background:var(--ivory);border-radius:12px;padding:6px 10px;transition:all .2s;line-height:1;display:inline-block;position:relative;}
+.emoji-btn:hover{border-color:var(--rose);background:var(--rose-light);transform:scale(1.08);}
+.emoji-hint{position:absolute;bottom:-17px;left:50%;transform:translateX(-50%);font-size:9px;font-family:'Jost',sans-serif;color:var(--text-muted);white-space:nowrap;}
+.emoji-picker-popup{position:absolute;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:12px;box-shadow:0 8px 32px rgba(61,43,43,.15);z-index:500;display:none;width:280px;top:48px;left:0;}
+.emoji-picker-popup.open{display:block;}
+.epick-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:3px;max-height:200px;overflow-y:auto;}
+.epick-grid span{font-size:20px;text-align:center;cursor:pointer;padding:4px;border-radius:5px;transition:background .15s;line-height:1.4;}
+.epick-grid span:hover{background:var(--rose-light);}
+.epick-label{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin:7px 0 3px;}
+
+/* CALENDAR */
+.cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.cal-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:500;color:var(--mocha);}
+.cal-btn{border:1.5px solid var(--border);background:var(--white);border-radius:var(--radius-sm);padding:8px 16px;cursor:pointer;font-family:'Jost',sans-serif;font-size:13px;color:var(--text-soft);transition:all .2s;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+.cal-btn:hover{border-color:var(--rose);color:var(--rose);background:var(--rose-light);}
+.cal-table{width:100%;border-collapse:collapse;text-align:center;}
+.cal-table th{padding:9px;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);}
+.cal-table td{padding:5px;vertical-align:top;}
+.cal-day-num{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 3px;font-size:13px;}
+.cal-day-num.today-cal{background:var(--mocha);color:white;font-weight:600;}
+.cal-note{width:100%;border:none;border-bottom:1px dashed var(--border);background:transparent;font-size:10px;outline:none;padding:2px;color:var(--text-soft);}
+.cal-note:focus{border-bottom-color:var(--rose);}
+
+/* PERIOD TRACKER */
+.period-card{background:linear-gradient(135deg,#FDF0EE,#FBF5EA);border:1px solid var(--rose-light);border-radius:var(--radius);padding:22px;margin-bottom:18px;}
+.period-phase{display:inline-block;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;}
+.ph-menstrual{background:#FDE8E8;color:#C05050;}
+.ph-follicular{background:#FBF5EA;color:#8B6420;}
+.ph-ovulatory{background:var(--sage-light);color:var(--sage-dark);}
+.ph-luteal{background:#EDE8F8;color:#6644AA;}
+.symptom-tag{border:1.5px solid var(--border);background:var(--white);border-radius:20px;padding:8px 14px;font-size:12px;font-weight:500;color:var(--text-soft);cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:rgba(0,0,0,0);user-select:none;}
+.symptom-tag.active{background:var(--rose-light);border-color:var(--rose);color:var(--rose-dark);}
+.period-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;}
+.period-stat{background:var(--white);border-radius:var(--radius-sm);padding:10px 12px;text-align:center;border:1px solid var(--border);}
+.ps-val{font-family:'Playfair Display',serif;font-size:20px;color:var(--mocha);}
+.ps-lbl{font-size:10px;color:var(--text-muted);margin-top:2px;}
+
+/* SPOTIFY */
+.spotify-paste{border:1.5px dashed var(--border);border-radius:var(--radius-sm);background:var(--ivory);width:100%;font-family:'Jost',sans-serif;font-size:13px;color:var(--text);padding:12px 14px;outline:none;min-height:56px;resize:none;}
+.spotify-paste:focus{border-color:var(--rose);}
+
+/* SAVE INDICATOR */
+#save-ind{position:fixed;bottom:22px;right:22px;background:var(--sage);color:white;padding:9px 16px;border-radius:20px;font-size:12px;font-weight:500;opacity:0;transition:opacity .3s;z-index:999;pointer-events:none;}
+#save-ind.show{opacity:1;}
+
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--cream);}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px;}
+::-webkit-scrollbar-thumb:hover{background:var(--rose);}
+
+/* Touch action for all interactive elements */
+button, input, textarea, select, a,
+.symptom-tag, .mood-btn, .emoji-btn,
+.nav-btn, .cal-btn, .cl-cb, .add-row-btn,
+.add-dream-btn, .vision-slot {
+  touch-action: manipulation;
+}
+
+/* ═══════════════════════════════════════
+   MOBILE RESPONSIVE
+═══════════════════════════════════════ */
+
+/* Hamburger button — hidden on desktop */
+.hamburger {
+  display: none;
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 9000;
+  background: var(--mocha);
+  border: none;
+  border-radius: 10px;
+  width: 46px;
+  height: 46px;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  box-shadow: 0 2px 12px rgba(61,43,43,.35);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  pointer-events: auto;
+}
+.hamburger span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--champagne);
+  border-radius: 2px;
+  transition: all .3s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Overlay when sidebar open on mobile */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  z-index: 7000;
+}
+.sidebar-overlay.show { display: block; }
+
+@media (max-width: 768px) {
+  body {
+    overflow: auto !important;
+    display: block !important;
+    height: auto !important;
+    position: static !important;
+  }
+
+  /* Show hamburger */
+  .hamburger { display: flex; }
+
+  /* Sidebar becomes slide-out drawer */
+  .sidebar {
+    position: fixed;
+    left: -280px;
+    top: 0;
+    height: 100vh;
+    z-index: 8000;
+    transition: left .3s ease;
+    box-shadow: 4px 0 24px rgba(61,43,43,.2);
+  }
+  .sidebar.open { left: 0; }
+
+  /* Main takes full width */
+  .main {
+    margin-left: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow: visible !important;
+    padding-bottom: 90px !important;
+    position: static !important;
+  }
+
+  /* Page header — account for iPhone notch */
+  .page-header {
+    padding: max(70px, calc(60px + env(safe-area-inset-top))) 20px 18px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .page-title { font-size: 22px; }
+  .page-date { margin-top: 4px; }
+
+  /* Tab pages */
+  .tab-page { padding: 16px 16px; }
+  .tab-page, .card, .checklist li, .mood-selector {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Cards */
+  .card { padding: 18px 16px; margin-bottom: 14px; }
+  .card-title { font-size: 15px; }
+
+  /* Grids — collapse to single column */
+  .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 14px; }
+
+  /* Welcome banner */
+  .welcome-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 20px;
+  }
+  .welcome-banner h2 { font-size: 18px; }
+  .big-date { font-size: 32px; }
+
+  /* Period tracker */
+  .period-stats { grid-template-columns: 1fr 1fr 1fr; }
+  .ps-val { font-size: 16px; }
+
+  /* Calendar table — scrollable */
+  .cal-table { font-size: 11px; }
+  .cal-day-num { width: 24px; height: 24px; font-size: 11px; }
+  .cal-note { font-size: 9px; }
+  #cal-table, .habit-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  /* Data tables — scrollable */
+  .data-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; }
+  .schedule-table { display: block; overflow-x: auto; }
+
+  /* Mood buttons */
+  .mood-selector { gap: 8px; }
+  .mood-btn { padding: 8px 10px; font-size: 18px; }
+
+  /* Stat cards */
+  .stat-value { font-size: 20px; }
+
+  /* Dream grid */
+  #dreams-grid { grid-template-columns: 1fr; }
+
+  /* Vision board */
+  .vision-grid { grid-template-columns: repeat(3, 1fr); }
+
+  /* Section headings */
+  .section-heading { font-size: 16px; margin-top: 18px; }
+
+  /* Pillar cards */
+  .grid-2 .pillar-card { padding: 14px; }
+
+  /* Callouts */
+  .callout { padding: 11px 14px; font-size: 13px; }
+
+  /* Bottom nav bar for mobile */
+  .mobile-bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--mocha);
+    z-index: 150;
+    padding: 8px 0 max(12px, env(safe-area-inset-bottom));
+    justify-content: space-around;
+    box-shadow: 0 -4px 16px rgba(61,43,43,.2);
+  }
+  .mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: rgba(255,255,255,.55);
+    font-family: 'Jost', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: .5px;
+    transition: all .2s;
+  }
+  .mobile-nav-item.active { color: var(--champagne); }
+  .mobile-nav-item span { font-size: 18px; }
+
+  /* ERA card */
+  .era-current { padding: 20px; }
+
+  /* Habit grid on mobile */
+  .habit-grid { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  /* Cycle calendar days smaller */
+  #cycle-calendar table td { padding: 2px; }
+  #cycle-calendar div[style*="width:28px"] { width: 24px; height: 24px; font-size: 10px; }
+
+  /* Content plan table */
+  #content-plan-body td input { min-width: 80px; }
+
+  /* Spotify container */
+  #spotify-container iframe { border-radius: 10px; }
+
+  /* Save indicator */
+  #save-ind { bottom: 70px; }
+}
+
+@media (max-width: 400px) {
+  .page-title { font-size: 20px; }
+  .mood-btn { padding: 6px 8px; font-size: 16px; }
+  .vision-grid { grid-template-columns: repeat(2, 1fr); }
+  .period-stats { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+
+<button class="hamburger" id="hamburger-btn" onclick="toggleSidebar()">
+  <span></span><span></span><span></span>
+</button>
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-text">That Girl<br>Entrepreneur</div>
+    <div class="logo-sub">My Life OS ✦</div>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">Core</div>
+    <button class="nav-btn active" onclick="showTab('dashboard',this)"><span class="nav-icon">🌸</span> Dashboard</button>
+    <button class="nav-btn" onclick="showTab('diary',this)"><span class="nav-icon">📓</span> Daily Diary</button>
+    <button class="nav-btn" onclick="showTab('daily',this)"><span class="nav-icon">📅</span> Daily Planner</button>
+    <button class="nav-btn" onclick="showTab('monthly',this)"><span class="nav-icon">📆</span> Monthly Calendar</button>
+    <button class="nav-btn" onclick="showTab('habits',this)"><span class="nav-icon">💫</span> Habits & Rituals</button>
+    <button class="nav-btn" onclick="showTab('abundance',this)"><span class="nav-icon">💰</span> Abundance Tracker</button>
+    <button class="nav-btn" onclick="showTab('goals',this)"><span class="nav-icon">🎯</span> Goals & Vision</button>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">Premium Modules</div>
+    <button class="nav-btn" onclick="showTab('content',this)"><span class="nav-icon">📱</span> Content Studio<span class="nav-badge">PRO</span></button>
+    <button class="nav-btn" onclick="showTab('era',this)"><span class="nav-icon">🪞</span> Era Tracker<span class="nav-badge">PRO</span></button>
+    <button class="nav-btn" onclick="showTab('softlife',this)"><span class="nav-icon">💸</span> Soft Life Finance<span class="nav-badge">PRO</span></button>
+    <button class="nav-btn" onclick="showTab('energy',this)"><span class="nav-icon">🔋</span> Energy Audit<span class="nav-badge">PRO</span></button>
+  </div>
+  <div class="sidebar-footer"><p>That Girl Entrepreneur<br>© 2026 Qayyum Studio<br>All rights reserved.</p></div>
+</nav>
+
+<main class="main">
+  <div class="page-header">
+    <div>
+      <div class="page-title" id="page-title">Dashboard</div>
+      <div class="page-subtitle" id="page-subtitle">Your daily home base</div>
+    </div>
+    <div class="page-date" id="page-date"></div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="tab-page active" id="tab-dashboard">
+    <div class="welcome-banner">
+      <div>
+        <h2>Good morning, beautiful ✨</h2>
+        <p id="daily-quote">You are exactly where you need to be. The magic is in the showing up.</p>
+      </div>
+      <div style="text-align:right;">
+        <div class="big-date" id="big-day"></div>
+        <div class="big-month" id="big-month-year"></div>
+      </div>
+    </div>
+
+    <!-- PERIOD TRACKER -->
+    <div class="period-card">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:10px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-family:'Playfair Display',serif;font-size:17px;font-weight:500;color:var(--mocha);">🌸 Cycle Tracker</span>
+          <span class="period-phase ph-menstrual" id="cycle-phase-label">Set start date</span>
+          <span style="font-size:12px;color:var(--text-muted);">Day <strong id="cycle-day-num">?</strong> of <input id="cycle-length" type="number" min="21" max="40" value="28" style="width:34px;border:none;border-bottom:1px dashed var(--border);background:transparent;font-size:12px;outline:none;text-align:center;"></span>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+          <span style="font-size:11px;display:flex;align-items:center;gap:4px;color:var(--text-muted);"><span style="width:10px;height:10px;border-radius:50%;background:var(--rose);display:inline-block;"></span>Menstruation (D1–5)</span>
+          <span style="font-size:11px;display:flex;align-items:center;gap:4px;color:var(--text-muted);"><span style="width:10px;height:10px;border-radius:50%;background:#FBF0D8;border:1px solid #C9A96E;display:inline-block;"></span>Follicular (D6–13)</span>
+          <span style="font-size:11px;display:flex;align-items:center;gap:4px;color:var(--text-muted);"><span style="width:10px;height:10px;border-radius:50%;background:var(--sage);display:inline-block;"></span>Ovulation (D14–15)</span>
+          <span style="font-size:11px;display:flex;align-items:center;gap:4px;color:var(--text-muted);"><span style="width:10px;height:10px;border-radius:50%;background:#E8D0F0;border:1px solid #AA77CC;display:inline-block;"></span>Luteal (D16–28)</span>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap;">
+        <label style="font-size:12px;color:var(--text-soft);">Cycle started: <input type="date" id="cycle-start" style="border:none;border-bottom:1px dashed var(--border);background:transparent;font-size:12px;outline:none;font-family:'Jost',sans-serif;"></label>
+        <span style="font-size:11px;color:var(--text-muted);">· Click any day to override (cycles: Menstruation → Follicular → Ovulation → Luteal → Auto)</span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+        <button onclick="prevCycleMonth()" class="cal-btn" style="padding:4px 12px;font-size:12px;">← Prev</button>
+        <span style="font-size:11px;color:var(--text-muted);letter-spacing:.5px;">MONTHLY CYCLE VIEW</span>
+        <button onclick="nextCycleMonth()" class="cal-btn" style="padding:4px 12px;font-size:12px;">Next →</button>
+      </div>
+      <div id="cycle-calendar" style="overflow-y:auto;max-height:280px;"></div>
+      <div style="font-size:12px;color:var(--text-muted);margin:12px 0 6px;font-weight:500;">Today's symptoms:</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;" id="symptom-tags">
+        <span class="symptom-tag" onclick="this.classList.toggle('active')">😴 Fatigue</span>
+        <span class="symptom-tag" onclick="this.classList.toggle('active')">🤕 Cramps</span>
+        <span class="symptom-tag" onclick="this.classList.toggle('active')">😤 Mood swings</span>
+        <span class="symptom-tag" onclick="this.classList.toggle('active')">🤢 Nausea</span>
+        <span class="symptom-tag" onclick="this.classList.toggle('active')">🎯 Focused</span>
+        <span class="symptom-tag" onclick="this.classList.toggle('active')">⚡ Energetic</span>
+        <span class="symptom-tag" onclick="this.classList.toggle('active')">💧 Bloating</span>
+        <span class="symptom-tag" onclick="this.classList.toggle('active')">🤯 Headache</span>
+        <span class="symptom-tag" onclick="this.classList.toggle('active')">🌙 Low energy</span>
+        <span class="symptom-tag" onclick="this.classList.toggle('active')">❤️ Loving</span>
+      </div>
+      <div class="period-stats">
+        <div class="period-stat"><div class="ps-val" id="next-period">—</div><div class="ps-lbl">Next period (days)</div></div>
+        <div class="period-stat"><div class="ps-val" id="ovulation-day">—</div><div class="ps-lbl">Ovulation day</div></div>
+        <div class="period-stat"><div class="ps-val" id="fertile-window">—</div><div class="ps-lbl">Fertile window</div></div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <div class="card">
+          <div class="card-title">✨ Today's Intention</div>
+          <div class="field-label">How do you want to feel today?</div>
+          <textarea class="editable-area" id="daily-intention" placeholder="Today I choose to feel..."></textarea>
+          <div class="field-label">My word for today</div>
+          <input type="text" class="editable" id="word-today" placeholder="e.g. Grounded, Abundant, Focused...">
+        </div>
+        <div class="card">
+          <div class="card-title">🥇 Today's Top 3</div>
+          <ul class="checklist">
+            <li><input type="checkbox" class="cl-cb" onchange="markDone(this)"><input type="text" class="cl-text" value="🥇 Must happen today..."></li>
+            <li><input type="checkbox" class="cl-cb" onchange="markDone(this)"><input type="text" class="cl-text" value="🥈 Important but flexible..."></li>
+            <li><input type="checkbox" class="cl-cb" onchange="markDone(this)"><input type="text" class="cl-text" value="🥉 Nice to get done..."></li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="card-title">💆 Morning Mood Check-In</div>
+          <div class="mood-selector" id="mood-selector">
+            <button class="mood-btn" onclick="selectMood(this)">😴<span class="mlabel">Tired</span></button>
+            <button class="mood-btn" onclick="selectMood(this)">😐<span class="mlabel">Meh</span></button>
+            <button class="mood-btn" onclick="selectMood(this)">😊<span class="mlabel">Good</span></button>
+            <button class="mood-btn" onclick="selectMood(this)">✨<span class="mlabel">Amazing</span></button>
+            <button class="mood-btn" onclick="selectMood(this)">💪<span class="mlabel">Powerful</span></button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">💧 Water Tracker</div>
+          <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Click each drop — goal: 8/day</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">🎵 Vibe of the Day</div>
+          <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">Paste a Spotify link ✨</p>
+          <textarea class="spotify-paste" id="spotify-input" placeholder="Paste your Spotify link here..." oninput="handleSpotify(this)"></textarea>
+          <div id="spotify-container"></div>
+        </div>
+      </div>
+    </div>
+    <div class="quote-block"><div class="quote-text" id="rotating-quote"></div><div class="quote-author">Daily Reminder ✦</div></div>
+  </div>
+
+  <!-- DAILY DIARY -->
+  <div class="tab-page" id="tab-diary">
+
+    <!-- Date navigator -->
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:22px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <button class="cal-btn" onclick="diaryNavDay(-1)" style="padding:8px 14px;">← Prev</button>
+        <input type="date" id="diary-date" style="border:1.5px solid var(--border);border-radius:var(--radius-sm);background:var(--white);font-family:'Jost',sans-serif;font-size:13px;color:var(--text);padding:8px 12px;outline:none;cursor:pointer;" onchange="diaryLoadDate(this.value)">
+        <button class="cal-btn" onclick="diaryNavDay(1)" style="padding:8px 14px;">Next →</button>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span id="diary-saved-badge" style="display:none;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--sage-dark);background:var(--sage-light);padding:4px 12px;border-radius:20px;">✓ Saved</span>
+        <button onclick="diaryShowHistory()" style="background:var(--ivory);color:var(--text-soft);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:10px 18px;font-family:'Jost',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;" onmouseover="this.style.borderColor='var(--rose)';this.style.color='var(--rose-dark)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-soft)'">📚 Past Entries</button>
+      </div>
+    </div>
+
+    <!-- Today label -->
+    <div id="diary-day-label" style="font-family:'Playfair Display',serif;font-size:22px;font-style:italic;color:var(--mocha);margin-bottom:18px;"></div>
+
+    <!-- Past entries drawer -->
+    <div id="diary-history-panel" style="display:none;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:22px;margin-bottom:22px;box-shadow:0 2px 12px var(--shadow);">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+        <div style="font-family:'Playfair Display',serif;font-size:17px;font-weight:500;color:var(--mocha);">📚 All Saved Entries</div>
+        <button onclick="diaryShowHistory()" style="border:none;background:transparent;color:var(--text-muted);font-size:18px;cursor:pointer;line-height:1;">×</button>
+      </div>
+      <div id="diary-history-list" style="display:flex;flex-direction:column;gap:8px;max-height:320px;overflow-y:auto;"></div>
+    </div>
+
+    <!-- Entry fields -->
+    <div class="grid-2" style="gap:18px;margin-bottom:18px;">
+      <div>
+        <div class="callout callout-rose" style="padding:18px 20px;">
+          <strong style="font-size:13.5px;">🌅 What would make today a 10/10?</strong>
+          <textarea class="editable-area" id="diary-ten" placeholder="Write freely..." style="margin-top:10px;min-height:100px;" oninput="diaryMarkUnsaved()"></textarea>
+        </div>
+        <div class="callout callout-sage" style="padding:18px 20px;margin-top:14px;">
+          <strong style="font-size:13.5px;">✨ How can I show up as my highest self?</strong>
+          <textarea class="editable-area" id="diary-highest" placeholder="Write freely..." style="margin-top:10px;min-height:100px;" oninput="diaryMarkUnsaved()"></textarea>
+        </div>
+      </div>
+      <div>
+        <div class="callout callout-purple" style="padding:18px 20px;">
+          <strong style="font-size:13.5px;">🌙 Tonight I'm proud that I...</strong>
+          <textarea class="editable-area" id="diary-proud" placeholder="Write freely..." style="margin-top:10px;min-height:100px;" oninput="diaryMarkUnsaved()"></textarea>
+        </div>
+        <div class="callout callout-gold" style="padding:18px 20px;margin-top:14px;">
+          <strong style="font-size:13.5px;">🌪️ Brain Dump — no filter, no judgment:</strong>
+          <textarea class="editable-area" id="diary-dump" placeholder="Let it all out..." style="margin-top:10px;min-height:100px;" oninput="diaryMarkUnsaved()"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">🙏 Gratitude</div>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Name 3 things you're grateful for today — big or small.</p>
+      <ul class="checklist">
+        <li><input type="checkbox" class="cl-cb" id="diary-grat1-cb" onchange="markDone(this);diaryMarkUnsaved()"><input type="text" class="cl-text" id="diary-grat1" placeholder="I'm grateful for..." oninput="diaryMarkUnsaved()"></li>
+        <li><input type="checkbox" class="cl-cb" id="diary-grat2-cb" onchange="markDone(this);diaryMarkUnsaved()"><input type="text" class="cl-text" id="diary-grat2" placeholder="I'm grateful for..." oninput="diaryMarkUnsaved()"></li>
+        <li><input type="checkbox" class="cl-cb" id="diary-grat3-cb" onchange="markDone(this);diaryMarkUnsaved()"><input type="text" class="cl-text" id="diary-grat3" placeholder="I'm grateful for..." oninput="diaryMarkUnsaved()"></li>
+      </ul>
+    </div>
+    <div class="card" style="margin-top:18px;">
+      <div class="card-title">💫 Today's Affirmation</div>
+      <input type="text" class="editable" id="diary-affirmation" placeholder="I am..." style="font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;margin-top:6px;" oninput="diaryMarkUnsaved()">
+    </div>
+    <div class="card" style="margin-top:18px;">
+      <div class="card-title">🖋️ Free Write</div>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">No prompts. Just you and the page.</p>
+      <textarea class="editable-area" id="diary-freewrite" placeholder="Today..." style="min-height:200px;font-family:'Cormorant Garamond',serif;font-size:15px;line-height:1.9;" oninput="diaryMarkUnsaved()"></textarea>
+    </div>
+
+  </div>
+
+  <!-- DAILY PLANNER -->
+  <div class="tab-page" id="tab-daily">
+    <div class="grid-2">
+      <div>
+        <div class="card">
+          <div class="card-title">🌅 Morning Ritual</div>
+          <ul class="checklist" id="morning-ritual-list"></ul>
+        </div>
+        <div class="card">
+          <div class="card-title">📝 Daily Journal</div>
+          <div class="callout callout-rose"><strong>What would make today a 10/10?</strong><textarea class="editable-area" placeholder="Write freely..." style="margin-top:8px;min-height:55px;"></textarea></div>
+          <div class="callout callout-sage"><strong>How can I show up as my highest self?</strong><textarea class="editable-area" placeholder="Write freely..." style="margin-top:8px;min-height:55px;"></textarea></div>
+          <div class="callout callout-purple"><strong>Tonight I'm proud that I...</strong><textarea class="editable-area" placeholder="Write freely..." style="margin-top:8px;min-height:55px;"></textarea></div>
+          <div class="callout callout-gold"><strong>Brain Dump:</strong><textarea class="editable-area" placeholder="No filter, no judgment..." style="margin-top:8px;min-height:75px;"></textarea></div>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="card-title">🕐 Today's Schedule</div>
+          <table class="schedule-table"><thead><tr><th>Time</th><th>Activity</th><th>✓</th></tr></thead><tbody id="schedule-body"></tbody></table>
+        </div>
+        <div class="card">
+          <div class="card-title">🌙 Evening Wind-Down</div>
+          <ul class="checklist" id="evening-list"></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHOTO DUMP -->
+    <div class="card" style="margin-top:22px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+        <div>
+          <div class="card-title" style="margin-bottom:4px;">📸 Today's Moments <span id="photos-counter" style="font-family:'Jost',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-left:8px;">0/10 photos</span></div>
+          <p style="font-size:12px;color:var(--text-muted);">Dump your photos here — auto-saved by date so you can look back anytime.</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <button class="cal-btn" onclick="photosNavDay(-1)" style="padding:7px 12px;">← Prev</button>
+          <input type="date" id="photos-date" style="border:1.5px solid var(--border);border-radius:var(--radius-sm);background:var(--white);font-family:'Jost',sans-serif;font-size:13px;color:var(--text);padding:7px 12px;outline:none;cursor:pointer;" onchange="photosLoadDate(this.value)">
+          <button class="cal-btn" onclick="photosNavDay(1)" style="padding:7px 12px;">Next →</button>
+          <span id="photos-saved-badge" style="display:none;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--sage-dark);background:var(--sage-light);padding:4px 12px;border-radius:20px;">✓ Saved</span>
+        </div>
+      </div>
+      <div id="photos-day-label" style="font-family:'Playfair Display',serif;font-size:16px;font-style:italic;color:var(--mocha);margin-bottom:14px;"></div>
+
+      <!-- Drop zone -->
+      <label id="photos-dropzone" for="photos-file-input" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border:2px dashed var(--border);border-radius:var(--radius);background:var(--ivory);padding:32px;cursor:pointer;transition:all .2s;min-height:120px;text-align:center;"
+        ondragover="event.preventDefault();this.style.borderColor='var(--rose)';this.style.background='#FDF6F4'"
+        ondragleave="this.style.borderColor='var(--border)';this.style.background='var(--ivory)'"
+        ondrop="event.preventDefault();this.style.borderColor='var(--border)';this.style.background='var(--ivory)';photosHandleFiles(event.dataTransfer.files)">
+        <span style="font-size:32px;">📷</span>
+        <span style="font-size:13.5px;font-weight:500;color:var(--text-soft);">Drop photos here or click to upload</span>
+        <span style="font-size:11px;color:var(--text-muted);">JPG, PNG, HEIC, GIF — multiple files welcome</span>
+        <input type="file" id="photos-file-input" accept="image/*" multiple style="display:none;" onchange="photosHandleFiles(this.files)">
+      </label>
+
+      <!-- Photo grid -->
+      <div id="photos-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:18px;"></div>
+    </div>
+  </div>
+
+  <!-- MONTHLY CALENDAR -->
+  <div class="tab-page" id="tab-monthly">
+    <div class="grid-2" style="margin-bottom:18px;">
+      <div class="card">
+        <div class="card-title">🎨 This Month's Theme</div>
+        <input type="text" class="editable" placeholder="e.g. The Build Season..." style="font-size:15px;font-family:'Playfair Display',serif;font-style:italic;">
+        <div class="field-label">Body Intention</div><input type="text" class="editable" placeholder="Your body intention...">
+        <div class="field-label">Business Intention</div><input type="text" class="editable" placeholder="Your business intention...">
+        <div class="field-label">Soul Intention</div><input type="text" class="editable" placeholder="Your soul intention...">
+      </div>
+      <div class="card">
+        <div class="card-title">💎 Non-Negotiables</div>
+        <ul class="checklist">
+          <li><input type="checkbox" class="cl-cb" onchange="markDone(this)"><input type="text" class="cl-text" placeholder="Non-negotiable 1..."></li>
+          <li><input type="checkbox" class="cl-cb" onchange="markDone(this)"><input type="text" class="cl-text" placeholder="Non-negotiable 2..."></li>
+          <li><input type="checkbox" class="cl-cb" onchange="markDone(this)"><input type="text" class="cl-text" placeholder="Non-negotiable 3..."></li>
+        </ul>
+        <div class="field-label" style="margin-top:18px;">What I'm releasing this month</div>
+        <textarea class="editable-area" placeholder="What is no longer serving you?"></textarea>
+      </div>
+    </div>
+    <div class="card">
+      <div class="cal-nav">
+        <button class="cal-btn" onclick="changeMonth(-1)">← Prev</button>
+        <div class="cal-title" id="cal-title"></div>
+        <button class="cal-btn" onclick="changeMonth(1)">Next →</button>
+      </div>
+      <table class="cal-table" id="cal-table"></table>
+    </div>
+    <div class="card">
+      <div class="card-title">📊 Monthly Review</div>
+      <div class="grid-2">
+        <div><div class="callout callout-sage"><strong>Biggest win:</strong><textarea class="editable-area" placeholder="Celebrate yourself..." style="margin-top:8px;min-height:55px;"></textarea></div><div class="callout callout-gold"><strong>Biggest lesson:</strong><textarea class="editable-area" placeholder="What will you take forward..." style="margin-top:8px;min-height:55px;"></textarea></div></div>
+        <div><div class="callout callout-blue"><strong>I want more of:</strong><textarea class="editable-area" placeholder="More of..." style="margin-top:8px;min-height:55px;"></textarea></div><div class="callout callout-rose"><strong>I want less of:</strong><textarea class="editable-area" placeholder="Less of..." style="margin-top:8px;min-height:55px;"></textarea></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HABITS -->
+  <div class="tab-page" id="tab-habits">
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">🌅 Morning Ritual Stack</div>
+        <div class="callout callout-gold">The first hour of your day sets the tone. Protect it fiercely.</div>
+        <p style="font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin:12px 0 8px;">Non-Negotiables</p>
+        <ul class="checklist" id="morning-nonneg-list"></ul>
+        <p style="font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin:14px 0 8px;">Choose Extras (pick 2-3)</p>
+        <ul class="checklist" id="morning-extras-list"></ul>
+      </div>
+      <div>
+        <div class="card"><div class="card-title">🌙 Evening Ritual Stack</div><ul class="checklist" id="evening-ritual-list"></ul></div>
+        <div class="card"><div class="card-title">🔄 Sunday Reset Ritual</div><ul class="checklist" id="sunday-list"></ul></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">📊 30-Day Habit Tracker</div>
+      <div class="habit-grid"><table class="habit-table" id="habit-table"></table></div>
+    </div>
+  </div>
+
+  <!-- CONTENT STUDIO -->
+  <div class="tab-page" id="tab-content">
+    <div class="card">
+      <div class="card-title">🎨 My Brand Identity</div>
+      <div class="grid-2">
+        <div><div class="field-label">My niche</div><input type="text" class="editable" placeholder="e.g. Productivity for creative entrepreneurs..."><div class="field-label">My target audience</div><input type="text" class="editable" placeholder="e.g. Women 22-32 building their first business..."></div>
+        <div><div class="field-label">My brand vibe</div><input type="text" class="editable" placeholder="e.g. Soft luxury, clean girl, that girl..."><div class="field-label">My unique angle</div><input type="text" class="editable" placeholder="What makes you different..."></div>
+      </div>
+    </div>
+    <div class="section-heading">🏛️ My Content Pillars</div>
+    <div class="grid-2">
+      <div class="pillar-card"><div class="pillar-num">1</div><input type="text" class="editable" placeholder="Pillar 1..." style="text-align:center;font-weight:600;"><textarea class="editable-area" placeholder="Topics..." style="min-height:55px;margin-top:8px;text-align:center;"></textarea></div>
+      <div class="pillar-card"><div class="pillar-num">2</div><input type="text" class="editable" placeholder="Pillar 2..." style="text-align:center;font-weight:600;"><textarea class="editable-area" placeholder="Topics..." style="min-height:55px;margin-top:8px;text-align:center;"></textarea></div>
+      <div class="pillar-card"><div class="pillar-num">3</div><input type="text" class="editable" placeholder="Pillar 3..." style="text-align:center;font-weight:600;"><textarea class="editable-area" placeholder="Topics..." style="min-height:55px;margin-top:8px;text-align:center;"></textarea></div>
+      <div class="pillar-card"><div class="pillar-num">4</div><input type="text" class="editable" placeholder="Pillar 4..." style="text-align:center;font-weight:600;"><textarea class="editable-area" placeholder="Topics..." style="min-height:55px;margin-top:8px;text-align:center;"></textarea></div>
+    </div>
+    <div class="card" style="margin-top:18px;">
+      <div class="card-title">📅 This Week's Content Plan</div>
+      <table class="data-table">
+        <thead><tr><th>Day</th><th>Platform</th><th>Content Idea</th><th>Hook</th><th>Status</th></tr></thead>
+        <tbody id="content-plan-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ABUNDANCE TRACKER -->
+  <div class="tab-page" id="tab-abundance">
+    <div class="callout callout-sage" style="margin-bottom:18px;font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;">"Money flows to those who are intentional about it. Track every stream. Celebrate every win."</div>
+    <div class="grid-3" style="margin-bottom:18px;">
+      <div class="stat-card"><div class="stat-label">Monthly Goal</div><div class="stat-value">$<input type="text" id="income-goal" style="border:none;background:transparent;font-family:'Playfair Display',serif;font-size:26px;font-weight:500;color:var(--mocha);width:110px;outline:none;" placeholder="0"></div><div class="stat-sub">Your target this month</div></div>
+      <div class="stat-card"><div class="stat-label">Total Income</div><div class="stat-value" id="total-income-display">$0.00</div><div class="stat-sub">Logged this month</div></div>
+      <div class="stat-card"><div class="stat-label">Total Saved</div><div class="stat-value">$<input type="text" style="border:none;background:transparent;font-family:'Playfair Display',serif;font-size:26px;font-weight:500;color:var(--mocha);width:110px;outline:none;" placeholder="0"></div><div class="stat-sub">Toward your dreams</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">💵 Income Log</div>
+      <table class="data-table"><thead><tr><th>Date</th><th>Source</th><th>Type</th><th>Amount ($)</th><th>How It Felt</th><th>Gratitude Note</th><th></th></tr></thead><tbody id="income-tbody"></tbody></table>
+      <button class="add-row-btn" onclick="addIncomeRow()"><span style="font-size:16px;">+</span> Add income entry</button>
+    </div>
+    <div class="section-heading">🏦 Savings Dreams</div>
+    <div class="grid-3" id="dreams-grid">
+      <div class="dream-card" id="dream-0"><div style="position:relative;margin-bottom:6px;"><div class="emoji-btn" onclick="openEmojiPicker(this)">✈️<span class="emoji-hint">tap to change</span></div><div class="emoji-picker-popup"></div></div><input type="text" class="editable" placeholder="Dream name..." style="font-family:'Playfair Display',serif;font-size:15px;"><div class="field-label">Target Amount ($)</div><input type="number" class="editable dream-target" placeholder="0" oninput="updateProgress(this)"><div class="field-label">Saved So Far ($)</div><input type="number" class="editable dream-saved" placeholder="0" oninput="updateProgress(this)"><div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div><div class="dream-pct" style="font-size:11px;color:var(--text-muted);margin-top:2px;">0% toward goal</div><input type="text" class="editable" placeholder="Affirmation..." style="font-style:italic;font-size:12px;"></div>
+      <div class="dream-card" id="dream-1"><div style="position:relative;margin-bottom:6px;"><div class="emoji-btn" onclick="openEmojiPicker(this)">💻<span class="emoji-hint">tap to change</span></div><div class="emoji-picker-popup"></div></div><input type="text" class="editable" placeholder="Dream name..." style="font-family:'Playfair Display',serif;font-size:15px;"><div class="field-label">Target Amount ($)</div><input type="number" class="editable dream-target" placeholder="0" oninput="updateProgress(this)"><div class="field-label">Saved So Far ($)</div><input type="number" class="editable dream-saved" placeholder="0" oninput="updateProgress(this)"><div class="progress-bar"><div class="progress-fill green" style="width:0%"></div></div><div class="dream-pct" style="font-size:11px;color:var(--text-muted);margin-top:2px;">0% toward goal</div><input type="text" class="editable" placeholder="Affirmation..." style="font-style:italic;font-size:12px;"></div>
+      <div class="dream-card" id="dream-2"><div style="position:relative;margin-bottom:6px;"><div class="emoji-btn" onclick="openEmojiPicker(this)">🏡<span class="emoji-hint">tap to change</span></div><div class="emoji-picker-popup"></div></div><input type="text" class="editable" placeholder="Dream name..." style="font-family:'Playfair Display',serif;font-size:15px;"><div class="field-label">Target Amount ($)</div><input type="number" class="editable dream-target" placeholder="0" oninput="updateProgress(this)"><div class="field-label">Saved So Far ($)</div><input type="number" class="editable dream-saved" placeholder="0" oninput="updateProgress(this)"><div class="progress-bar"><div class="progress-fill gold" style="width:0%"></div></div><div class="dream-pct" style="font-size:11px;color:var(--text-muted);margin-top:2px;">0% toward goal</div><input type="text" class="editable" placeholder="Affirmation..." style="font-style:italic;font-size:12px;"></div>
+      <button class="add-dream-btn" onclick="addDreamCard()"><span style="font-size:28px;">✦</span><span>Add a dream</span></button>
+    </div>
+  </div>
+
+  <!-- GOALS & VISION -->
+  <div class="tab-page" id="tab-goals">
+    <div class="card"><div class="card-title">🌟 My Vision Statement</div><div class="callout callout-soft" style="margin-bottom:14px;font-family:'Cormorant Garamond',serif;font-size:15px;">Write in present tense as if it has already happened. Be bold.</div><textarea class="editable-area" placeholder="In 12 months, I am..." style="min-height:110px;font-family:'Cormorant Garamond',serif;font-size:16px;"></textarea></div>
+    <div class="section-heading">🎯 Annual Goals</div>
+    <div class="grid-2">
+      <div class="callout callout-sage"><strong>💚 Body & Health</strong><br><textarea class="editable-area" placeholder="Your health goals..." style="margin-top:8px;background:transparent;border-color:rgba(157,181,160,.4);"></textarea></div>
+      <div class="callout callout-blue"><strong>💼 Career & Business</strong><br><textarea class="editable-area" placeholder="Your business goals..." style="margin-top:8px;background:transparent;border-color:rgba(136,153,204,.4);"></textarea></div>
+      <div class="callout callout-gold"><strong>💛 Money & Abundance</strong><br><textarea class="editable-area" placeholder="Your financial goals..." style="margin-top:8px;background:transparent;border-color:rgba(201,169,110,.4);"></textarea></div>
+      <div class="callout callout-rose"><strong>🌸 Relationships & Love</strong><br><textarea class="editable-area" placeholder="Your relationship goals..." style="margin-top:8px;background:transparent;border-color:rgba(212,165,160,.4);"></textarea></div>
+    </div>
+    <div class="section-heading">🎨 Vision Board</div>
+    <div class="card"><p style="font-size:12px;color:var(--text-muted);margin-bottom:14px;">Click each slot to upload your vision images.</p><div class="vision-grid" id="vision-board"></div></div>
+    <div class="card" style="margin-top:18px;"><div class="card-title">💌 Letter to Future Me</div><textarea class="editable-area" placeholder="Dear [your name],&#10;&#10;It's [date one year from now] and I want to tell you..." style="min-height:180px;font-family:'Cormorant Garamond',serif;font-size:15px;line-height:1.8;"></textarea></div>
+  </div>
+
+  <!-- ERA TRACKER -->
+  <div class="tab-page" id="tab-era">
+    <div class="era-current">
+      <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--rose);margin-bottom:8px;">Current Era</div>
+      <input type="text" class="era-input-dk" placeholder="Name your era... (e.g. The Build Era, The Glow Up Era)" style="font-family:'Playfair Display',serif;font-style:italic;font-size:26px;margin-bottom:6px;">
+      <div class="era-meta">
+        <div><div class="era-meta-label">Started</div><input type="date" class="era-input-dk" style="width:140px;"></div>
+        <div><div class="era-meta-label">Core Intention</div><input type="text" class="era-input-dk" style="width:220px;" placeholder="What this era is about..."></div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="card"><div class="card-title">✨ Calling In</div><div class="callout callout-sage">What am I actively drawing into my life?</div><textarea class="editable-area" placeholder="I am calling in..." style="min-height:90px;"></textarea></div>
+      <div class="card"><div class="card-title">🍂 Releasing</div><div class="callout callout-rose">What am I consciously letting go of?</div><textarea class="editable-area" placeholder="I am releasing..." style="min-height:90px;"></textarea></div>
+    </div>
+    <div class="card"><div class="card-title">💬 Era Affirmations</div><div style="display:flex;flex-direction:column;gap:9px;" id="era-affirmations"></div></div>
+    <div class="quote-block"><div class="quote-text">She remembered who she was, and the game changed.</div><div class="quote-author">Era Reminder ✦</div></div>
+  </div>
+
+  <!-- SOFT LIFE FINANCE -->
+  <div class="tab-page" id="tab-softlife">
+    <div class="callout callout-sage" style="margin-bottom:18px;font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;">Before you open this tracker, take a breath: <em>"I am grateful for every dollar that flows through my life."</em></div>
+    <div class="card"><div class="card-title">💫 My Money Mantra</div><textarea class="editable-area" placeholder="Write your personal affirmation around money..." style="min-height:70px;font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;"></textarea></div>
+    <div class="card"><div class="card-title">💵 Abundance Received</div><table class="data-table"><thead><tr><th>Date</th><th>Source</th><th>Amount ($)</th><th>How It Felt</th><th>Gratitude Note</th><th></th></tr></thead><tbody id="sl-income-tbody"></tbody></table><button class="add-row-btn" onclick="addSLRow('sl-income-tbody','income')"><span style="font-size:16px;">+</span> Add entry</button></div>
+    <div class="card"><div class="card-title">💭 Conscious Spending Log</div><p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Not "expenses" — <em>investments in your life.</em></p><table class="data-table"><thead><tr><th>Date</th><th>What I Invested In</th><th>Category</th><th>Amount ($)</th><th>Aligned?</th><th>Again?</th><th></th></tr></thead><tbody id="sl-spending-tbody"></tbody></table><button class="add-row-btn" onclick="addSLRow('sl-spending-tbody','spending')"><span style="font-size:16px;">+</span> Add entry</button></div>
+    <div class="card"><div class="card-title">📅 Weekly Money Date Ritual</div><ul class="checklist" id="money-date-list"></ul></div>
+  </div>
+
+  <!-- ENERGY AUDIT -->
+  <div class="tab-page" id="tab-energy">
+    <div class="callout callout-rose" style="margin-bottom:18px;font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;">"You cannot pour from an empty cup. Protecting your energy is not selfish — it is necessary."</div>
+    <div class="card"><div class="card-title">⚡ My Energy Baseline</div><div class="grid-2">
+      <div><div class="field-label">At my best, I feel:</div><input type="text" class="editable" placeholder="e.g. Focused, light, creative, in flow..."><div class="field-label">Warning signs I'm running low:</div><input type="text" class="editable" placeholder="e.g. Irritable, scattered, doom-scrolling..."></div>
+      <div><div class="field-label">What fills me back up fastest:</div><input type="text" class="editable" placeholder="e.g. Nature walk, journaling, bath..."><div class="field-label">My non-negotiable recharge:</div><input type="text" class="editable" placeholder="The one thing I'll always do..."></div>
+    </div></div>
+    <div class="card"><div class="card-title">📊 Daily Energy Check-In</div><table class="data-table"><thead><tr><th>Date</th><th>Morning Energy</th><th>Evening Energy</th><th>What Drained Me</th><th>What Filled Me</th><th>Boundary Honoured?</th><th></th></tr></thead><tbody id="energy-tbody"></tbody></table><button class="add-row-btn" onclick="addEnergyRow()"><span style="font-size:16px;">+</span> Add entry</button></div>
+    <div class="grid-2">
+      <div class="card"><div class="card-title">👥 People & Energy Audit</div><table class="data-table"><thead><tr><th>Person / Situation</th><th>Energy Type</th><th>Action Needed</th><th></th></tr></thead><tbody id="people-tbody"></tbody></table><button class="add-row-btn" onclick="addPeopleRow()"><span style="font-size:16px;">+</span> Add person</button></div>
+      <div class="card"><div class="card-title">🚫 My Boundaries Board</div>
+        <div class="boundary-card bnd-work"><div class="field-label">Work</div><input type="text" class="editable" placeholder="e.g. No work messages after 7pm..."></div>
+        <div class="boundary-card bnd-rel"><div class="field-label">Relationships</div><input type="text" class="editable" placeholder="e.g. I don't accept last-minute plans..."></div>
+        <div class="boundary-card bnd-social"><div class="field-label">Social Media</div><input type="text" class="editable" placeholder="e.g. No phone in the bedroom..."></div>
+        <div class="boundary-card bnd-self"><div class="field-label">With Myself</div><input type="text" class="editable" placeholder="e.g. I honour my rest time..."></div>
+      </div>
+    </div>
+    <div class="card"><div class="card-title">📱 Digital Detox Tracker</div><ul class="checklist" id="detox-list"></ul></div>
+  </div>
+</main>
+
+<nav class="mobile-bottom-nav" id="mobile-bottom-nav">
+  <button class="mobile-nav-item active" onclick="showTab('dashboard',this);closeSidebar();syncMobileNav(this)"><span>🌸</span>Home</button>
+  <button class="mobile-nav-item" onclick="showTab('daily',this);closeSidebar();syncMobileNav(this)"><span>📅</span>Daily</button>
+  <button class="mobile-nav-item" onclick="showTab('monthly',this);closeSidebar();syncMobileNav(this)"><span>📆</span>Calendar</button>
+  <button class="mobile-nav-item" onclick="showTab('habits',this);closeSidebar();syncMobileNav(this)"><span>💫</span>Habits</button>
+  <button class="mobile-nav-item" onclick="showTab('abundance',this);closeSidebar();syncMobileNav(this)"><span>💰</span>Money</button>
+</nav>
+
+<div id="save-ind">✓ Saved</div>
+
+<script>
+// ─── DATES ───
+const NOW=new Date();
+const MN=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const DN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+document.getElementById('page-date').textContent=DN[NOW.getDay()]+', '+MN[NOW.getMonth()]+' '+NOW.getDate()+', '+NOW.getFullYear();
+document.getElementById('big-day').textContent=NOW.getDate();
+document.getElementById('big-month-year').textContent=MN[NOW.getMonth()].toUpperCase()+' '+NOW.getFullYear();
+
+// ─── QUOTES ───
+const QQ=['You don\'t have to have it all figured out to move forward. Just take the next beautiful step.','She built a life she loved, one intentional day at a time.','The version of you that achieves your goals already exists. She\'s waiting for you to believe in her.','Your consistency in the small moments creates the visible results.','Being that girl isn\'t a look. It\'s a commitment to yourself, every single day.','You are not behind. You are exactly where you need to be.','The most powerful thing you can do today is choose yourself, again.','Your dream life is being built in the ordinary moments you choose to show up.','Rest is not a reward. It is a non-negotiable part of your strategy.','She was unstoppable — not because she didn\'t have failures, but because she continued on.'];
+document.getElementById('rotating-quote').textContent=QQ[NOW.getDate()%QQ.length];
+document.getElementById('daily-quote').textContent=QQ[(NOW.getDate()+3)%QQ.length];
+
+// ─── TAB NAV ───
+const PI={dashboard:['Dashboard','Your daily home base'],diary:['Daily Diary','Your private space to reflect & release'],daily:['Daily Planner','Design your day with intention'],monthly:['Monthly Calendar','The big picture view'],habits:['Habits & Rituals','Who you\'re becoming'],content:['Content Studio','Build your brand'],abundance:['Abundance Tracker','Your money, your way'],goals:['Goals & Vision','The future you\'re building'],era:['Era Tracker ✦ Pro','Your personal evolution'],softlife:['Soft Life Finance ✦ Pro','Abundance-first money tracking'],energy:['Energy Audit ✦ Pro','Protect your peace']};
+function showTab(id,btn){document.querySelectorAll('.tab-page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));document.getElementById('tab-'+id).classList.add('active');btn.classList.add('active');const i=PI[id];document.getElementById('page-title').textContent=i[0];document.getElementById('page-subtitle').textContent=i[1];window.scrollTo(0,0);if(window.innerWidth<=768)closeSidebar();}
+
+// ─── CHECKLIST TOGGLE (checkbox only) ───
+function markDone(cb){cb.closest('li').classList.toggle('done',cb.checked);}
+
+// ─── MOOD ───
+function selectMood(btn){document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');}
+
+// ─── BUILD CHECKLIST from array ───
+function buildList(id,items){
+  const ul=document.getElementById(id);
+  if(!ul)return;
+  ul.innerHTML='';
+  items.forEach(text=>{
+    const li=document.createElement('li');
+    li.innerHTML=`<input type="checkbox" class="cl-cb" onchange="markDone(this)"><input type="text" class="cl-text" value="${text}">`;
+    ul.appendChild(li);
+  });
+}
+
+buildList('morning-ritual-list',['No phone for first 30 minutes','16oz water before coffee','Movement (walk / workout / stretch)','Journaling or meditation','Nourishing breakfast','Skincare ritual','Review today\'s schedule']);
+buildList('evening-list',['Phone on do not disturb by 9pm','Reflect on 3 wins from today','Write tomorrow\'s top 3','Gratitude practice (3 things)','Skincare ritual','Read for 20 minutes','Lights out by 10:30pm']);
+buildList('morning-nonneg-list',['Wake up — no phone for 30 mins','16oz water before anything','10 mins movement','Set today\'s intention']);
+buildList('morning-extras-list',['Journaling (15 mins)','Meditation (10 mins)','Reading (20 mins)','Gratitude practice','Cold shower','Skincare ritual','Affirmations']);
+buildList('evening-ritual-list',['No screens 30 mins before bed','Tomorrow\'s top 3 written','Gratitude (3 things)','Skincare','Reading','Stretching / yin yoga']);
+buildList('sunday-list',['Review last week — wins + lessons','Clear physical space','Clear digital space','Plan the week ahead','Meal prep or plan','Set weekly intention','Self-care ritual']);
+buildList('money-date-list',['Review this week\'s income','Log all spending from this week','Check savings progress','Celebrate any financial win','Set one financial intention for next week','Read one affirmation out loud']);
+buildList('detox-list',['First 30 minutes after waking — no phone','During all meals','During movement / exercise','One hour before bed','Bedroom — charge phone outside']);
+
+// Era affirmations
+['I am...','I have...','I create...','I attract...','I embody...'].forEach((p,i)=>{
+  const d=document.getElementById('era-affirmations');
+  if(!d)return;
+  const div=document.createElement('div');
+  div.style.cssText='display:flex;align-items:center;gap:12px;';
+  div.innerHTML=`<span style="font-family:'Playfair Display',serif;font-size:17px;color:var(--rose);min-width:22px;">${i+1}</span><input type="text" class="editable" placeholder="${p}">`;
+  d.appendChild(div);
+});
+
+// ─── SCHEDULE ───
+const TIMES=['5:00 AM','6:00 AM','7:00 AM','8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM','7:00 PM','8:00 PM','9:00 PM','10:00 PM'];
+const sb=document.getElementById('schedule-body');
+TIMES.forEach(t=>{const tr=document.createElement('tr');tr.innerHTML=`<td class="time-cell">${t}</td><td><input class="act-input" type="text" placeholder="Add activity..."></td><td class="done-cell"><input type="checkbox" class="habit-check"></td>`;sb.appendChild(tr);});
+
+// ─── CONTENT PLAN ───
+const cpb=document.getElementById('content-plan-body');
+['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'].forEach(day=>{
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td>${day}</td><td><input type="text" style="border:none;font-family:'Jost',sans-serif;font-size:13px;width:80px;outline:none;" placeholder="Platform"></td><td><input type="text" style="border:none;font-family:'Jost',sans-serif;font-size:13px;width:100%;outline:none;" placeholder="Idea..."></td><td><input type="text" style="border:none;font-family:'Jost',sans-serif;font-size:13px;width:100%;outline:none;" placeholder="Hook..."></td><td><span class="pill pill-rose">Draft</span></td>`;
+  cpb.appendChild(tr);
+});
+
+// ─── HABIT TRACKER ───
+const HABITS=[{name:'Movement',cat:'body'},{name:'Water (8 glasses)',cat:'body'},{name:'No phone first hour',cat:'mind'},{name:'Journaling',cat:'mind'},{name:'Content creation',cat:'business'},{name:'Reading',cat:'mind'},{name:'Gratitude',cat:'spirit'},{name:'Skincare ritual',cat:'body'}];
+const HT=document.getElementById('habit-table');
+let hh='<thead><tr><th>Habit</th>';for(let i=1;i<=31;i++)hh+=`<th>${i}</th>`;hh+='</tr></thead><tbody>';
+HABITS.forEach(h=>{hh+=`<tr><td>${h.name}<span class="hcat cat-${h.cat}">${h.cat.charAt(0).toUpperCase()+h.cat.slice(1)}</span></td>`;for(let i=1;i<=31;i++)hh+=`<td><input type="checkbox" class="habit-check"></td>`;hh+='</tr>';});
+HT.innerHTML=hh+'</tbody>';
+
+// ─── MAIN CALENDAR ───
+let calY=NOW.getFullYear(),calM=NOW.getMonth();
+function buildCal(){
+  const fd=new Date(calY,calM,1).getDay(),dim=new Date(calY,calM+1,0).getDate();
+  document.getElementById('cal-title').textContent=MN[calM]+' '+calY;
+  let html='<thead><tr>';['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d=>html+=`<th>${d}</th>`);html+='</tr></thead><tbody><tr>';
+  for(let i=0;i<fd;i++)html+='<td></td>';
+  for(let d=1;d<=dim;d++){
+    if((d+fd-1)%7===0&&d!==1)html+='</tr><tr>';
+    const iT=d===NOW.getDate()&&calM===NOW.getMonth()&&calY===NOW.getFullYear();
+    const k=`cal_${calY}_${calM}_${d}`;
+    const sv=localStorage.getItem(k)||'';
+    html+=`<td style="padding:5px;vertical-align:top;"><div class="cal-day-num${iT?' today-cal':''}">${d}</div><input class="cal-note" data-k="${k}" value="${sv.replace(/"/g,'&quot;')}" placeholder="..." oninput="localStorage.setItem(this.dataset.k,this.value)"></td>`;
+  }
+  html+='</tr></tbody>';
+  document.getElementById('cal-table').innerHTML=html;
+}
+function changeMonth(d){calM+=d;if(calM>11){calM=0;calY++;}else if(calM<0){calM=11;calY--;}buildCal();}
+buildCal();
+
+// ─── VISION BOARD ───
+const vb=document.getElementById('vision-board');
+for(let i=0;i<12;i++){const s=document.createElement('label');s.className='vision-slot';s.innerHTML=`<input type="file" accept="image/*" onchange="loadVision(this)"><span style="font-size:20px;">✦</span><p style="font-size:10px;color:var(--text-muted);">Add vision</p>`;vb.appendChild(s);}
+function loadVision(inp){if(inp.files&&inp.files[0]){const r=new FileReader();r.onload=e=>{const s=inp.parentElement;s.innerHTML=`<img src="${e.target.result}" alt="vision"><input type="file" accept="image/*" onchange="loadVision(this)">`;};r.readAsDataURL(inp.files[0]);}}
+
+// ─── SPOTIFY ───
+function handleSpotify(ta){
+  const v=ta.value.trim();
+  const c=document.getElementById('spotify-container');
+  if(!v){c.innerHTML='';return;}
+  const m=v.match(/https?:\/\/open\.spotify\.com\/(track|album|playlist|episode|show)\/([a-zA-Z0-9]+)/);
+  if(m){
+    const type=m[1],id=m[2],h=(type==='track'||type==='episode')?152:380;
+    const fu=`https://open.spotify.com/${type}/${id}`;
+    c.innerHTML=`<iframe src="https://open.spotify.com/embed/${type}/${id}" width="100%" height="${h}" frameborder="0" allow="autoplay;clipboard-write;encrypted-media;fullscreen;picture-in-picture" allowfullscreen loading="lazy" style="margin-top:10px;border-radius:12px;display:block;"></iframe><div style="margin-top:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><a href="${fu}" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:#1DB954;color:white;border-radius:20px;padding:7px 16px;font-family:'Jost',sans-serif;font-size:12px;font-weight:600;text-decoration:none;letter-spacing:.5px;">▶ Open Full Song in Spotify</a><span style="font-size:11px;color:var(--text-muted);">Log into Spotify for full playback</span></div>`;
+  }else{
+    c.innerHTML=`<p style="font-size:12px;color:var(--rose-dark);margin-top:8px;">⚠️ Please paste a valid Spotify link (open.spotify.com/...)</p>`;
+  }
+}
+
+// ─── PERIOD TRACKER ───
+let manualOverrides={};
+let cycleViewDate=new Date(NOW.getFullYear(),NOW.getMonth(),1);
+
+function dKey(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function autoPhase(day,len){
+  // Standard cycle phases (based on 28-day cycle, scaled for custom lengths)
+  // Menstruation: Day 1-5
+  // Follicular: Day 1-13 (overlaps with menstruation but follicular is the broader phase)
+  // Ovulation: Day 14-15
+  // Luteal: Day 16-28
+  // We show the most specific/visible phase for each day
+  const scale = len / 28;
+  const ovStart = Math.round(14 * scale);
+  const ovEnd   = Math.round(15 * scale);
+  const lutStart= Math.round(16 * scale);
+
+  if(day >= 1 && day <= 5)                    return 'period';      // Menstruation (red)
+  if(day >= ovStart && day <= ovEnd)           return 'ovulation';   // Ovulation (green)
+  if(day >= lutStart)                          return 'luteal';      // Luteal (purple)
+  return 'follicular';                                               // Follicular (gold)
+}
+function getPhase(date,start,len){
+  if(!start)return 'follicular';
+  const diff=Math.floor((date-start)/(1000*60*60*24));
+  if(diff<0)return 'follicular';
+  const k=dKey(date);
+  if(manualOverrides.hasOwnProperty(k)&&manualOverrides[k]!=='auto')return manualOverrides[k];
+  return autoPhase((diff%len)+1,len);
+}
+function getCycDay(date,start,len){
+  if(!start)return null;
+  const diff=Math.floor((date-start)/(1000*60*60*24));
+  if(diff<0)return null;
+  return(diff%len)+1;
+}
+
+function buildCycleCalendar(){
+  const len=parseInt(document.getElementById('cycle-length').value)||28;
+  const sv=document.getElementById('cycle-start').value;
+  const start=sv?new Date(sv+'T00:00:00'):null;
+  const today=new Date();today.setHours(0,0,0,0);
+  const year=cycleViewDate.getFullYear(),month=cycleViewDate.getMonth();
+  const dim=new Date(year,month+1,0).getDate();
+  const fd=new Date(year,month,1).getDay();
+  const MNS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  let html=`<div style="font-size:13px;font-weight:600;color:var(--mocha);margin-bottom:8px;font-family:'Playfair Display',serif;">${MNS[month]} ${year}</div>`;
+  html+='<table style="width:100%;border-collapse:collapse;text-align:center;">';
+  ['S','M','T','W','T','F','S'].forEach(d=>html+=`<th style="padding:6px 3px;font-size:10px;color:var(--text-muted);font-weight:600;">${d}</th>`);
+  html+='<tr>';
+  for(let i=0;i<fd;i++)html+='<td style="padding:3px;"></td>';
+
+  for(let d=1;d<=dim;d++){
+    if((d+fd-1)%7===0&&d!==1)html+='</tr><tr>';
+    const dt=new Date(year,month,d);dt.setHours(0,0,0,0);
+    const k=dKey(dt);
+    const phase=getPhase(dt,start,len);
+    const isToday=dt.getTime()===today.getTime();
+    const cd=getCycDay(dt,start,len);
+    // Without start date — show neutral with today highlighted
+    let bg=start?'transparent':'#F5EFE6';
+    let col='var(--text)';
+    let bdr=isToday?'2.5px solid var(--mocha)':'1.5px solid #E8D8D0';
+    if(start){
+      if(phase==='period')       {bg='var(--rose)';col='white';bdr='none';}
+      else if(phase==='follicular'){bg='#F5E6C0';col='#7A5010';bdr='none';}
+      else if(phase==='ovulation') {bg='var(--sage)';col='white';bdr='none';}
+      else if(phase==='luteal')    {bg='#E0C8F0';col='#5A2070';bdr='none';}
+      if(isToday){bdr='2.5px solid var(--mocha)';}
+    }
+    html+=`<td style="padding:3px;vertical-align:top;" onclick="cycleDayClick('${k}',this,${len})">
+      <div style="width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 2px;font-size:12px;font-weight:${isToday?700:400};background:${bg};color:${col};border:${bdr};cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:rgba(0,0,0,0);">${d}</div>
+      ${cd?`<div style="font-size:7px;color:var(--text-muted);line-height:1;text-align:center;">d${cd}</div>`:''}
+    </td>`;
+  }
+  html+='</tr></table>';
+  if(!start){
+    html+=`<p style="font-size:11px;color:var(--text-muted);margin-top:10px;text-align:center;">👆 Set your cycle start date above to see your phases</p>`;
+  }
+  document.getElementById('cycle-calendar').innerHTML=html;
+
+  // Update phase label
+  const todayCd=getCycDay(today,start,len);
+  if(todayCd&&start){
+    document.getElementById('cycle-day-num').textContent=todayCd;
+    const ph=autoPhase(todayCd,len);
+    const phInfo={period:{n:'Menstruation',c:'ph-menstrual'},follicular:{n:'Follicular',c:'ph-follicular'},ovulation:{n:'Ovulation',c:'ph-ovulatory'},luteal:{n:'Luteal',c:'ph-luteal'}}[ph]||{n:'Follicular',c:'ph-follicular'};
+    const lbl=document.getElementById('cycle-phase-label');
+    lbl.textContent=phInfo.n;lbl.className='period-phase '+phInfo.c;
+  }else{
+    document.getElementById('cycle-day-num').textContent='?';
+    document.getElementById('cycle-phase-label').textContent='Set start date';
+    document.getElementById('cycle-phase-label').className='period-phase ph-menstrual';
+  }
+
+  // Stats
+  if(start){
+    const diff=Math.floor((today-start)/(1000*60*60*24));
+    const cd2=diff>=0?(diff%len)+1:null;
+    const dLeft=cd2?len-cd2+1:null;
+    document.getElementById('next-period').textContent=dLeft===null?'—':dLeft<=0?'Today!':dLeft+' days';
+    // Scale ovulation to cycle length
+    const scale=len/28;
+    const ovS=Math.round(14*scale),ovE=Math.round(15*scale);
+    document.getElementById('ovulation-day').textContent='Day '+ovS+'–'+ovE;
+    document.getElementById('fertile-window').textContent='Day '+(ovS-2)+'–'+ovE;
+  }else{
+    document.getElementById('next-period').textContent='—';
+    document.getElementById('ovulation-day').textContent='—';
+    document.getElementById('fertile-window').textContent='—';
+  }
+}
+
+function cycleDayClick(k,td,len){
+  const states=['auto','period','follicular','ovulation','luteal'];
+  const sv=document.getElementById('cycle-start').value;
+  const start=sv?new Date(sv+'T00:00:00'):null;
+  const dt=new Date(k+'T00:00:00');
+  const cd=getCycDay(dt,start,len);
+  const autoP=cd?autoPhase(cd,len):'none';
+  const cur=manualOverrides.hasOwnProperty(k)?manualOverrides[k]:'auto';
+  const nextIdx=(states.indexOf(cur)+1)%states.length;
+  const next=states[nextIdx];
+  if(next==='auto'){delete manualOverrides[k];}
+  else{manualOverrides[k]=next;}
+  buildCycleCalendar();
+}
+
+function prevCycleMonth(){cycleViewDate=new Date(cycleViewDate.getFullYear(),cycleViewDate.getMonth()-1,1);buildCycleCalendar();}
+function nextCycleMonth(){cycleViewDate=new Date(cycleViewDate.getFullYear(),cycleViewDate.getMonth()+1,1);buildCycleCalendar();}
+
+document.getElementById('cycle-length').oninput=buildCycleCalendar;
+document.getElementById('cycle-start').onchange=function(){
+  if(this.value)cycleViewDate=new Date(this.value+'T00:00:00');
+  buildCycleCalendar();
+};
+buildCycleCalendar();
+
+// ─── INCOME TABLE ───
+const TYPE_MAP={Passive:'ps-passive',Active:'ps-active',Digital:'ps-digital',Affiliate:'ps-affiliate',Coaching:'ps-coaching',Other:'ps-other'};
+const FELT=['🚀 Big move','✨ Good flow','🌱 Small win','💫 Unexpected','🎉 Major win'];
+
+function makeSelect(opts,dflt,clsMap){
+  const s=document.createElement('select');
+  const dc=clsMap?clsMap[dflt]||Object.values(clsMap)[0]:'tge-select';
+  s.className=(clsMap?'pill-select ':'')+dc;
+  opts.forEach(o=>{const op=document.createElement('option');op.value=o;op.textContent=o;if(o===dflt)op.selected=true;s.appendChild(op);});
+  if(clsMap)s.onchange=function(){Object.values(clsMap).forEach(c=>s.classList.remove(c));s.classList.add(clsMap[s.value]||Object.values(clsMap)[0]);};
+  return s;
+}
+function makeYN(){return makeSelect(['Yes ✓','No ✗','Hmm...'],'Yes ✓',null);}
+function makeDel(row){const b=document.createElement('button');b.className='del-btn';b.textContent='✕';b.onclick=()=>{row.remove();calcTotal();};return b;}
+function ti(p,w){const i=document.createElement('input');i.type='text';i.placeholder=p;i.style.cssText=`border:none;font-family:'Jost',sans-serif;font-size:13px;${w?'width:'+w:''};outline:none;`;return i;}
+function di(){const i=document.createElement('input');i.type='date';i.style.cssText="border:none;font-family:'Jost',sans-serif;font-size:13px;outline:none;";return i;}
+function ni(cb){const i=document.createElement('input');i.type='number';i.placeholder='0.00';i.min='0';i.step='0.01';i.style.cssText="border:none;font-family:'Jost',sans-serif;font-size:13px;width:90px;outline:none;";if(cb)i.oninput=cb;return i;}
+function td2(...ch){const t=document.createElement('td');ch.forEach(c=>t.appendChild(c instanceof Node?c:Object.assign(document.createTextNode(''),{data:c})));return t;}
+
+function calcTotal(){
+  let t=0;document.querySelectorAll('#income-tbody input[type="number"]').forEach(i=>{if(i.value)t+=parseFloat(i.value)||0;});
+  document.getElementById('total-income-display').textContent='$'+t.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+
+function addIncomeRow(){
+  const tb=document.getElementById('income-tbody');
+  const tr=document.createElement('tr');
+  const tdDel=document.createElement('td');tdDel.style.width='30px';tdDel.appendChild(makeDel(tr));
+  tr.append(td2(di()),td2(ti('Income source...','100%')),td2(makeSelect(Object.keys(TYPE_MAP),'Passive',TYPE_MAP)),td2(ni(calcTotal)),td2(makeSelect(FELT,'🚀 Big move',null)),td2(ti("I'm grateful...",'100%')),tdDel);
+  tb.appendChild(tr);calcTotal();
+}
+addIncomeRow();addIncomeRow();addIncomeRow();
+
+// ─── SAVINGS DREAMS ───
+function updateProgress(inp){
+  const card=inp.closest('.dream-card');
+  const t=parseFloat(card.querySelector('.dream-target').value)||0;
+  const s=parseFloat(card.querySelector('.dream-saved').value)||0;
+  const pct=t>0?Math.min(100,Math.round(s/t*100)):0;
+  card.querySelector('.progress-fill').style.width=pct+'%';
+  const l=card.querySelector('.dream-pct');if(l)l.textContent=pct+'% toward goal';
+}
+let dc=3;
+const DE=['🌴','💍','📚','🎓','🚗','🎨','🌍','💪','🌸','🎵'];
+const DF=['','green','gold'];
+function addDreamCard(){
+  const g=document.getElementById('dreams-grid');
+  const btn=g.querySelector('.add-dream-btn');
+  const fill=DF[dc%DF.length];
+  const card=document.createElement('div');
+  card.className='dream-card';
+  card.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;"><div style="position:relative;"><div class="emoji-btn" onclick="openEmojiPicker(this)">${DE[dc%DE.length]}<span class="emoji-hint">tap to change</span></div><div class="emoji-picker-popup"></div></div><button class="del-btn" onclick="this.closest('.dream-card').remove()">✕</button></div><input type="text" class="editable" placeholder="Dream name..." style="font-family:'Playfair Display',serif;font-size:15px;"><div class="field-label">Target Amount ($)</div><input type="number" class="editable dream-target" placeholder="0" oninput="updateProgress(this)"><div class="field-label">Saved So Far ($)</div><input type="number" class="editable dream-saved" placeholder="0" oninput="updateProgress(this)"><div class="progress-bar"><div class="progress-fill ${fill}" style="width:0%"></div></div><div class="dream-pct" style="font-size:11px;color:var(--text-muted);margin-top:2px;">0% toward goal</div><input type="text" class="editable" placeholder="Affirmation..." style="font-style:italic;font-size:12px;">`;
+  g.insertBefore(card,btn);dc++;
+}
+
+// ─── EMOJI PICKER ───
+const ALL_E={'Travel':['✈️','🌍','🏖️','🗺️','🏔️','🚢','🏝️','🌅','🛫','🧳'],'Home':['🏡','🏠','🛋️','🛏️','🪴','🕯️','☕','🛁','🍳','🧺'],'Money':['💰','💵','💎','🏆','👑','🎯','📊','💼','📈','🤑'],'Tech':['💻','📱','⌚','📷','🎧','🎮','🖥️','📡','⌨️','🔌'],'Health':['💪','🧘','🏋️','🌿','🥗','🫶','❤️','🏃','💊','🧴'],'Learning':['📚','🎓','✏️','🎨','🎵','🌟','🎤','📝','🔬','🎭'],'Celebration':['🎉','🥂','🎊','🎁','🪄','🌸','✨','💫','🌈','🎂'],'Nature':['🌺','🌻','🦋','🌙','⭐','🌊','🌷','🍀','🌹','🌿']};
+function buildEmojiPicker(popup,btn){
+  popup.innerHTML='';
+  Object.entries(ALL_E).forEach(([cat,emojis])=>{
+    const l=document.createElement('div');l.className='epick-label';l.textContent=cat;popup.appendChild(l);
+    const g=document.createElement('div');g.className='epick-grid';
+    emojis.forEach(e=>{const s=document.createElement('span');s.textContent=e;s.onclick=ev=>{ev.stopPropagation();btn.childNodes.forEach(n=>{if(n.nodeType===3)n.remove();});btn.insertBefore(document.createTextNode(e),btn.firstChild);popup.classList.remove('open');};g.appendChild(s);});
+    popup.appendChild(g);
+  });
+}
+function openEmojiPicker(btn){
+  document.querySelectorAll('.emoji-picker-popup.open').forEach(p=>{if(p!==btn.nextElementSibling)p.classList.remove('open');});
+  const popup=btn.nextElementSibling;
+  if(!popup.classList.contains('open')){if(!popup.dataset.built){buildEmojiPicker(popup,btn);popup.dataset.built='1';}popup.classList.add('open');}
+  else popup.classList.remove('open');
+}
+document.addEventListener('click',e=>{if(!e.target.closest('.emoji-btn')&&!e.target.closest('.emoji-picker-popup'))document.querySelectorAll('.emoji-picker-popup.open').forEach(p=>p.classList.remove('open'));});
+
+// ─── SOFT LIFE FINANCE ───
+const CAT_MAP={'Self-care':'ps-selfcare','Education':'ps-education','Business':'ps-business','Home':'ps-home','Fun':'ps-fun','Necessity':'ps-necessity'};
+function addSLRow(tbodyId,type){
+  const tb=document.getElementById(tbodyId);
+  const tr=document.createElement('tr');
+  const tdDel=document.createElement('td');tdDel.style.width='30px';tdDel.appendChild(makeDel(tr));
+  if(type==='income'){
+    tr.append(td2(di()),td2(ti('Source...','100%')),td2(ni()),td2(makeSelect(FELT,'🚀 Big move',null)),td2(ti("I'm grateful...",'100%')),tdDel);
+  }else{
+    tr.append(td2(di()),td2(ti('e.g. Therapy session...','100%')),td2(makeSelect(Object.keys(CAT_MAP),'Self-care',CAT_MAP)),td2(ni()),td2(makeYN()),td2(makeYN()),tdDel);
+  }
+  tb.appendChild(tr);
+}
+['Self-care','Education','Business'].forEach(c=>{
+  const tr=document.createElement('tr');
+  const tdDel=document.createElement('td');tdDel.style.width='30px';
+  const tb=document.getElementById('sl-spending-tbody');
+  tdDel.appendChild(makeDel(tr));
+  tr.append(td2(di()),td2(ti('e.g. Therapy session...','100%')),td2(makeSelect(Object.keys(CAT_MAP),c,CAT_MAP)),td2(ni()),td2(makeYN()),td2(makeYN()),tdDel);
+  tb.appendChild(tr);
+});
+addSLRow('sl-income-tbody','income');addSLRow('sl-income-tbody','income');addSLRow('sl-income-tbody','income');
+
+// ─── ENERGY ───
+const ENERGY_MAP={'⚡ Thriving':'ps-thriving','🟢 Good':'ps-good','🟡 Low':'ps-low','🔴 Drained':'ps-drained'};
+const PEOPLE_MAP={'⚡ Energising':'ps-energising','🔴 Draining':'ps-draining','🟡 Neutral':'ps-neutral'};
+
+function addEnergyRow(){
+  const tb=document.getElementById('energy-tbody');
+  const tr=document.createElement('tr');
+  const tdDel=document.createElement('td');tdDel.style.width='30px';tdDel.appendChild(makeDel(tr));
+  tr.append(td2(di()),td2(makeSelect(Object.keys(ENERGY_MAP),'⚡ Thriving',ENERGY_MAP)),td2(makeSelect(Object.keys(ENERGY_MAP),'🟢 Good',ENERGY_MAP)),td2(ti('What drained you?','100%')),td2(ti('What energised you?','100%')),td2(makeYN()),tdDel);
+  tb.appendChild(tr);
+}
+addEnergyRow();addEnergyRow();
+
+function addPeopleRow(){
+  const tb=document.getElementById('people-tbody');
+  const tr=document.createElement('tr');
+  const tdDel=document.createElement('td');tdDel.style.width='30px';tdDel.appendChild(makeDel(tr));
+  tr.append(td2(ti('Person or situation...','100%')),td2(makeSelect(Object.keys(PEOPLE_MAP),'⚡ Energising',PEOPLE_MAP)),td2(ti('e.g. Invest more time, Set a boundary...','100%')),tdDel);
+  tb.appendChild(tr);
+}
+addPeopleRow();addPeopleRow();addPeopleRow();
+
+// ─── AUTO SAVE ───
+let saveT;
+function autoSave(){
+  clearTimeout(saveT);
+  saveT=setTimeout(()=>{
+    const data={};
+    document.querySelectorAll('input[id],textarea[id]').forEach(el=>{if(el.id)data[el.id]=el.value;});
+    localStorage.setItem('tge_save',JSON.stringify(data));
+    const ind=document.getElementById('save-ind');
+    ind.classList.add('show');setTimeout(()=>ind.classList.remove('show'),2000);
+  },1000);
+}
+function loadSave(){
+  try{const s=JSON.parse(localStorage.getItem('tge_save')||'{}');Object.entries(s).forEach(([id,v])=>{const el=document.getElementById(id);if(el)el.value=v;});}catch(e){}
+}
+document.addEventListener('input',autoSave);
+document.addEventListener('change',autoSave);
+loadSave();
+document.addEventListener('keydown',e=>{if(e.ctrlKey&&e.key==='s'){e.preventDefault();autoSave();}});
+
+// ─── DIARY SYSTEM ───
+const DIARY_FIELDS = ['diary-ten','diary-highest','diary-proud','diary-dump','diary-grat1','diary-grat2','diary-grat3','diary-affirmation','diary-freewrite'];
+const DIARY_CBS    = ['diary-grat1-cb','diary-grat2-cb','diary-grat3-cb'];
+
+function diaryTodayKey(){
+  const d=new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+
+function diaryFormatLabel(dateStr){
+  const [y,m,d]=dateStr.split('-').map(Number);
+  const dt=new Date(y,m-1,d);
+  const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const today=diaryTodayKey();
+  const yesterday=new Date();yesterday.setDate(yesterday.getDate()-1);
+  const yStr=yesterday.getFullYear()+'-'+String(yesterday.getMonth()+1).padStart(2,'0')+'-'+String(yesterday.getDate()).padStart(2,'0');
+  if(dateStr===today) return days[dt.getDay()]+', '+months[m-1]+' '+d+', '+y+' — Today';
+  if(dateStr===yStr)  return days[dt.getDay()]+', '+months[m-1]+' '+d+', '+y+' — Yesterday';
+  return days[dt.getDay()]+', '+months[m-1]+' '+d+', '+y;
+}
+
+let diaryAutoSaveTimer;
+function diaryMarkUnsaved(){
+  clearTimeout(diaryAutoSaveTimer);
+  diaryAutoSaveTimer = setTimeout(diarySave, 2500);
+}
+
+function diarySave(){
+  const date=document.getElementById('diary-date').value;
+  if(!date) return;
+  const entry={};
+  DIARY_FIELDS.forEach(id=>{const el=document.getElementById(id);if(el)entry[id]=el.value;});
+  DIARY_CBS.forEach(id=>{const el=document.getElementById(id);if(el)entry[id+'_checked']=el.checked;});
+  entry._saved=new Date().toISOString();
+  localStorage.setItem('tge_diary_'+date, JSON.stringify(entry));
+  // Show saved badge
+  const badge=document.getElementById('diary-saved-badge');
+  if(badge){badge.style.display='inline-block';setTimeout(()=>{badge.style.display='none';},2500);}
+  // Refresh history if open
+  if(document.getElementById('diary-history-panel').style.display!=='none') diaryRenderHistory();
+}
+
+function diaryLoadDate(dateStr){
+  if(!dateStr) return;
+  document.getElementById('diary-date').value=dateStr;
+  document.getElementById('diary-day-label').textContent=diaryFormatLabel(dateStr);
+  // Clear fields
+  DIARY_FIELDS.forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  DIARY_CBS.forEach(id=>{const el=document.getElementById(id);if(el){el.checked=false;el.closest('li').classList.remove('done');}});
+  // Load saved entry
+  const raw=localStorage.getItem('tge_diary_'+dateStr);
+  if(raw){
+    try{
+      const entry=JSON.parse(raw);
+      DIARY_FIELDS.forEach(id=>{const el=document.getElementById(id);if(el&&entry[id]!==undefined)el.value=entry[id];});
+      DIARY_CBS.forEach(id=>{const el=document.getElementById(id);if(el&&entry[id+'_checked']!==undefined){el.checked=entry[id+'_checked'];el.closest('li').classList.toggle('done',el.checked);}});
+      const badge=document.getElementById('diary-saved-badge');
+      if(badge){badge.style.display='inline-block';setTimeout(()=>{badge.style.display='none';},2000);}
+    }catch(e){}
+  }
+  document.getElementById('diary-history-panel').style.display='none';
+  window.scrollTo(0,0);
+}
+
+function diaryNavDay(delta){
+  const input=document.getElementById('diary-date');
+  const cur=input.value||diaryTodayKey();
+  const [y,m,d]=cur.split('-').map(Number);
+  const dt=new Date(y,m-1,d);
+  dt.setDate(dt.getDate()+delta);
+  const newStr=dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');
+  diaryLoadDate(newStr);
+}
+
+function diaryRenderHistory(){
+  const list=document.getElementById('diary-history-list');
+  const keys=[];
+  for(let i=0;i<localStorage.length;i++){
+    const k=localStorage.key(i);
+    if(k&&k.startsWith('tge_diary_')) keys.push(k.replace('tge_diary_',''));
+  }
+  keys.sort((a,b)=>b.localeCompare(a)); // newest first
+  if(keys.length===0){
+    list.innerHTML='<p style="font-size:13px;color:var(--text-muted);text-align:center;padding:20px;">No entries saved yet. Write your first entry and hit Save ✦</p>';
+    return;
+  }
+  list.innerHTML=keys.map(dateStr=>{
+    const raw=localStorage.getItem('tge_diary_'+dateStr);
+    let preview='';
+    try{const e=JSON.parse(raw);preview=e['diary-ten']||e['diary-freewrite']||e['diary-affirmation']||'';}catch(e){}
+    preview=preview.slice(0,80)+(preview.length>80?'…':'');
+    const [y,m,d]=dateStr.split('-').map(Number);
+    const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const label=months[m-1]+' '+d+', '+y;
+    return `<div onclick="diaryLoadDate('${dateStr}')" style="display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--ivory);cursor:pointer;transition:all .2s;" onmouseover="this.style.borderColor='var(--rose)';this.style.background='#FDF6F4'" onmouseout="this.style.borderColor='var(--border)';this.style.background='var(--ivory)'">
+      <div style="min-width:52px;text-align:center;background:var(--mocha);border-radius:8px;padding:6px 4px;">
+        <div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--champagne);line-height:1;">${d}</div>
+        <div style="font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--rose);margin-top:2px;">${months[m-1]} ${y}</div>
+      </div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:13px;font-weight:500;color:var(--mocha);">${diaryFormatLabel(dateStr).split(' — ')[1]||''}</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${preview||'Entry saved'}</div>
+      </div>
+      <div style="font-size:12px;color:var(--rose);font-weight:600;">View →</div>
+    </div>`;
+  }).join('');
+}
+
+function diaryShowHistory(){
+  const panel=document.getElementById('diary-history-panel');
+  if(panel.style.display==='none'||panel.style.display===''){
+    diaryRenderHistory();
+    panel.style.display='block';
+    panel.scrollIntoView({behavior:'smooth',block:'start'});
+  } else {
+    panel.style.display='none';
+  }
+}
+
+// Init diary on load
+(function initDiary(){
+  const today=diaryTodayKey();
+  diaryLoadDate(today);
+})();
+
+// ─── PHOTO DUMP SYSTEM (IndexedDB) ───
+let photoDB = null;
+const PHOTO_DB_NAME = 'tge_photos';
+const PHOTO_STORE   = 'daily_photos';
+
+function photosOpenDB(){
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(PHOTO_DB_NAME, 1);
+    req.onupgradeneeded = e => {
+      const db = e.target.result;
+      if (!db.objectStoreNames.contains(PHOTO_STORE)) {
+        db.createObjectStore(PHOTO_STORE, { keyPath: 'id', autoIncrement: true });
+      }
+    };
+    req.onsuccess  = e => { photoDB = e.target.result; resolve(photoDB); };
+    req.onerror    = () => reject(req.error);
+  });
+}
+
+function photosTodayKey(){
+  const d = new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+
+function photosFormatLabel(dateStr){
+  const [y,m,d] = dateStr.split('-').map(Number);
+  const dt = new Date(y,m-1,d);
+  const days   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const today  = photosTodayKey();
+  const yest   = new Date(); yest.setDate(yest.getDate()-1);
+  const yStr   = yest.getFullYear()+'-'+String(yest.getMonth()+1).padStart(2,'0')+'-'+String(yest.getDate()).padStart(2,'0');
+  if(dateStr===today) return days[dt.getDay()]+', '+months[m-1]+' '+d+', '+y+' — Today';
+  if(dateStr===yStr)  return days[dt.getDay()]+', '+months[m-1]+' '+d+', '+y+' — Yesterday';
+  return days[dt.getDay()]+', '+months[m-1]+' '+d+', '+y;
+}
+
+function photosShowSaved(){
+  const badge = document.getElementById('photos-saved-badge');
+  if(!badge) return;
+  badge.style.display = 'inline-block';
+  setTimeout(() => { badge.style.display = 'none'; }, 2200);
+}
+
+function photosHandleFiles(files){
+  if(!files||!files.length) return;
+  const date = document.getElementById('photos-date').value || photosTodayKey();
+  const images = Array.from(files).filter(f => f.type.startsWith('image/'));
+  if(!images.length) return;
+
+  // Check current count first, then add up to the remaining slots
+  const tx0  = photoDB.transaction(PHOTO_STORE, 'readonly');
+  const req0 = tx0.objectStore(PHOTO_STORE).getAll();
+  req0.onsuccess = () => {
+    const existing = req0.result.filter(r => r.date === date).length;
+    const slots    = 10 - existing;
+    if(slots <= 0){
+      alert('You\'ve reached the 10 photo limit for this day. Remove a photo to add more.');
+      return;
+    }
+    const toAdd = images.slice(0, slots);
+    if(images.length > slots){
+      alert(`Only ${slots} slot${slots>1?'s':''} remaining — adding the first ${slots} photo${slots>1?'s':''}.`);
+    }
+    toAdd.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = e => {
+        const record = { date, dataUrl: e.target.result, name: file.name, ts: Date.now() };
+        const tx  = photoDB.transaction(PHOTO_STORE, 'readwrite');
+        const req = tx.objectStore(PHOTO_STORE).add(record);
+        req.onsuccess = () => {
+          photosShowSaved();
+          photosRenderGrid(date);
+        };
+      };
+      reader.readAsDataURL(file);
+    });
+    document.getElementById('photos-file-input').value = '';
+  };
+}
+
+function photosRenderGrid(date){
+  const grid = document.getElementById('photos-grid');
+  if(!grid) return;
+  grid.innerHTML = '';
+  const tx  = photoDB.transaction(PHOTO_STORE, 'readonly');
+  const req = tx.objectStore(PHOTO_STORE).getAll();
+  req.onsuccess = () => {
+    const all   = req.result.filter(r => r.date === date);
+    const count = all.length;
+    const full  = count >= 10;
+
+    // Update dropzone state
+    const dz = document.getElementById('photos-dropzone');
+    if(dz){
+      dz.style.opacity     = full ? '0.45' : '1';
+      dz.style.pointerEvents = full ? 'none' : 'auto';
+      dz.style.cursor      = full ? 'not-allowed' : 'pointer';
+    }
+
+    // Update counter label in card title area
+    const counter = document.getElementById('photos-counter');
+    if(counter) counter.textContent = count+'/10 photos';
+
+    if(count === 0){
+      grid.innerHTML = '<p style="font-size:12px;color:var(--text-muted);grid-column:1/-1;text-align:center;padding:12px 0;">No photos for this day yet — drop some in above ✦</p>';
+      return;
+    }
+    all.sort((a,b)=>a.ts-b.ts).forEach(record => {
+      const wrap = document.createElement('div');
+      wrap.style.cssText = 'position:relative;border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:1/1;background:var(--ivory);box-shadow:0 2px 8px var(--shadow);';
+      const img  = document.createElement('img');
+      img.src    = record.dataUrl;
+      img.alt    = record.name;
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s;cursor:zoom-in;';
+      img.onclick = () => photosLightbox(record.dataUrl, record.name, record.date);
+      img.onmouseover = () => img.style.transform = 'scale(1.03)';
+      img.onmouseout  = () => img.style.transform = 'scale(1)';
+      const del  = document.createElement('button');
+      del.innerHTML = '✕';
+      del.title   = 'Remove photo';
+      del.style.cssText = 'position:absolute;top:6px;right:6px;background:rgba(61,43,43,.75);color:white;border:none;border-radius:50%;width:24px;height:24px;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;';
+      wrap.onmouseover = () => del.style.opacity = '1';
+      wrap.onmouseout  = () => del.style.opacity = '0';
+      del.onclick = () => photosDelete(record.id, date);
+      wrap.append(img, del);
+      grid.appendChild(wrap);
+    });
+
+    if(full){
+      const msg = document.createElement('p');
+      msg.style.cssText = 'font-size:12px;color:var(--text-muted);grid-column:1/-1;text-align:center;padding:8px 0;';
+      msg.textContent = '10/10 — remove a photo to add more';
+      grid.appendChild(msg);
+    }
+  };
+}
+
+function photosDelete(id, date){
+  const tx = photoDB.transaction(PHOTO_STORE, 'readwrite');
+  tx.objectStore(PHOTO_STORE).delete(id);
+  tx.oncomplete = () => photosRenderGrid(date);
+}
+
+function photosLightbox(src, name, date){
+  const ov = document.createElement('div');
+  ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;';
+  const caption = document.createElement('div');
+  caption.style.cssText = 'color:rgba(255,255,255,.5);font-family:"Jost",sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;';
+  caption.textContent = photosFormatLabel(date);
+  const img = document.createElement('img');
+  img.src   = src;
+  img.style.cssText = 'max-width:90vw;max-height:80vh;border-radius:12px;object-fit:contain;box-shadow:0 8px 40px rgba(0,0,0,.4);';
+  const close = document.createElement('button');
+  close.innerHTML = '✕ Close';
+  close.style.cssText = 'margin-top:20px;background:rgba(255,255,255,.12);color:white;border:none;border-radius:20px;padding:8px 22px;font-family:"Jost",sans-serif;font-size:13px;cursor:pointer;';
+  close.onclick = () => document.body.removeChild(ov);
+  ov.onclick = e => { if(e.target===ov) document.body.removeChild(ov); };
+  ov.append(caption, img, close);
+  document.body.appendChild(ov);
+}
+
+function photosLoadDate(dateStr){
+  if(!dateStr) return;
+  document.getElementById('photos-date').value = dateStr;
+  document.getElementById('photos-day-label').textContent = photosFormatLabel(dateStr);
+  photosRenderGrid(dateStr);
+}
+
+function photosNavDay(delta){
+  const input = document.getElementById('photos-date');
+  const cur   = input.value || photosTodayKey();
+  const [y,m,d] = cur.split('-').map(Number);
+  const dt    = new Date(y,m-1,d);
+  dt.setDate(dt.getDate()+delta);
+  const newStr = dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');
+  photosLoadDate(newStr);
+}
+
+// Init photos on load
+photosOpenDB().then(() => {
+  const today = photosTodayKey();
+  photosLoadDate(today);
+});
+
+// ─── MOBILE SIDEBAR TOGGLE ───
+function toggleSidebar(){
+  const sb=document.querySelector('.sidebar');
+  const btn=document.getElementById('hamburger-btn');
+  const ov=document.getElementById('sidebar-overlay');
+  sb.classList.toggle('open');
+  btn.classList.toggle('open');
+  ov.classList.toggle('show');
+}
+function closeSidebar(){
+  document.querySelector('.sidebar').classList.remove('open');
+  document.getElementById('hamburger-btn').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('show');
+}
+// Close sidebar on nav click (mobile)
+document.querySelectorAll('.nav-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    if(window.innerWidth<=768) closeSidebar();
+  });
+});
+// Sync mobile bottom nav active state
+function syncMobileNav(btn){
+  document.querySelectorAll('.mobile-nav-item').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+// Hide mobile bottom nav on desktop
+function checkNav(){
+  const nav=document.getElementById('mobile-bottom-nav');
+  if(nav) nav.style.display=window.innerWidth<=768?'flex':'none';
+}
+window.addEventListener('resize',checkNav);
+checkNav();
+
+</script>
+
+  <!-- PWA Service Worker for offline use -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      // Inline service worker as blob
+      const swCode = `
+        const CACHE = 'tge-v1';
+        self.addEventListener('install', e => {
+          self.skipWaiting();
+        });
+        self.addEventListener('activate', e => {
+          e.waitUntil(self.clients.claim());
+        });
+        self.addEventListener('fetch', e => {
+          e.respondWith(
+            caches.match(e.request).then(cached => {
+              return cached || fetch(e.request).catch(() => cached);
+            })
+          );
+        });
+      `;
+      const blob = new Blob([swCode], { type: 'application/javascript' });
+      const swUrl = URL.createObjectURL(blob);
+      navigator.serviceWorker.register(swUrl).catch(() => {});
+    }
+  </script>
+
+  <!-- Install prompt banner -->
+  <div id="install-banner" style="display:none;position:fixed;bottom:70px;left:50%;transform:translateX(-50%);background:#3D2B2B;color:#E8D5C0;padding:12px 20px;border-radius:20px;font-family:'Jost',sans-serif;font-size:13px;font-weight:500;z-index:6000;box-shadow:0 4px 20px rgba(61,43,43,.3);display:flex;align-items:center;gap:10px;white-space:nowrap;">
+    <span>🌸</span>
+    <span>Add to Home Screen for app experience</span>
+    <button onclick="document.getElementById('install-banner').style.display='none'" style="border:none;background:rgba(255,255,255,.2);color:white;border-radius:10px;padding:3px 8px;cursor:pointer;font-size:12px;">✕</button>
+  </div>
+  <script>
+    // Show install banner after 3 seconds if not installed
+    setTimeout(() => {
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+      if (!isStandalone) {
+        const banner = document.getElementById('install-banner');
+        if (banner) banner.style.display = 'flex';
+      }
+    }, 3000);
+  </script>
+
+</body>
+</html>
