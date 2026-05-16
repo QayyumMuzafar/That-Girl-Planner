@@ -249,8 +249,7 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--text);min
 .spotify-paste:focus{border-color:var(--rose);}
 
 /* SAVE INDICATOR */
-#save-ind{position:fixed;bottom:22px;right:22px;background:var(--sage);color:white;padding:9px 16px;border-radius:20px;font-size:12px;font-weight:500;opacity:0;transition:opacity .3s;z-index:999;pointer-events:none;}
-#save-ind.show{opacity:1;}
+
 
 ::-webkit-scrollbar{width:5px;}
 ::-webkit-scrollbar-track{background:var(--cream);}
@@ -465,8 +464,10 @@ button, input, textarea, select, a,
   /* Spotify container */
   #spotify-container iframe { border-radius: 10px; }
 
-  /* Save indicator */
-  #save-ind { bottom: 70px; }
+  /* Save button on mobile */
+  #save-btn { padding: 8px 14px; font-size: 12px; }
+  .page-header { flex-wrap: wrap; gap: 10px; }
+
 }
 
 @media (max-width: 400px) {
@@ -500,13 +501,6 @@ button, input, textarea, select, a,
     <button class="nav-btn" onclick="showTab('abundance',this)"><span class="nav-icon">💰</span> Abundance Tracker</button>
     <button class="nav-btn" onclick="showTab('goals',this)"><span class="nav-icon">🎯</span> Goals & Vision</button>
   </div>
-  <div class="sidebar-section">
-    <div class="sidebar-label">Premium Modules</div>
-    <button class="nav-btn" onclick="showTab('content',this)"><span class="nav-icon">📱</span> Content Studio<span class="nav-badge">PRO</span></button>
-    <button class="nav-btn" onclick="showTab('era',this)"><span class="nav-icon">🪞</span> Era Tracker<span class="nav-badge">PRO</span></button>
-    <button class="nav-btn" onclick="showTab('softlife',this)"><span class="nav-icon">💸</span> Soft Life Finance<span class="nav-badge">PRO</span></button>
-    <button class="nav-btn" onclick="showTab('energy',this)"><span class="nav-icon">🔋</span> Energy Audit<span class="nav-badge">PRO</span></button>
-  </div>
   <div class="sidebar-footer"><p>That Girl Entrepreneur<br>© 2026 Qayyum Studio<br>All rights reserved.</p></div>
 </nav>
 
@@ -516,7 +510,13 @@ button, input, textarea, select, a,
       <div class="page-title" id="page-title">Dashboard</div>
       <div class="page-subtitle" id="page-subtitle">Your daily home base</div>
     </div>
-    <div class="page-date" id="page-date"></div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="page-date" id="page-date"></div>
+      <button id="save-btn" onclick="manualSave()" style="display:flex;align-items:center;gap:8px;background:var(--mocha);color:var(--champagne);border:none;border-radius:var(--radius-sm);padding:10px 20px;font-family:'Jost',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap;box-shadow:0 2px 8px var(--shadow);" onmouseover="this.style.background='var(--mocha-light)'" onmouseout="this.style.background='var(--mocha)'">
+        <span id="save-btn-icon">💾</span>
+        <span id="save-btn-text">Save</span>
+      </button>
+    </div>
   </div>
 
   <!-- DASHBOARD -->
@@ -824,30 +824,6 @@ button, input, textarea, select, a,
   </div>
 
   <!-- CONTENT STUDIO -->
-  <div class="tab-page" id="tab-content">
-    <div class="card">
-      <div class="card-title">🎨 My Brand Identity</div>
-      <div class="grid-2">
-        <div><div class="field-label">My niche</div><input type="text" class="editable" placeholder="e.g. Productivity for creative entrepreneurs..."><div class="field-label">My target audience</div><input type="text" class="editable" placeholder="e.g. Women 22-32 building their first business..."></div>
-        <div><div class="field-label">My brand vibe</div><input type="text" class="editable" placeholder="e.g. Soft luxury, clean girl, that girl..."><div class="field-label">My unique angle</div><input type="text" class="editable" placeholder="What makes you different..."></div>
-      </div>
-    </div>
-    <div class="section-heading">🏛️ My Content Pillars</div>
-    <div class="grid-2">
-      <div class="pillar-card"><div class="pillar-num">1</div><input type="text" class="editable" placeholder="Pillar 1..." style="text-align:center;font-weight:600;"><textarea class="editable-area" placeholder="Topics..." style="min-height:55px;margin-top:8px;text-align:center;"></textarea></div>
-      <div class="pillar-card"><div class="pillar-num">2</div><input type="text" class="editable" placeholder="Pillar 2..." style="text-align:center;font-weight:600;"><textarea class="editable-area" placeholder="Topics..." style="min-height:55px;margin-top:8px;text-align:center;"></textarea></div>
-      <div class="pillar-card"><div class="pillar-num">3</div><input type="text" class="editable" placeholder="Pillar 3..." style="text-align:center;font-weight:600;"><textarea class="editable-area" placeholder="Topics..." style="min-height:55px;margin-top:8px;text-align:center;"></textarea></div>
-      <div class="pillar-card"><div class="pillar-num">4</div><input type="text" class="editable" placeholder="Pillar 4..." style="text-align:center;font-weight:600;"><textarea class="editable-area" placeholder="Topics..." style="min-height:55px;margin-top:8px;text-align:center;"></textarea></div>
-    </div>
-    <div class="card" style="margin-top:18px;">
-      <div class="card-title">📅 This Week's Content Plan</div>
-      <table class="data-table">
-        <thead><tr><th>Day</th><th>Platform</th><th>Content Idea</th><th>Hook</th><th>Status</th></tr></thead>
-        <tbody id="content-plan-body"></tbody>
-      </table>
-    </div>
-  </div>
-
   <!-- ABUNDANCE TRACKER -->
   <div class="tab-page" id="tab-abundance">
     <div class="callout callout-sage" style="margin-bottom:18px;font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;">"Money flows to those who are intentional about it. Track every stream. Celebrate every win."</div>
@@ -885,52 +861,6 @@ button, input, textarea, select, a,
     <div class="card" style="margin-top:18px;"><div class="card-title">💌 Letter to Future Me</div><textarea class="editable-area" placeholder="Dear [your name],&#10;&#10;It's [date one year from now] and I want to tell you..." style="min-height:180px;font-family:'Cormorant Garamond',serif;font-size:15px;line-height:1.8;"></textarea></div>
   </div>
 
-  <!-- ERA TRACKER -->
-  <div class="tab-page" id="tab-era">
-    <div class="era-current">
-      <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--rose);margin-bottom:8px;">Current Era</div>
-      <input type="text" class="era-input-dk" placeholder="Name your era... (e.g. The Build Era, The Glow Up Era)" style="font-family:'Playfair Display',serif;font-style:italic;font-size:26px;margin-bottom:6px;">
-      <div class="era-meta">
-        <div><div class="era-meta-label">Started</div><input type="date" class="era-input-dk" style="width:140px;"></div>
-        <div><div class="era-meta-label">Core Intention</div><input type="text" class="era-input-dk" style="width:220px;" placeholder="What this era is about..."></div>
-      </div>
-    </div>
-    <div class="grid-2">
-      <div class="card"><div class="card-title">✨ Calling In</div><div class="callout callout-sage">What am I actively drawing into my life?</div><textarea class="editable-area" placeholder="I am calling in..." style="min-height:90px;"></textarea></div>
-      <div class="card"><div class="card-title">🍂 Releasing</div><div class="callout callout-rose">What am I consciously letting go of?</div><textarea class="editable-area" placeholder="I am releasing..." style="min-height:90px;"></textarea></div>
-    </div>
-    <div class="card"><div class="card-title">💬 Era Affirmations</div><div style="display:flex;flex-direction:column;gap:9px;" id="era-affirmations"></div></div>
-    <div class="quote-block"><div class="quote-text">She remembered who she was, and the game changed.</div><div class="quote-author">Era Reminder ✦</div></div>
-  </div>
-
-  <!-- SOFT LIFE FINANCE -->
-  <div class="tab-page" id="tab-softlife">
-    <div class="callout callout-sage" style="margin-bottom:18px;font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;">Before you open this tracker, take a breath: <em>"I am grateful for every dollar that flows through my life."</em></div>
-    <div class="card"><div class="card-title">💫 My Money Mantra</div><textarea class="editable-area" placeholder="Write your personal affirmation around money..." style="min-height:70px;font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;"></textarea></div>
-    <div class="card"><div class="card-title">💵 Abundance Received</div><table class="data-table"><thead><tr><th>Date</th><th>Source</th><th>Amount ($)</th><th>How It Felt</th><th>Gratitude Note</th><th></th></tr></thead><tbody id="sl-income-tbody"></tbody></table><button class="add-row-btn" onclick="addSLRow('sl-income-tbody','income')"><span style="font-size:16px;">+</span> Add entry</button></div>
-    <div class="card"><div class="card-title">💭 Conscious Spending Log</div><p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Not "expenses" — <em>investments in your life.</em></p><table class="data-table"><thead><tr><th>Date</th><th>What I Invested In</th><th>Category</th><th>Amount ($)</th><th>Aligned?</th><th>Again?</th><th></th></tr></thead><tbody id="sl-spending-tbody"></tbody></table><button class="add-row-btn" onclick="addSLRow('sl-spending-tbody','spending')"><span style="font-size:16px;">+</span> Add entry</button></div>
-    <div class="card"><div class="card-title">📅 Weekly Money Date Ritual</div><ul class="checklist" id="money-date-list"></ul></div>
-  </div>
-
-  <!-- ENERGY AUDIT -->
-  <div class="tab-page" id="tab-energy">
-    <div class="callout callout-rose" style="margin-bottom:18px;font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;">"You cannot pour from an empty cup. Protecting your energy is not selfish — it is necessary."</div>
-    <div class="card"><div class="card-title">⚡ My Energy Baseline</div><div class="grid-2">
-      <div><div class="field-label">At my best, I feel:</div><input type="text" class="editable" placeholder="e.g. Focused, light, creative, in flow..."><div class="field-label">Warning signs I'm running low:</div><input type="text" class="editable" placeholder="e.g. Irritable, scattered, doom-scrolling..."></div>
-      <div><div class="field-label">What fills me back up fastest:</div><input type="text" class="editable" placeholder="e.g. Nature walk, journaling, bath..."><div class="field-label">My non-negotiable recharge:</div><input type="text" class="editable" placeholder="The one thing I'll always do..."></div>
-    </div></div>
-    <div class="card"><div class="card-title">📊 Daily Energy Check-In</div><table class="data-table"><thead><tr><th>Date</th><th>Morning Energy</th><th>Evening Energy</th><th>What Drained Me</th><th>What Filled Me</th><th>Boundary Honoured?</th><th></th></tr></thead><tbody id="energy-tbody"></tbody></table><button class="add-row-btn" onclick="addEnergyRow()"><span style="font-size:16px;">+</span> Add entry</button></div>
-    <div class="grid-2">
-      <div class="card"><div class="card-title">👥 People & Energy Audit</div><table class="data-table"><thead><tr><th>Person / Situation</th><th>Energy Type</th><th>Action Needed</th><th></th></tr></thead><tbody id="people-tbody"></tbody></table><button class="add-row-btn" onclick="addPeopleRow()"><span style="font-size:16px;">+</span> Add person</button></div>
-      <div class="card"><div class="card-title">🚫 My Boundaries Board</div>
-        <div class="boundary-card bnd-work"><div class="field-label">Work</div><input type="text" class="editable" placeholder="e.g. No work messages after 7pm..."></div>
-        <div class="boundary-card bnd-rel"><div class="field-label">Relationships</div><input type="text" class="editable" placeholder="e.g. I don't accept last-minute plans..."></div>
-        <div class="boundary-card bnd-social"><div class="field-label">Social Media</div><input type="text" class="editable" placeholder="e.g. No phone in the bedroom..."></div>
-        <div class="boundary-card bnd-self"><div class="field-label">With Myself</div><input type="text" class="editable" placeholder="e.g. I honour my rest time..."></div>
-      </div>
-    </div>
-    <div class="card"><div class="card-title">📱 Digital Detox Tracker</div><ul class="checklist" id="detox-list"></ul></div>
-  </div>
 </main>
 
 <nav class="mobile-bottom-nav" id="mobile-bottom-nav">
@@ -941,7 +871,7 @@ button, input, textarea, select, a,
   <button class="mobile-nav-item" onclick="showTab('abundance',this);closeSidebar();syncMobileNav(this)"><span>💰</span>Money</button>
 </nav>
 
-<div id="save-ind">✓ Saved</div>
+
 
 <script>
 // ─── DATES ───
@@ -958,7 +888,7 @@ document.getElementById('rotating-quote').textContent=QQ[NOW.getDate()%QQ.length
 document.getElementById('daily-quote').textContent=QQ[(NOW.getDate()+3)%QQ.length];
 
 // ─── TAB NAV ───
-const PI={dashboard:['Dashboard','Your daily home base'],diary:['Daily Diary','Your private space to reflect & release'],daily:['Daily Planner','Design your day with intention'],monthly:['Monthly Calendar','The big picture view'],habits:['Habits & Rituals','Who you\'re becoming'],content:['Content Studio','Build your brand'],abundance:['Abundance Tracker','Your money, your way'],goals:['Goals & Vision','The future you\'re building'],era:['Era Tracker ✦ Pro','Your personal evolution'],softlife:['Soft Life Finance ✦ Pro','Abundance-first money tracking'],energy:['Energy Audit ✦ Pro','Protect your peace']};
+const PI={dashboard:['Dashboard','Your daily home base'],diary:['Daily Diary','Your private space to reflect & release'],daily:['Daily Planner','Design your day with intention'],monthly:['Monthly Calendar','The big picture view'],habits:['Habits & Rituals','Who you\'re becoming'],abundance:['Abundance Tracker','Your money, your way'],goals:['Goals & Vision','The future you\'re building']};
 function showTab(id,btn){document.querySelectorAll('.tab-page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));document.getElementById('tab-'+id).classList.add('active');btn.classList.add('active');const i=PI[id];document.getElementById('page-title').textContent=i[0];document.getElementById('page-subtitle').textContent=i[1];window.scrollTo(0,0);if(window.innerWidth<=768)closeSidebar();}
 
 // ─── CHECKLIST TOGGLE (checkbox only) ───
@@ -985,31 +915,10 @@ buildList('morning-nonneg-list',['Wake up — no phone for 30 mins','16oz water 
 buildList('morning-extras-list',['Journaling (15 mins)','Meditation (10 mins)','Reading (20 mins)','Gratitude practice','Cold shower','Skincare ritual','Affirmations']);
 buildList('evening-ritual-list',['No screens 30 mins before bed','Tomorrow\'s top 3 written','Gratitude (3 things)','Skincare','Reading','Stretching / yin yoga']);
 buildList('sunday-list',['Review last week — wins + lessons','Clear physical space','Clear digital space','Plan the week ahead','Meal prep or plan','Set weekly intention','Self-care ritual']);
-buildList('money-date-list',['Review this week\'s income','Log all spending from this week','Check savings progress','Celebrate any financial win','Set one financial intention for next week','Read one affirmation out loud']);
-buildList('detox-list',['First 30 minutes after waking — no phone','During all meals','During movement / exercise','One hour before bed','Bedroom — charge phone outside']);
-
-// Era affirmations
-['I am...','I have...','I create...','I attract...','I embody...'].forEach((p,i)=>{
-  const d=document.getElementById('era-affirmations');
-  if(!d)return;
-  const div=document.createElement('div');
-  div.style.cssText='display:flex;align-items:center;gap:12px;';
-  div.innerHTML=`<span style="font-family:'Playfair Display',serif;font-size:17px;color:var(--rose);min-width:22px;">${i+1}</span><input type="text" class="editable" placeholder="${p}">`;
-  d.appendChild(div);
-});
-
 // ─── SCHEDULE ───
 const TIMES=['5:00 AM','6:00 AM','7:00 AM','8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM','7:00 PM','8:00 PM','9:00 PM','10:00 PM'];
 const sb=document.getElementById('schedule-body');
 TIMES.forEach(t=>{const tr=document.createElement('tr');tr.innerHTML=`<td class="time-cell">${t}</td><td><input class="act-input" type="text" placeholder="Add activity..."></td><td class="done-cell"><input type="checkbox" class="habit-check"></td>`;sb.appendChild(tr);});
-
-// ─── CONTENT PLAN ───
-const cpb=document.getElementById('content-plan-body');
-['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'].forEach(day=>{
-  const tr=document.createElement('tr');
-  tr.innerHTML=`<td>${day}</td><td><input type="text" style="border:none;font-family:'Jost',sans-serif;font-size:13px;width:80px;outline:none;" placeholder="Platform"></td><td><input type="text" style="border:none;font-family:'Jost',sans-serif;font-size:13px;width:100%;outline:none;" placeholder="Idea..."></td><td><input type="text" style="border:none;font-family:'Jost',sans-serif;font-size:13px;width:100%;outline:none;" placeholder="Hook..."></td><td><span class="pill pill-rose">Draft</span></td>`;
-  cpb.appendChild(tr);
-});
 
 // ─── HABIT TRACKER ───
 const HABITS=[{name:'Movement',cat:'body'},{name:'Water (8 glasses)',cat:'body'},{name:'No phone first hour',cat:'mind'},{name:'Journaling',cat:'mind'},{name:'Content creation',cat:'business'},{name:'Reading',cat:'mind'},{name:'Gratitude',cat:'spirit'},{name:'Skincare ritual',cat:'body'}];
@@ -1271,70 +1180,97 @@ function openEmojiPicker(btn){
 }
 document.addEventListener('click',e=>{if(!e.target.closest('.emoji-btn')&&!e.target.closest('.emoji-picker-popup'))document.querySelectorAll('.emoji-picker-popup.open').forEach(p=>p.classList.remove('open'));});
 
-// ─── SOFT LIFE FINANCE ───
-const CAT_MAP={'Self-care':'ps-selfcare','Education':'ps-education','Business':'ps-business','Home':'ps-home','Fun':'ps-fun','Necessity':'ps-necessity'};
-function addSLRow(tbodyId,type){
-  const tb=document.getElementById(tbodyId);
-  const tr=document.createElement('tr');
-  const tdDel=document.createElement('td');tdDel.style.width='30px';tdDel.appendChild(makeDel(tr));
-  if(type==='income'){
-    tr.append(td2(di()),td2(ti('Source...','100%')),td2(ni()),td2(makeSelect(FELT,'🚀 Big move',null)),td2(ti("I'm grateful...",'100%')),tdDel);
-  }else{
-    tr.append(td2(di()),td2(ti('e.g. Therapy session...','100%')),td2(makeSelect(Object.keys(CAT_MAP),'Self-care',CAT_MAP)),td2(ni()),td2(makeYN()),td2(makeYN()),tdDel);
+// ─── SAVE SYSTEM ───
+function gatherData(){
+  const data = {};
+  document.querySelectorAll('input[id], textarea[id]').forEach(el => {
+    if(el.id) data[el.id] = el.value;
+  });
+  // save checklist checked states
+  document.querySelectorAll('input[type="checkbox"][id]').forEach(el => {
+    if(el.id) data[el.id + '_checked'] = el.checked;
+  });
+  data._savedAt = new Date().toISOString();
+  return data;
+}
+
+function applyData(data){
+  if(!data) return;
+  Object.entries(data).forEach(([key, val]) => {
+    if(key.endsWith('_checked')) {
+      const el = document.getElementById(key.replace('_checked',''));
+      if(el && el.type === 'checkbox') {
+        el.checked = val;
+        el.closest('li') && el.closest('li').classList.toggle('done', val);
+      }
+    } else {
+      const el = document.getElementById(key);
+      if(el && el.tagName !== 'BUTTON') el.value = val;
+    }
+  });
+}
+
+function manualSave(){
+  const btn      = document.getElementById('save-btn');
+  const btnIcon  = document.getElementById('save-btn-icon');
+  const btnText  = document.getElementById('save-btn-text');
+
+  // Saving state
+  btnIcon.textContent  = '⏳';
+  btnText.textContent  = 'Saving...';
+  btn.style.background = 'var(--mocha-light)';
+  btn.disabled         = true;
+
+  try {
+    const data = gatherData();
+    localStorage.setItem('tge_save', JSON.stringify(data));
+
+    // Success state
+    setTimeout(() => {
+      btnIcon.textContent  = '✓';
+      btnText.textContent  = 'Saved!';
+      btn.style.background = 'var(--sage-dark)';
+      btn.style.color      = 'white';
+
+      // Reset after 2.5s
+      setTimeout(() => {
+        btnIcon.textContent  = '💾';
+        btnText.textContent  = 'Save';
+        btn.style.background = 'var(--mocha)';
+        btn.style.color      = 'var(--champagne)';
+        btn.disabled         = false;
+      }, 2500);
+    }, 400);
+
+  } catch(e) {
+    btnIcon.textContent  = '✕';
+    btnText.textContent  = 'Failed';
+    btn.style.background = '#C05050';
+    setTimeout(() => {
+      btnIcon.textContent  = '💾';
+      btnText.textContent  = 'Save';
+      btn.style.background = 'var(--mocha)';
+      btn.disabled         = false;
+    }, 2500);
   }
-  tb.appendChild(tr);
 }
-['Self-care','Education','Business'].forEach(c=>{
-  const tr=document.createElement('tr');
-  const tdDel=document.createElement('td');tdDel.style.width='30px';
-  const tb=document.getElementById('sl-spending-tbody');
-  tdDel.appendChild(makeDel(tr));
-  tr.append(td2(di()),td2(ti('e.g. Therapy session...','100%')),td2(makeSelect(Object.keys(CAT_MAP),c,CAT_MAP)),td2(ni()),td2(makeYN()),td2(makeYN()),tdDel);
-  tb.appendChild(tr);
-});
-addSLRow('sl-income-tbody','income');addSLRow('sl-income-tbody','income');addSLRow('sl-income-tbody','income');
 
-// ─── ENERGY ───
-const ENERGY_MAP={'⚡ Thriving':'ps-thriving','🟢 Good':'ps-good','🟡 Low':'ps-low','🔴 Drained':'ps-drained'};
-const PEOPLE_MAP={'⚡ Energising':'ps-energising','🔴 Draining':'ps-draining','🟡 Neutral':'ps-neutral'};
-
-function addEnergyRow(){
-  const tb=document.getElementById('energy-tbody');
-  const tr=document.createElement('tr');
-  const tdDel=document.createElement('td');tdDel.style.width='30px';tdDel.appendChild(makeDel(tr));
-  tr.append(td2(di()),td2(makeSelect(Object.keys(ENERGY_MAP),'⚡ Thriving',ENERGY_MAP)),td2(makeSelect(Object.keys(ENERGY_MAP),'🟢 Good',ENERGY_MAP)),td2(ti('What drained you?','100%')),td2(ti('What energised you?','100%')),td2(makeYN()),tdDel);
-  tb.appendChild(tr);
-}
-addEnergyRow();addEnergyRow();
-
-function addPeopleRow(){
-  const tb=document.getElementById('people-tbody');
-  const tr=document.createElement('tr');
-  const tdDel=document.createElement('td');tdDel.style.width='30px';tdDel.appendChild(makeDel(tr));
-  tr.append(td2(ti('Person or situation...','100%')),td2(makeSelect(Object.keys(PEOPLE_MAP),'⚡ Energising',PEOPLE_MAP)),td2(ti('e.g. Invest more time, Set a boundary...','100%')),tdDel);
-  tb.appendChild(tr);
-}
-addPeopleRow();addPeopleRow();addPeopleRow();
-
-// ─── AUTO SAVE ───
-let saveT;
-function autoSave(){
-  clearTimeout(saveT);
-  saveT=setTimeout(()=>{
-    const data={};
-    document.querySelectorAll('input[id],textarea[id]').forEach(el=>{if(el.id)data[el.id]=el.value;});
-    localStorage.setItem('tge_save',JSON.stringify(data));
-    const ind=document.getElementById('save-ind');
-    ind.classList.add('show');setTimeout(()=>ind.classList.remove('show'),2000);
-  },1000);
-}
 function loadSave(){
-  try{const s=JSON.parse(localStorage.getItem('tge_save')||'{}');Object.entries(s).forEach(([id,v])=>{const el=document.getElementById(id);if(el)el.value=v;});}catch(e){}
+  try {
+    const raw = localStorage.getItem('tge_save');
+    if(!raw) return;
+    applyData(JSON.parse(raw));
+  } catch(e) {}
 }
-document.addEventListener('input',autoSave);
-document.addEventListener('change',autoSave);
+
+// Load on start, Ctrl+S support
 loadSave();
-document.addEventListener('keydown',e=>{if(e.ctrlKey&&e.key==='s'){e.preventDefault();autoSave();}});
+document.addEventListener('keydown', e => {
+  if((e.ctrlKey || e.metaKey) && e.key === 's') {
+    e.preventDefault();
+    manualSave();
+  }
+});
 
 // ─── DIARY SYSTEM ───
 const DIARY_FIELDS = ['diary-ten','diary-highest','diary-proud','diary-dump','diary-grat1','diary-grat2','diary-grat3','diary-affirmation','diary-freewrite'];
