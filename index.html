@@ -19,6 +19,7 @@
   <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='40' fill='%233D2B2B'/><text x='96' y='130' font-size='100' text-anchor='middle'>🌸</text></svg>">
 
 <title>That Girl Entrepreneur — My Life OS</title>
+<script src="https://accounts.google.com/gsi/client" async></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Jost:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <style>
 :root{--cream:#FAF7F2;--ivory:#F5EFE6;--rose:#D4A5A0;--rose-light:#EDD9D5;--rose-dark:#B8837D;--sage:#9DB5A0;--sage-light:#C8DAC8;--sage-dark:#6D9170;--mocha:#3D2B2B;--mocha-light:#6B4F4F;--champagne:#E8D5C0;--gold:#C9A96E;--white:#FFFFFF;--text:#3D2B2B;--text-soft:#7A6060;--text-muted:#A89090;--border:#E8D8D0;--shadow:rgba(61,43,43,.08);--radius:16px;--radius-sm:8px;}
@@ -509,6 +510,25 @@ button, input, textarea, select, a,
 <body>
 
 
+<!-- LOGIN OVERLAY -->
+<div id="login-overlay" style="position:fixed;inset:0;background:var(--cream);z-index:99999;display:flex;align-items:center;justify-content:center;padding:32px;">
+  <div style="max-width:420px;width:100%;text-align:center;">
+    <div style="font-size:52px;margin-bottom:14px;">🌸</div>
+    <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:34px;color:var(--mocha);margin-bottom:6px;">That Girl Planner</div>
+    <div style="font-size:11px;color:var(--text-muted);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:36px;">Your Life OS ✦</div>
+    <div style="background:var(--white);border-radius:var(--radius);border:1px solid var(--border);padding:36px 32px;box-shadow:0 8px 40px var(--shadow);">
+      <div style="font-family:'Playfair Display',serif;font-size:20px;color:var(--mocha);margin-bottom:8px;">Welcome back, beautiful ✨</div>
+      <div style="font-size:13px;color:var(--text-soft);margin-bottom:28px;line-height:1.7;">Sign in with Google to access your planner and sync your data across all your devices.</div>
+      <button id="google-login-btn" onclick="googleLogin()" style="display:flex;align-items:center;justify-content:center;gap:12px;width:100%;background:var(--mocha);color:var(--champagne);border:none;border-radius:var(--radius-sm);padding:15px 24px;font-family:'Jost',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all .2s;letter-spacing:.3px;" onmouseover="this.style.background='var(--mocha-light)'" onmouseout="this.style.background='var(--mocha)'">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#EA4335" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Continue with Google
+      </button>
+      <div id="login-error" style="display:none;margin-top:14px;font-size:12px;color:#C05050;background:#FDF0EE;padding:10px 14px;border-radius:8px;"></div>
+    </div>
+    <div style="margin-top:22px;font-size:11px;color:var(--text-muted);line-height:1.8;">Your data is saved privately to your own Google Drive.<br>We never see or store your personal information.</div>
+  </div>
+</div>
+
 <button class="hamburger" id="hamburger-btn" onclick="toggleSidebar()">
   <span></span><span></span><span></span>
 </button>
@@ -537,7 +557,19 @@ button, input, textarea, select, a,
     <button class="nav-btn" onclick="showTab('abundance',this)"><span class="nav-icon">💰</span> Abundance Tracker</button>
     <button class="nav-btn" onclick="showTab('goals',this)"><span class="nav-icon">🎯</span> Goals & Vision</button>
   </div>
-  <div class="sidebar-footer"><p>That Girl Entrepreneur<br>© 2026 Qayyum Studio<br>All rights reserved.</p></div>
+  <div class="sidebar-footer">
+    <div id="user-info" style="display:none;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.08);">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <div id="user-avatar" style="width:32px;height:32px;border-radius:50%;background:var(--rose);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:white;flex-shrink:0;"></div>
+        <div style="min-width:0;">
+          <div style="font-size:12px;font-weight:500;color:var(--champagne);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" id="user-name"></div>
+          <div style="font-size:10px;color:rgba(255,255,255,.35);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" id="user-email"></div>
+        </div>
+      </div>
+      <button onclick="googleLogout()" style="width:100%;border:1px solid rgba(255,255,255,.15);background:transparent;color:rgba(255,255,255,.5);border-radius:6px;padding:6px 12px;font-family:'Jost',sans-serif;font-size:11px;cursor:pointer;transition:all .2s;letter-spacing:.5px;" onmouseover="this.style.background='rgba(255,255,255,.08)';this.style.color='rgba(255,255,255,.8)'" onmouseout="this.style.background='transparent';this.style.color='rgba(255,255,255,.5)'">Sign out</button>
+    </div>
+    <p>That Girl Entrepreneur<br>© 2026 Qayyum Studio<br>All rights reserved.</p>
+  </div>
 </nav>
 
 <main class="main">
@@ -559,51 +591,6 @@ button, input, textarea, select, a,
       <div style="text-align:right;">
         <div class="big-date" id="big-day"></div>
         <div class="big-month" id="big-month-year"></div>
-      </div>
-    </div>
-
-    <!-- PERIOD TRACKER -->
-    <div class="period-card">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:10px;">
-        <div style="display:flex;align-items:center;gap:10px;">
-          <span style="font-family:'Playfair Display',serif;font-size:17px;font-weight:500;color:var(--mocha);">🌸 Cycle Tracker</span>
-          <span class="period-phase ph-menstrual" id="cycle-phase-label">Set start date</span>
-          <span style="font-size:12px;color:var(--text-muted);">Day <strong id="cycle-day-num">?</strong> of <input id="cycle-length" type="number" min="21" max="40" value="28" style="width:34px;border:none;border-bottom:1px dashed var(--border);background:transparent;font-size:12px;outline:none;text-align:center;"></span>
-        </div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-          <span style="font-size:11px;display:flex;align-items:center;gap:4px;color:var(--text-muted);"><span style="width:10px;height:10px;border-radius:50%;background:var(--rose);display:inline-block;"></span>Menstruation (D1–5)</span>
-          <span style="font-size:11px;display:flex;align-items:center;gap:4px;color:var(--text-muted);"><span style="width:10px;height:10px;border-radius:50%;background:#FBF0D8;border:1px solid #C9A96E;display:inline-block;"></span>Follicular (D6–13)</span>
-          <span style="font-size:11px;display:flex;align-items:center;gap:4px;color:var(--text-muted);"><span style="width:10px;height:10px;border-radius:50%;background:var(--sage);display:inline-block;"></span>Ovulation (D14–15)</span>
-          <span style="font-size:11px;display:flex;align-items:center;gap:4px;color:var(--text-muted);"><span style="width:10px;height:10px;border-radius:50%;background:#E8D0F0;border:1px solid #AA77CC;display:inline-block;"></span>Luteal (D16–28)</span>
-        </div>
-      </div>
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap;">
-        <label style="font-size:12px;color:var(--text-soft);">Cycle started: <input type="date" id="cycle-start" style="border:none;border-bottom:1px dashed var(--border);background:transparent;font-size:12px;outline:none;font-family:'Jost',sans-serif;"></label>
-        <span style="font-size:11px;color:var(--text-muted);">· Click any day to override (cycles: Menstruation → Follicular → Ovulation → Luteal → Auto)</span>
-      </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-        <button onclick="prevCycleMonth()" class="cal-btn" style="padding:4px 12px;font-size:12px;">← Prev</button>
-        <span style="font-size:11px;color:var(--text-muted);letter-spacing:.5px;">MONTHLY CYCLE VIEW</span>
-        <button onclick="nextCycleMonth()" class="cal-btn" style="padding:4px 12px;font-size:12px;">Next →</button>
-      </div>
-      <div id="cycle-calendar" style="overflow-y:auto;max-height:280px;"></div>
-      <div style="font-size:12px;color:var(--text-muted);margin:12px 0 6px;font-weight:500;">Today's symptoms:</div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap;" id="symptom-tags">
-        <span class="symptom-tag" onclick="this.classList.toggle('active')">😴 Fatigue</span>
-        <span class="symptom-tag" onclick="this.classList.toggle('active')">🤕 Cramps</span>
-        <span class="symptom-tag" onclick="this.classList.toggle('active')">😤 Mood swings</span>
-        <span class="symptom-tag" onclick="this.classList.toggle('active')">🤢 Nausea</span>
-        <span class="symptom-tag" onclick="this.classList.toggle('active')">🎯 Focused</span>
-        <span class="symptom-tag" onclick="this.classList.toggle('active')">⚡ Energetic</span>
-        <span class="symptom-tag" onclick="this.classList.toggle('active')">💧 Bloating</span>
-        <span class="symptom-tag" onclick="this.classList.toggle('active')">🤯 Headache</span>
-        <span class="symptom-tag" onclick="this.classList.toggle('active')">🌙 Low energy</span>
-        <span class="symptom-tag" onclick="this.classList.toggle('active')">❤️ Loving</span>
-      </div>
-      <div class="period-stats">
-        <div class="period-stat"><div class="ps-val" id="next-period">—</div><div class="ps-lbl">Next period (days)</div></div>
-        <div class="period-stat"><div class="ps-val" id="ovulation-day">—</div><div class="ps-lbl">Ovulation day</div></div>
-        <div class="period-stat"><div class="ps-val" id="fertile-window">—</div><div class="ps-lbl">Fertile window</div></div>
       </div>
     </div>
 
@@ -634,6 +621,50 @@ button, input, textarea, select, a,
             <button class="mood-btn" onclick="selectMood(this)">😊<span class="mlabel">Good</span></button>
             <button class="mood-btn" onclick="selectMood(this)">✨<span class="mlabel">Amazing</span></button>
             <button class="mood-btn" onclick="selectMood(this)">💪<span class="mlabel">Powerful</span></button>
+          </div>
+        </div>
+        <!-- PERIOD TRACKER -->
+        <div class="period-card" style="margin-bottom:0;">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:10px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="font-family:'Playfair Display',serif;font-size:17px;font-weight:500;color:var(--mocha);">🌸 Cycle Tracker</span>
+              <span class="period-phase ph-menstrual" id="cycle-phase-label">Set start date</span>
+              <span style="font-size:12px;color:var(--text-muted);">Day <strong id="cycle-day-num">?</strong> of <input id="cycle-length" type="number" min="21" max="40" value="28" style="width:34px;border:none;border-bottom:1px dashed var(--border);background:transparent;font-size:12px;outline:none;text-align:center;"></span>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+              <span style="font-size:11px;display:flex;align-items:center;gap:4px;color:var(--text-muted);"><span style="width:10px;height:10px;border-radius:50%;background:var(--rose);display:inline-block;"></span>Menstruation (D1–5)</span>
+              <span style="font-size:11px;display:flex;align-items:center;gap:4px;color:var(--text-muted);"><span style="width:10px;height:10px;border-radius:50%;background:#FBF0D8;border:1px solid #C9A96E;display:inline-block;"></span>Follicular (D6–13)</span>
+              <span style="font-size:11px;display:flex;align-items:center;gap:4px;color:var(--text-muted);"><span style="width:10px;height:10px;border-radius:50%;background:var(--sage);display:inline-block;"></span>Ovulation (D14–15)</span>
+              <span style="font-size:11px;display:flex;align-items:center;gap:4px;color:var(--text-muted);"><span style="width:10px;height:10px;border-radius:50%;background:#E8D0F0;border:1px solid #AA77CC;display:inline-block;"></span>Luteal (D16–28)</span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap;">
+            <label style="font-size:12px;color:var(--text-soft);">Cycle started: <input type="date" id="cycle-start" style="border:none;border-bottom:1px dashed var(--border);background:transparent;font-size:12px;outline:none;font-family:'Jost',sans-serif;"></label>
+            <span style="font-size:11px;color:var(--text-muted);">· Click any day to override (cycles: Menstruation → Follicular → Ovulation → Luteal → Auto)</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+            <button onclick="prevCycleMonth()" class="cal-btn" style="padding:4px 12px;font-size:12px;">← Prev</button>
+            <span style="font-size:11px;color:var(--text-muted);letter-spacing:.5px;">MONTHLY CYCLE VIEW</span>
+            <button onclick="nextCycleMonth()" class="cal-btn" style="padding:4px 12px;font-size:12px;">Next →</button>
+          </div>
+          <div id="cycle-calendar" style="overflow-y:auto;max-height:280px;"></div>
+          <div style="font-size:12px;color:var(--text-muted);margin:12px 0 6px;font-weight:500;">Today's symptoms:</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;" id="symptom-tags">
+            <span class="symptom-tag" onclick="this.classList.toggle('active')">😴 Fatigue</span>
+            <span class="symptom-tag" onclick="this.classList.toggle('active')">🤕 Cramps</span>
+            <span class="symptom-tag" onclick="this.classList.toggle('active')">😤 Mood swings</span>
+            <span class="symptom-tag" onclick="this.classList.toggle('active')">🤢 Nausea</span>
+            <span class="symptom-tag" onclick="this.classList.toggle('active')">🎯 Focused</span>
+            <span class="symptom-tag" onclick="this.classList.toggle('active')">⚡ Energetic</span>
+            <span class="symptom-tag" onclick="this.classList.toggle('active')">💧 Bloating</span>
+            <span class="symptom-tag" onclick="this.classList.toggle('active')">🤯 Headache</span>
+            <span class="symptom-tag" onclick="this.classList.toggle('active')">🌙 Low energy</span>
+            <span class="symptom-tag" onclick="this.classList.toggle('active')">❤️ Loving</span>
+          </div>
+          <div class="period-stats">
+            <div class="period-stat"><div class="ps-val" id="next-period">—</div><div class="ps-lbl">Next period (days)</div></div>
+            <div class="period-stat"><div class="ps-val" id="ovulation-day">—</div><div class="ps-lbl">Ovulation day</div></div>
+            <div class="period-stat"><div class="ps-val" id="fertile-window">—</div><div class="ps-lbl">Fertile window</div></div>
           </div>
         </div>
         <div class="card">
@@ -1209,91 +1240,222 @@ function openEmojiPicker(btn){
 }
 document.addEventListener('click',e=>{if(!e.target.closest('.emoji-btn')&&!e.target.closest('.emoji-picker-popup'))document.querySelectorAll('.emoji-picker-popup.open').forEach(p=>p.classList.remove('open'));});
 
+// ─── GOOGLE AUTH & DRIVE SYNC ───
+const GCP_CLIENT_ID = '923686960381-j8t333navbaroq6fcutt74b2lsqkl0nk.apps.googleusercontent.com';
+const DRIVE_SCOPE   = 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/userinfo.profile email';
+const SAVE_FILENAME = 'tge-planner-data.json';
+
+let gTokenClient = null;
+let gAccessToken = null;
+let gTokenExpiry = 0;
+let gDriveFileId = null;
+
+// Icons for save button states
+const ICON_SAVE  = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="17 21 17 13 7 13 7 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="7 3 7 8 15 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const ICON_CHECK = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const ICON_ERROR = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>`;
+const ICON_SPIN  = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="animation:spin .8s linear infinite"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" stroke-dasharray="40" stroke-dashoffset="10" stroke-linecap="round"/></svg>`;
+
+// Add spin animation
+const spinStyle = document.createElement('style');
+spinStyle.textContent = '@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}';
+document.head.appendChild(spinStyle);
+
+function waitForGoogle(cb){ typeof google!=='undefined'&&google.accounts ? cb() : setTimeout(()=>waitForGoogle(cb),150); }
+
+function initGoogleAuth(){
+  gTokenClient = google.accounts.oauth2.initTokenClient({
+    client_id: GCP_CLIENT_ID,
+    scope: DRIVE_SCOPE,
+    callback: async (resp) => {
+      if(resp.error){
+        const errEl = document.getElementById('login-error');
+        if(errEl){ errEl.textContent = 'Sign-in failed: '+resp.error+'. Make sure you are added as a test user.'; errEl.style.display='block'; }
+        return;
+      }
+      gAccessToken = resp.access_token;
+      gTokenExpiry = Date.now() + (resp.expires_in * 1000) - 60000;
+      await onLoginSuccess();
+    }
+  });
+}
+
+async function onLoginSuccess(){
+  // Get user info
+  try {
+    const r = await fetch('https://www.googleapis.com/oauth2/v3/userinfo',{headers:{Authorization:`Bearer ${gAccessToken}`}});
+    const u = await r.json();
+    const nameEl   = document.getElementById('user-name');
+    const emailEl  = document.getElementById('user-email');
+    const avatarEl = document.getElementById('user-avatar');
+    const infoEl   = document.getElementById('user-info');
+    if(nameEl)   nameEl.textContent  = u.name || u.email;
+    if(emailEl)  emailEl.textContent = u.email;
+    if(avatarEl) avatarEl.textContent = (u.name||u.email||'?')[0].toUpperCase();
+    if(infoEl)   infoEl.style.display = 'block';
+  } catch(e){}
+
+  // Hide login overlay
+  document.getElementById('login-overlay').style.display = 'none';
+
+  // Load data from Drive
+  await loadFromDrive();
+}
+
+function googleLogin(){
+  const btn = document.getElementById('google-login-btn');
+  if(btn){ btn.textContent = 'Connecting...'; btn.disabled = true; }
+  if(!gTokenClient){ waitForGoogle(()=>{ initGoogleAuth(); gTokenClient.requestAccessToken({prompt:'consent'}); }); }
+  else { gTokenClient.requestAccessToken({prompt:''}); }
+}
+
+function googleLogout(){
+  if(gAccessToken) google.accounts.oauth2.revoke(gAccessToken, ()=>{});
+  gAccessToken = null; gTokenExpiry = 0; gDriveFileId = null;
+  document.getElementById('user-info').style.display = 'none';
+  document.getElementById('login-overlay').style.display = 'flex';
+  const btn = document.getElementById('google-login-btn');
+  if(btn){ btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24"><path fill="#EA4335" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg> Continue with Google'; btn.disabled = false; }
+  const errEl = document.getElementById('login-error');
+  if(errEl) errEl.style.display='none';
+}
+
+async function ensureToken(){
+  if(gAccessToken && Date.now() < gTokenExpiry) return true;
+  return new Promise(resolve => {
+    const prev = gTokenClient.callback;
+    gTokenClient.callback = async (resp) => {
+      gTokenClient.callback = prev;
+      if(resp.error){ resolve(false); return; }
+      gAccessToken = resp.access_token;
+      gTokenExpiry = Date.now() + (resp.expires_in*1000) - 60000;
+      resolve(true);
+    };
+    gTokenClient.requestAccessToken({prompt:''});
+  });
+}
+
+// ─── DRIVE API ───
+async function driveFindFile(){
+  const r = await fetch(
+    `https://www.googleapis.com/drive/v3/files?q=name='${SAVE_FILENAME}' and trashed=false&fields=files(id)&spaces=drive`,
+    {headers:{Authorization:`Bearer ${gAccessToken}`}}
+  );
+  const d = await r.json();
+  return (d.files && d.files.length > 0) ? d.files[0].id : null;
+}
+
+async function driveReadFile(fileId){
+  const r = await fetch(
+    `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`,
+    {headers:{Authorization:`Bearer ${gAccessToken}`}}
+  );
+  return await r.json();
+}
+
+async function driveWriteFile(content){
+  const body = JSON.stringify(content);
+  if(gDriveFileId){
+    await fetch(
+      `https://www.googleapis.com/upload/drive/v3/files/${gDriveFileId}?uploadType=media`,
+      {method:'PATCH', headers:{Authorization:`Bearer ${gAccessToken}`,'Content-Type':'application/json'}, body}
+    );
+  } else {
+    const meta = {name:SAVE_FILENAME, mimeType:'application/json'};
+    const form = new FormData();
+    form.append('metadata', new Blob([JSON.stringify(meta)],{type:'application/json'}));
+    form.append('file',     new Blob([body],{type:'application/json'}));
+    const r = await fetch(
+      'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id',
+      {method:'POST', headers:{Authorization:`Bearer ${gAccessToken}`}, body:form}
+    );
+    const created = await r.json();
+    gDriveFileId = created.id;
+  }
+}
+
+async function loadFromDrive(){
+  const btn = document.getElementById('save-btn');
+  if(btn){ btn.disabled=true; btn.innerHTML=ICON_SPIN; }
+  try {
+    gDriveFileId = await driveFindFile();
+    if(!gDriveFileId){ if(btn){btn.disabled=false;btn.innerHTML=ICON_SAVE;} return; }
+    const data = await driveReadFile(gDriveFileId);
+    if(data.planner) applyData(data.planner);
+    if(data.diary){
+      Object.entries(data.diary).forEach(([date,entry])=>{
+        localStorage.setItem('tge_diary_'+date, JSON.stringify(entry));
+      });
+      const dd = document.getElementById('diary-date');
+      if(dd && dd.value) diaryLoadDate(dd.value);
+    }
+  } catch(e){ console.error('Drive load error:',e); }
+  if(btn){ btn.disabled=false; btn.innerHTML=ICON_SAVE; }
+}
+
 // ─── SAVE SYSTEM ───
 function gatherData(){
   const data = {};
-  document.querySelectorAll('input[id], textarea[id]').forEach(el => {
-    if(el.id) data[el.id] = el.value;
-  });
-  // save checklist checked states
-  document.querySelectorAll('input[type="checkbox"][id]').forEach(el => {
-    if(el.id) data[el.id + '_checked'] = el.checked;
-  });
+  document.querySelectorAll('input[id], textarea[id]').forEach(el => { if(el.id) data[el.id]=el.value; });
+  document.querySelectorAll('input[type="checkbox"][id]').forEach(el => { if(el.id) data[el.id+'_checked']=el.checked; });
   data._savedAt = new Date().toISOString();
   return data;
 }
 
 function applyData(data){
   if(!data) return;
-  Object.entries(data).forEach(([key, val]) => {
-    if(key.endsWith('_checked')) {
-      const el = document.getElementById(key.replace('_checked',''));
-      if(el && el.type === 'checkbox') {
-        el.checked = val;
-        el.closest('li') && el.closest('li').classList.toggle('done', val);
-      }
+  Object.entries(data).forEach(([key,val])=>{
+    if(key.endsWith('_checked')){
+      const el=document.getElementById(key.replace('_checked',''));
+      if(el&&el.type==='checkbox'){ el.checked=val; el.closest('li')&&el.closest('li').classList.toggle('done',val); }
     } else {
-      const el = document.getElementById(key);
-      if(el && el.tagName !== 'BUTTON') el.value = val;
+      const el=document.getElementById(key);
+      if(el&&el.tagName!=='BUTTON') el.value=val;
     }
   });
 }
 
-function manualSave(){
+async function manualSave(){
   const btn = document.getElementById('save-btn');
-  btn.classList.add('saving');
-  btn.disabled = true;
-  btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" stroke-dasharray="40" stroke-dashoffset="10" stroke-linecap="round"/></svg>';
+  btn.classList.add('saving'); btn.disabled=true; btn.innerHTML=ICON_SPIN;
 
   try {
-    // Save general planner data
-    const data = gatherData();
-    localStorage.setItem('tge_save', JSON.stringify(data));
+    // Ensure token is fresh
+    const ok = await ensureToken();
+    if(!ok) throw new Error('Token expired — please sign in again.');
 
-    // Also save current diary entry
+    // Gather planner data
+    const plannerData = gatherData();
+
+    // Save current diary to localStorage first, then gather all
     const diaryDate = document.getElementById('diary-date');
     if(diaryDate && diaryDate.value) diarySave();
+    const diaryData = {};
+    for(let i=0;i<localStorage.length;i++){
+      const k=localStorage.key(i);
+      if(k&&k.startsWith('tge_diary_')){
+        try{ diaryData[k.replace('tge_diary_','')]=JSON.parse(localStorage.getItem(k)); }catch(e){}
+      }
+    }
+
+    // Write to Google Drive
+    await driveWriteFile({ planner:plannerData, diary:diaryData, _savedAt:new Date().toISOString() });
 
     // Success
-    setTimeout(() => {
-      btn.classList.remove('saving');
-      btn.classList.add('saved');
-      btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    btn.classList.remove('saving'); btn.classList.add('saved'); btn.innerHTML=ICON_CHECK;
+    setTimeout(()=>{ btn.classList.remove('saved'); btn.disabled=false; btn.innerHTML=ICON_SAVE; }, 2500);
 
-      setTimeout(() => {
-        btn.classList.remove('saved');
-        btn.disabled = false;
-        btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="17 21 17 13 7 13 7 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="7 3 7 8 15 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-      }, 2500);
-    }, 400);
-
-  } catch(e) {
-    btn.classList.remove('saving');
-    btn.classList.add('error');
-    btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>';
-    setTimeout(() => {
-      btn.classList.remove('error');
-      btn.disabled = false;
-      btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="17 21 17 13 7 13 7 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="7 3 7 8 15 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-    }, 2500);
+  } catch(e){
+    console.error('Save error:',e);
+    btn.classList.remove('saving'); btn.classList.add('error'); btn.innerHTML=ICON_ERROR;
+    setTimeout(()=>{ btn.classList.remove('error'); btn.disabled=false; btn.innerHTML=ICON_SAVE; }, 3000);
   }
 }
 
-function loadSave(){
-  try {
-    const raw = localStorage.getItem('tge_save');
-    if(!raw) return;
-    applyData(JSON.parse(raw));
-  } catch(e) {}
-}
-
-// Load on start, Ctrl+S support
-loadSave();
+// Load on start, Ctrl+S / Cmd+S support
+waitForGoogle(initGoogleAuth);
 document.addEventListener('keydown', e => {
-  if((e.ctrlKey || e.metaKey) && e.key === 's') {
-    e.preventDefault();
-    manualSave();
-  }
+  if((e.ctrlKey||e.metaKey)&&e.key==='s'){ e.preventDefault(); manualSave(); }
 });
 
 // ─── DIARY SYSTEM ───
