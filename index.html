@@ -923,8 +923,7 @@ button, input, textarea, select, a,
         <div class="stat-sub">Across all dreams</div>
         <!-- Pie chart -->
         <div id="savings-pie-wrap" style="margin-top:14px;display:none;">
-          <svg id="savings-pie" viewBox="0 0 120 120" width="120" height="120" style="display:block;margin:0 auto;"></svg>
-          <div id="savings-pie-legend" style="margin-top:10px;display:flex;flex-direction:column;gap:4px;"></div>
+          <svg id="savings-pie" viewBox="0 0 260 220" width="100%" style="display:block;max-width:280px;margin:0 auto;overflow:visible;"></svg>
         </div>
       </div>
     </div>
@@ -1339,42 +1338,73 @@ function updateSavingsSummary(){
   const disp=document.getElementById('total-saved-display');
   if(disp) disp.textContent='$'+total.toFixed(2);
 
-  // Pie chart
   const data=getDreamData();
   const wrap=document.getElementById('savings-pie-wrap');
   const svgEl=document.getElementById('savings-pie');
-  const legend=document.getElementById('savings-pie-legend');
-  if(!wrap||!svgEl||!legend) return;
+  if(!wrap||!svgEl) return;
   if(data.length===0){wrap.style.display='none';return;}
   wrap.style.display='block';
 
-  // Use target amount as the slice weight (not saved), so all dreams show even at $0 saved
+  const cx=130,cy=110,r=72;
   const totalTarget=data.reduce((s,d)=>s+d.target,0)||1;
-  const cx=60,cy=60,r=50;
   let startAngle=-Math.PI/2;
-  let paths='';
+  let slices='', labels='';
+
+  // Light tint versions of each color
+  const LIGHT=['#EDD8CC','#C8D8C6','#D8CCEB','#EDD9B0','#C0D6E8','#EDD0D0','#CFDBC2'];
 
   data.forEach((d,i)=>{
-    const slice=(d.target/totalTarget)*2*Math.PI;
-    const endAngle=startAngle+slice;
-    const x1=cx+r*Math.cos(startAngle),y1=cy+r*Math.sin(startAngle);
-    const x2=cx+r*Math.cos(endAngle),y2=cy+r*Math.sin(endAngle);
-    const large=slice>Math.PI?1:0;
+    const sliceAngle=(d.target/totalTarget)*2*Math.PI;
+    const savedAngle=(d.pct/100)*sliceAngle;
+    const remainAngle=sliceAngle-savedAngle;
     const color=PIE_COLORS[i%PIE_COLORS.length];
+    const light=LIGHT[i%LIGHT.length];
+
+    // Draw remaining (light) portion first — full slice in light color
+    const endFull=startAngle+sliceAngle;
+    const fx1=cx+r*Math.cos(startAngle),fy1=cy+r*Math.sin(startAngle);
+    const fx2=cx+r*Math.cos(endFull),fy2=cy+r*Math.sin(endFull);
+    const lgFull=sliceAngle>Math.PI?1:0;
     if(data.length===1){
-      paths+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="${color}" opacity="0.9"/>`;
+      slices+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="${light}" stroke="white" stroke-width="2"/>`;
     } else {
-      paths+=`<path d="M${cx},${cy} L${x1.toFixed(3)},${y1.toFixed(3)} A${r},${r} 0 ${large},1 ${x2.toFixed(3)},${y2.toFixed(3)} Z" fill="${color}" opacity="0.9" stroke="white" stroke-width="1.5"/>`;
+      slices+=`<path d="M${cx},${cy} L${fx1.toFixed(2)},${fy1.toFixed(2)} A${r},${r} 0 ${lgFull},1 ${fx2.toFixed(2)},${fy2.toFixed(2)} Z" fill="${light}" stroke="white" stroke-width="2"/>`;
     }
-    startAngle=endAngle;
+
+    // Draw saved (filled) portion on top
+    if(savedAngle>0.001){
+      const endSaved=startAngle+savedAngle;
+      const sx1=cx+r*Math.cos(startAngle),sy1=cy+r*Math.sin(startAngle);
+      const sx2=cx+r*Math.cos(endSaved),sy2=cy+r*Math.sin(endSaved);
+      const lgSaved=savedAngle>Math.PI?1:0;
+      if(data.length===1&&d.pct>=100){
+        slices+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="${color}" stroke="white" stroke-width="2"/>`;
+      } else if(savedAngle>0.001){
+        slices+=`<path d="M${cx},${cy} L${sx1.toFixed(2)},${sy1.toFixed(2)} A${r},${r} 0 ${lgSaved},1 ${sx2.toFixed(2)},${sy2.toFixed(2)} Z" fill="${color}" stroke="white" stroke-width="2"/>`;
+      }
+    }
+
+    // Label — positioned outside the slice at midpoint angle
+    const midAngle=startAngle+sliceAngle/2;
+    const labelR=r+28;
+    const lx=(cx+labelR*Math.cos(midAngle)).toFixed(1);
+    const ly=(cy+labelR*Math.sin(midAngle)).toFixed(1);
+    const anchor=Math.cos(midAngle)>0.1?'start':Math.cos(midAngle)<-0.1?'end':'middle';
+    labels+=`<text x="${lx}" y="${parseFloat(ly)-5}" text-anchor="${anchor}" font-family="'Jost',sans-serif" font-size="10" font-weight="600" fill="#3D2B2B">${d.name}</text>`;
+    labels+=`<text x="${lx}" y="${parseFloat(ly)+8}" text-anchor="${anchor}" font-family="'Jost',sans-serif" font-size="9" fill="#9A8878">${d.pct}% saved</text>`;
+
+    // Connector line from pie edge to label
+    const lineR1=r+3, lineR2=r+18;
+    const l1x=(cx+lineR1*Math.cos(midAngle)).toFixed(1);
+    const l1y=(cy+lineR1*Math.sin(midAngle)).toFixed(1);
+    const l2x=(cx+lineR2*Math.cos(midAngle)).toFixed(1);
+    const l2y=(cy+lineR2*Math.sin(midAngle)).toFixed(1);
+    labels+=`<line x1="${l1x}" y1="${l1y}" x2="${l2x}" y2="${l2y}" stroke="#C9B8A8" stroke-width="1"/>`;
+
+    startAngle+=sliceAngle;
   });
 
-  svgEl.innerHTML=paths;
-  legend.innerHTML=data.map((d,i)=>`
-    <div style="display:flex;align-items:center;gap:6px;">
-      <span style="width:10px;height:10px;border-radius:50%;background:${PIE_COLORS[i%PIE_COLORS.length]};flex-shrink:0;display:inline-block;"></span>
-      <span style="font-size:11px;color:var(--text-soft);">${d.name} — ${d.pct}% saved</span>
-    </div>`).join('');
+  svgEl.innerHTML=slices+labels;
 }
 let dc=3;
 const DE=['🌴','💍','📚','🎓','🚗','🎨','🌍','💪','🌸','🎵'];
