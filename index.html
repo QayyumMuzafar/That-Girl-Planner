@@ -1022,7 +1022,7 @@ function buildHabitImgWrap(src){
       ${Array.from({length:36},(_,i)=>{
         const day = i+1;
         const isDayTile = day <= 31;
-        return `<div id="habit-tile-${day}" style="background:var(--mocha);transition:opacity .8s ease;${isDayTile?'':'opacity:0;'}"></div>`;
+        return `<div id="habit-tile-${day}" style="background:var(--mocha);transition:opacity .8s ease;"></div>`;
       }).join('')}
     </div>`;
   updateHabitReveal();
@@ -1030,14 +1030,34 @@ function buildHabitImgWrap(src){
 
 // Upload function removed — image is now auto-generated monthly
 
+// Pre-shuffled tile order seeded by month so it's consistent within a month
+function getShuffledTiles(){
+  const now = new Date();
+  const seed = now.getFullYear() * 100 + now.getMonth();
+  // Seeded shuffle (mulberry32)
+  let s = seed;
+  function rand(){ s^=s<<13;s^=s>>17;s^=s<<5;return(s>>>0)/4294967296; }
+  const arr = Array.from({length:31},(_,i)=>i+1);
+  for(let i=arr.length-1;i>0;i--){
+    const j=Math.floor(rand()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+const TILE_ORDER = getShuffledTiles(); // tile_order[0] = tile to remove on day 1, etc.
+
 function updateHabitReveal(){
   let completeDays = 0;
   for(let d=1;d<=31;d++){
     const cbs = document.querySelectorAll(`.habit-check[data-day="${d}"]`);
     const dayComplete = cbs.length > 0 && Array.from(cbs).every(cb=>cb.checked);
-    const tile = document.getElementById(`habit-tile-${d}`);
-    if(tile) tile.style.opacity = dayComplete ? '0' : '1';
     if(dayComplete) completeDays++;
+  }
+  // Reveal tiles in shuffled order up to completeDays
+  for(let i=0;i<31;i++){
+    const tileId = TILE_ORDER[i];
+    const tile = document.getElementById(`habit-tile-${tileId}`);
+    if(tile) tile.style.opacity = i < completeDays ? '0' : '1';
   }
   const pct = Math.round(completeDays/31*100);
   const counter = document.getElementById('habit-reveal-counter');
