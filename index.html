@@ -621,25 +621,27 @@ button, input, textarea, select, a,
             <button class="mood-btn" onclick="selectMood(this)">💪<span class="mlabel">Powerful</span></button>
           </div>
         </div>
-        <div class="card">
-          <div class="card-title">💧 Water Tracker</div>
-          <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Click each drop — goal: 8/day</p>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
-            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
-            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
-            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
-            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
-            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
-            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
-            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+        <div class="grid-2" style="gap:18px;">
+          <div class="card">
+            <div class="card-title">💧 Water Tracker</div>
+            <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Click each drop — goal: 8/day</p>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+              <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+              <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+              <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+              <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+              <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+              <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+              <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+            </div>
           </div>
-        </div>
-        <div class="card">
-          <div class="card-title">🎵 Vibe of the Day</div>
-          <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">Paste a Spotify link ✨</p>
-          <textarea class="spotify-paste" id="spotify-input" placeholder="Paste your Spotify link here..." oninput="handleSpotify(this)"></textarea>
-          <div id="spotify-container"></div>
+          <div class="card">
+            <div class="card-title">🎵 Vibe of the Day</div>
+            <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">Paste a Spotify link ✨</p>
+            <textarea class="spotify-paste" id="spotify-input" placeholder="Paste your Spotify link here..." oninput="handleSpotify(this)"></textarea>
+            <div id="spotify-container"></div>
+          </div>
         </div>
       </div>
       <div>
