@@ -352,7 +352,8 @@ button, input, textarea, select, a,
 
   /* Habit image — centre on mobile */
   #habit-img-section { flex-direction: column; align-items: center; text-align: center; }
-  #habit-month-label, #habit-reveal-counter { text-align: center; }
+  #habit-img-section > div:first-child { display: flex; flex-direction: column; align-items: center; width: 100%; }
+  #habit-month-label, #habit-reveal-counter { text-align: center; display: block; width: 100%; }
   /* Show hamburger and save button */
   .hamburger { display: flex; }
   #save-btn  { display: flex; }
