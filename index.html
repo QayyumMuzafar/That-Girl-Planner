@@ -350,6 +350,9 @@ button, input, textarea, select, a,
     position: static !important;
   }
 
+  /* Habit image — centre on mobile */
+  #habit-img-section { flex-direction: column; align-items: center; text-align: center; }
+  #habit-month-label, #habit-reveal-counter { text-align: center; }
   /* Show hamburger and save button */
   .hamburger { display: flex; }
   #save-btn  { display: flex; }
@@ -790,7 +793,7 @@ button, input, textarea, select, a,
         <span style="font-size:11px;color:var(--text-muted);">JPG, PNG, HEIC, GIF — multiple files welcome</span>
         <input type="file" id="photos-file-input" accept="image/*" multiple style="display:none;" onchange="photosHandleFiles(this.files)">
       </label>
-      <div id="photos-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:18px;"></div>
+      <div id="photos-grid" style="display:flex;gap:10px;margin-top:18px;overflow-x:auto;padding-bottom:8px;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;"></div>
     </div>
 
     <div class="grid-2">
@@ -876,9 +879,9 @@ button, input, textarea, select, a,
     </div>
     <div class="card">
       <!-- Image Reveal Upload -->
-      <div style="display:flex;align-items:flex-start;gap:24px;margin-bottom:22px;flex-wrap:wrap;">
+      <div id="habit-img-section" style="display:flex;align-items:flex-start;gap:24px;margin-bottom:22px;flex-wrap:wrap;">
         <div style="flex-shrink:0;">
-          <div style="flex-shrink:0;">
+          <div style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;">
             <div id="habit-img-wrap" style="width:200px;height:200px;border-radius:var(--radius);overflow:hidden;background:var(--ivory);border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;position:relative;">
               <span style="font-size:22px;">⏳</span>
               <span style="font-size:11px;color:var(--text-muted);">Loading image...</span>
@@ -914,7 +917,16 @@ button, input, textarea, select, a,
     <div class="grid-3" style="margin-bottom:18px;">
       <div class="stat-card"><div class="stat-label">Monthly Goal</div><div class="stat-value">$<input type="text" id="income-goal" style="border:none;background:transparent;font-family:'Playfair Display',serif;font-size:26px;font-weight:500;color:var(--mocha);width:110px;outline:none;" placeholder="0"></div><div class="stat-sub">Your target this month</div></div>
       <div class="stat-card"><div class="stat-label">Total Income</div><div class="stat-value" id="total-income-display">$0.00</div><div class="stat-sub">Logged this month</div></div>
-      <div class="stat-card"><div class="stat-label">Total Saved</div><div class="stat-value">$<input type="text" style="border:none;background:transparent;font-family:'Playfair Display',serif;font-size:26px;font-weight:500;color:var(--mocha);width:110px;outline:none;" placeholder="0"></div><div class="stat-sub">Toward your dreams</div></div>
+      <div class="stat-card" id="total-saved-card" style="position:relative;overflow:hidden;">
+        <div class="stat-label">Total Saved</div>
+        <div class="stat-value" id="total-saved-display">$0.00</div>
+        <div class="stat-sub">Across all dreams</div>
+        <!-- Pie chart -->
+        <div id="savings-pie-wrap" style="margin-top:14px;display:none;">
+          <svg id="savings-pie" viewBox="0 0 120 120" width="120" height="120" style="display:block;margin:0 auto;"></svg>
+          <div id="savings-pie-legend" style="margin-top:10px;display:flex;flex-direction:column;gap:4px;"></div>
+        </div>
+      </div>
     </div>
     <div class="card">
       <div class="card-title">💵 Income Log</div>
@@ -923,9 +935,9 @@ button, input, textarea, select, a,
     </div>
     <div class="section-heading">🏦 Savings Dreams</div>
     <div class="grid-3" id="dreams-grid">
-      <div class="dream-card" id="dream-0"><div style="position:relative;margin-bottom:6px;"><div class="emoji-btn" onclick="openEmojiPicker(this)">✈️<span class="emoji-hint">tap to change</span></div><div class="emoji-picker-popup"></div></div><input type="text" class="editable" placeholder="Dream name..." style="font-family:'Playfair Display',serif;font-size:15px;"><div class="field-label">Target Amount ($)</div><input type="number" class="editable dream-target" placeholder="0" oninput="updateProgress(this)"><div class="field-label">Saved So Far ($)</div><input type="number" class="editable dream-saved" placeholder="0" oninput="updateProgress(this)"><div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div><div class="dream-pct" style="font-size:11px;color:var(--text-muted);margin-top:2px;">0% toward goal</div><input type="text" class="editable" placeholder="Affirmation..." style="font-style:italic;font-size:12px;"></div>
-      <div class="dream-card" id="dream-1"><div style="position:relative;margin-bottom:6px;"><div class="emoji-btn" onclick="openEmojiPicker(this)">💻<span class="emoji-hint">tap to change</span></div><div class="emoji-picker-popup"></div></div><input type="text" class="editable" placeholder="Dream name..." style="font-family:'Playfair Display',serif;font-size:15px;"><div class="field-label">Target Amount ($)</div><input type="number" class="editable dream-target" placeholder="0" oninput="updateProgress(this)"><div class="field-label">Saved So Far ($)</div><input type="number" class="editable dream-saved" placeholder="0" oninput="updateProgress(this)"><div class="progress-bar"><div class="progress-fill green" style="width:0%"></div></div><div class="dream-pct" style="font-size:11px;color:var(--text-muted);margin-top:2px;">0% toward goal</div><input type="text" class="editable" placeholder="Affirmation..." style="font-style:italic;font-size:12px;"></div>
-      <div class="dream-card" id="dream-2"><div style="position:relative;margin-bottom:6px;"><div class="emoji-btn" onclick="openEmojiPicker(this)">🏡<span class="emoji-hint">tap to change</span></div><div class="emoji-picker-popup"></div></div><input type="text" class="editable" placeholder="Dream name..." style="font-family:'Playfair Display',serif;font-size:15px;"><div class="field-label">Target Amount ($)</div><input type="number" class="editable dream-target" placeholder="0" oninput="updateProgress(this)"><div class="field-label">Saved So Far ($)</div><input type="number" class="editable dream-saved" placeholder="0" oninput="updateProgress(this)"><div class="progress-bar"><div class="progress-fill gold" style="width:0%"></div></div><div class="dream-pct" style="font-size:11px;color:var(--text-muted);margin-top:2px;">0% toward goal</div><input type="text" class="editable" placeholder="Affirmation..." style="font-style:italic;font-size:12px;"></div>
+      <div class="dream-card" id="dream-0"><div style="position:relative;margin-bottom:6px;"><div class="emoji-btn" onclick="openEmojiPicker(this)">✈️<span class="emoji-hint">tap to change</span></div><div class="emoji-picker-popup"></div></div><input type="text" class="editable" placeholder="Dream name..." style="font-family:'Playfair Display',serif;font-size:15px;" oninput="updateSavingsSummary()"><div class="field-label">Target Amount ($)</div><input type="number" class="editable dream-target" placeholder="0" oninput="updateProgress(this)"><div class="field-label">Saved So Far ($)</div><input type="number" class="editable dream-saved" placeholder="0" oninput="updateProgress(this)"><div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div><div class="dream-pct" style="font-size:11px;color:var(--text-muted);margin-top:2px;">0% toward goal</div><input type="text" class="editable" placeholder="Affirmation..." style="font-style:italic;font-size:12px;"></div>
+      <div class="dream-card" id="dream-1"><div style="position:relative;margin-bottom:6px;"><div class="emoji-btn" onclick="openEmojiPicker(this)">💻<span class="emoji-hint">tap to change</span></div><div class="emoji-picker-popup"></div></div><input type="text" class="editable" placeholder="Dream name..." style="font-family:'Playfair Display',serif;font-size:15px;" oninput="updateSavingsSummary()"><div class="field-label">Target Amount ($)</div><input type="number" class="editable dream-target" placeholder="0" oninput="updateProgress(this)"><div class="field-label">Saved So Far ($)</div><input type="number" class="editable dream-saved" placeholder="0" oninput="updateProgress(this)"><div class="progress-bar"><div class="progress-fill green" style="width:0%"></div></div><div class="dream-pct" style="font-size:11px;color:var(--text-muted);margin-top:2px;">0% toward goal</div><input type="text" class="editable" placeholder="Affirmation..." style="font-style:italic;font-size:12px;"></div>
+      <div class="dream-card" id="dream-2"><div style="position:relative;margin-bottom:6px;"><div class="emoji-btn" onclick="openEmojiPicker(this)">🏡<span class="emoji-hint">tap to change</span></div><div class="emoji-picker-popup"></div></div><input type="text" class="editable" placeholder="Dream name..." style="font-family:'Playfair Display',serif;font-size:15px;" oninput="updateSavingsSummary()"><div class="field-label">Target Amount ($)</div><input type="number" class="editable dream-target" placeholder="0" oninput="updateProgress(this)"><div class="field-label">Saved So Far ($)</div><input type="number" class="editable dream-saved" placeholder="0" oninput="updateProgress(this)"><div class="progress-bar"><div class="progress-fill gold" style="width:0%"></div></div><div class="dream-pct" style="font-size:11px;color:var(--text-muted);margin-top:2px;">0% toward goal</div><input type="text" class="editable" placeholder="Affirmation..." style="font-style:italic;font-size:12px;"></div>
       <button class="add-dream-btn" onclick="addDreamCard()"><span style="font-size:28px;">✦</span><span>Add a dream</span></button>
     </div>
   </div>
@@ -1294,6 +1306,8 @@ function addIncomeRow(){
 addIncomeRow();addIncomeRow();addIncomeRow();
 
 // ─── SAVINGS DREAMS ───
+const PIE_COLORS = ['#C9876A','#8BA888','#B8A4C8','#C9A96E','#7CA4B8','#D4A5A5','#A8B887'];
+
 function updateProgress(inp){
   const card=inp.closest('.dream-card');
   const t=parseFloat(card.querySelector('.dream-target').value)||0;
@@ -1301,6 +1315,64 @@ function updateProgress(inp){
   const pct=t>0?Math.min(100,Math.round(s/t*100)):0;
   card.querySelector('.progress-fill').style.width=pct+'%';
   const l=card.querySelector('.dream-pct');if(l)l.textContent=pct+'% toward goal';
+  updateSavingsSummary();
+}
+
+function getDreamData(){
+  const data=[];
+  document.querySelectorAll('.dream-card').forEach(card=>{
+    const nameEl=card.querySelector('input[placeholder="Dream name..."]');
+    const target=parseFloat(card.querySelector('.dream-target')?.value)||0;
+    const saved=parseFloat(card.querySelector('.dream-saved')?.value)||0;
+    const name=(nameEl?.value?.trim())||'Dream';
+    const pct=target>0?Math.min(100,Math.round(saved/target*100)):0;
+    if(target>0&&pct<100) data.push({name,saved,target,pct});
+  });
+  return data;
+}
+
+function updateSavingsSummary(){
+  // Total saved
+  let total=0;
+  document.querySelectorAll('.dream-card').forEach(card=>{total+=parseFloat(card.querySelector('.dream-saved')?.value)||0;});
+  const disp=document.getElementById('total-saved-display');
+  if(disp) disp.textContent='$'+total.toFixed(2);
+
+  // Pie chart
+  const data=getDreamData();
+  const wrap=document.getElementById('savings-pie-wrap');
+  const svgEl=document.getElementById('savings-pie');
+  const legend=document.getElementById('savings-pie-legend');
+  if(!wrap||!svgEl||!legend) return;
+  if(data.length===0){wrap.style.display='none';return;}
+  wrap.style.display='block';
+
+  const totalSaved=data.reduce((s,d)=>s+d.saved,0)||1;
+  const cx=60,cy=60,r=50;
+  let startAngle=-Math.PI/2;
+  let paths='';
+
+  data.forEach((d,i)=>{
+    const slice=(d.saved/totalSaved)*2*Math.PI;
+    const endAngle=startAngle+slice;
+    const x1=cx+r*Math.cos(startAngle),y1=cy+r*Math.sin(startAngle);
+    const x2=cx+r*Math.cos(endAngle),y2=cy+r*Math.sin(endAngle);
+    const large=slice>Math.PI?1:0;
+    const color=PIE_COLORS[i%PIE_COLORS.length];
+    if(data.length===1){
+      paths+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="${color}" opacity="0.85"/>`;
+    } else {
+      paths+=`<path d="M${cx},${cy} L${x1},${y1} A${r},${r} 0 ${large},1 ${x2},${y2} Z" fill="${color}" opacity="0.85"/>`;
+    }
+    startAngle=endAngle;
+  });
+
+  svgEl.innerHTML=paths;
+  legend.innerHTML=data.map((d,i)=>`
+    <div style="display:flex;align-items:center;gap:6px;">
+      <span style="width:10px;height:10px;border-radius:50%;background:${PIE_COLORS[i%PIE_COLORS.length]};flex-shrink:0;display:inline-block;"></span>
+      <span style="font-size:11px;color:var(--text-soft);">${d.name} — ${d.pct}%</span>
+    </div>`).join('');
 }
 let dc=3;
 const DE=['🌴','💍','📚','🎓','🚗','🎨','🌍','💪','🌸','🎵'];
@@ -1311,7 +1383,7 @@ function addDreamCard(){
   const fill=DF[dc%DF.length];
   const card=document.createElement('div');
   card.className='dream-card';
-  card.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;"><div style="position:relative;"><div class="emoji-btn" onclick="openEmojiPicker(this)">${DE[dc%DE.length]}<span class="emoji-hint">tap to change</span></div><div class="emoji-picker-popup"></div></div><button class="del-btn" onclick="this.closest('.dream-card').remove()">✕</button></div><input type="text" class="editable" placeholder="Dream name..." style="font-family:'Playfair Display',serif;font-size:15px;"><div class="field-label">Target Amount ($)</div><input type="number" class="editable dream-target" placeholder="0" oninput="updateProgress(this)"><div class="field-label">Saved So Far ($)</div><input type="number" class="editable dream-saved" placeholder="0" oninput="updateProgress(this)"><div class="progress-bar"><div class="progress-fill ${fill}" style="width:0%"></div></div><div class="dream-pct" style="font-size:11px;color:var(--text-muted);margin-top:2px;">0% toward goal</div><input type="text" class="editable" placeholder="Affirmation..." style="font-style:italic;font-size:12px;">`;
+  card.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;"><div style="position:relative;"><div class="emoji-btn" onclick="openEmojiPicker(this)">${DE[dc%DE.length]}<span class="emoji-hint">tap to change</span></div><div class="emoji-picker-popup"></div></div><button class="del-btn" onclick="this.closest('.dream-card').remove();updateSavingsSummary()">✕</button></div><input type="text" class="editable" placeholder="Dream name..." style="font-family:'Playfair Display',serif;font-size:15px;" oninput="updateSavingsSummary()"><div class="field-label">Target Amount ($)</div><input type="number" class="editable dream-target" placeholder="0" oninput="updateProgress(this)"><div class="field-label">Saved So Far ($)</div><input type="number" class="editable dream-saved" placeholder="0" oninput="updateProgress(this)"><div class="progress-bar"><div class="progress-fill ${fill}" style="width:0%"></div></div><div class="dream-pct" style="font-size:11px;color:var(--text-muted);margin-top:2px;">0% toward goal</div><input type="text" class="editable" placeholder="Affirmation..." style="font-style:italic;font-size:12px;">`;
   g.insertBefore(card,btn);dc++;
 }
 
@@ -1769,46 +1841,43 @@ function photosRenderGrid(date){
     // Update dropzone state
     const dz = document.getElementById('photos-dropzone');
     if(dz){
-      dz.style.opacity     = full ? '0.45' : '1';
+      dz.style.opacity       = full ? '0.45' : '1';
       dz.style.pointerEvents = full ? 'none' : 'auto';
-      dz.style.cursor      = full ? 'not-allowed' : 'pointer';
+      dz.style.cursor        = full ? 'not-allowed' : 'pointer';
     }
 
-    // Update counter label in card title area
+    // Update counter
     const counter = document.getElementById('photos-counter');
     if(counter) counter.textContent = count+'/10 photos';
 
     if(count === 0){
-      grid.innerHTML = '<p style="font-size:12px;color:var(--text-muted);grid-column:1/-1;text-align:center;padding:12px 0;">No photos for this day yet — drop some in above ✦</p>';
+      grid.style.display = 'block';
+      grid.innerHTML = '<p style="font-size:12px;color:var(--text-muted);text-align:center;padding:12px 0;">No photos for this day yet — drop some in above ✦</p>';
       return;
     }
+
+    grid.style.display = 'flex';
+
+    // Fixed tile size: 4 visible at a time, scrollable
+    const tileSize = 'calc(25% - 8px)';
+
     all.sort((a,b)=>a.ts-b.ts).forEach(record => {
       const wrap = document.createElement('div');
-      wrap.style.cssText = 'position:relative;border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:1/1;background:var(--ivory);box-shadow:0 2px 8px var(--shadow);';
+      wrap.style.cssText = `flex:0 0 ${tileSize};min-width:${tileSize};position:relative;border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:1/1;background:var(--ivory);box-shadow:0 2px 8px var(--shadow);scroll-snap-align:start;`;
       const img  = document.createElement('img');
       img.src    = record.dataUrl;
       img.alt    = record.name;
-      img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s;cursor:zoom-in;';
-      img.onclick = () => photosLightbox(record.dataUrl, record.name, record.date);
-      img.onmouseover = () => img.style.transform = 'scale(1.03)';
-      img.onmouseout  = () => img.style.transform = 'scale(1)';
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in;';
+      img.onclick     = () => photosLightbox(record.dataUrl, record.name, record.date);
+      // delete button — always visible on mobile (no hover)
       const del  = document.createElement('button');
       del.innerHTML = '✕';
       del.title   = 'Remove photo';
-      del.style.cssText = 'position:absolute;top:6px;right:6px;background:rgba(61,43,43,.75);color:white;border:none;border-radius:50%;width:24px;height:24px;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;';
-      wrap.onmouseover = () => del.style.opacity = '1';
-      wrap.onmouseout  = () => del.style.opacity = '0';
-      del.onclick = () => photosDelete(record.id, date);
+      del.style.cssText = 'position:absolute;top:5px;right:5px;background:rgba(61,43,43,.75);color:white;border:none;border-radius:50%;width:22px;height:22px;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;';
+      del.onclick = (e) => { e.stopPropagation(); photosDelete(record.id, date); };
       wrap.append(img, del);
       grid.appendChild(wrap);
     });
-
-    if(full){
-      const msg = document.createElement('p');
-      msg.style.cssText = 'font-size:12px;color:var(--text-muted);grid-column:1/-1;text-align:center;padding:8px 0;';
-      msg.textContent = '10/10 — remove a photo to add more';
-      grid.appendChild(msg);
-    }
   };
 }
 
