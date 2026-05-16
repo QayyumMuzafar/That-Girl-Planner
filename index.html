@@ -611,8 +611,6 @@ button, input, textarea, select, a,
             <li><input type="checkbox" class="cl-cb" onchange="markDone(this)"><input type="text" class="cl-text" value="🥉 Nice to get done..."></li>
           </ul>
         </div>
-      </div>
-      <div>
         <div class="card">
           <div class="card-title">💆 Morning Mood Check-In</div>
           <div class="mood-selector" id="mood-selector">
@@ -623,6 +621,28 @@ button, input, textarea, select, a,
             <button class="mood-btn" onclick="selectMood(this)">💪<span class="mlabel">Powerful</span></button>
           </div>
         </div>
+        <div class="card">
+          <div class="card-title">💧 Water Tracker</div>
+          <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Click each drop — goal: 8/day</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">🎵 Vibe of the Day</div>
+          <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">Paste a Spotify link ✨</p>
+          <textarea class="spotify-paste" id="spotify-input" placeholder="Paste your Spotify link here..." oninput="handleSpotify(this)"></textarea>
+          <div id="spotify-container"></div>
+        </div>
+      </div>
+      <div>
         <!-- PERIOD TRACKER -->
         <div class="period-card" style="margin-bottom:0;">
           <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:10px;">
@@ -666,26 +686,6 @@ button, input, textarea, select, a,
             <div class="period-stat"><div class="ps-val" id="ovulation-day">—</div><div class="ps-lbl">Ovulation day</div></div>
             <div class="period-stat"><div class="ps-val" id="fertile-window">—</div><div class="ps-lbl">Fertile window</div></div>
           </div>
-        </div>
-        <div class="card">
-          <div class="card-title">💧 Water Tracker</div>
-          <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Click each drop — goal: 8/day</p>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
-            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
-            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
-            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
-            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
-            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
-            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
-            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-title">🎵 Vibe of the Day</div>
-          <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">Paste a Spotify link ✨</p>
-          <textarea class="spotify-paste" id="spotify-input" placeholder="Paste your Spotify link here..." oninput="handleSpotify(this)"></textarea>
-          <div id="spotify-container"></div>
         </div>
       </div>
     </div>
