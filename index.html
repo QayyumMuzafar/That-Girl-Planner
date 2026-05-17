@@ -1677,7 +1677,7 @@ function gatherData(){
   }
 
   // Mood buttons — save which one is selected
-  const activeMood = document.querySelector('.mood-btn.active');
+  const activeMood = document.querySelector('.mood-btn.selected');
   data['mood-selected'] = activeMood ? activeMood.id : '';
 
   // Symptom tags — save which are active
@@ -1771,8 +1771,8 @@ function applyData(data){
       if(el){ el.classList.toggle('active', val); }
 
     } else if(key === 'mood-selected'){
-      document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('active'));
-      if(val){ const mb=document.getElementById(val); if(mb) mb.classList.add('active'); }
+      document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('selected'));
+      if(val){ const mb=document.getElementById(val); if(mb) mb.classList.add('selected'); }
 
     } else if(key.startsWith('habit-cb-')){
       const idx = parseInt(key.replace('habit-cb-',''));
