@@ -2111,7 +2111,7 @@ async function photosGetFolder(){
   return photosFolderId;
 }
 
-// Upload a single image file to Drive
+// Upload a single image file to Drive and make it accessible cross-session
 async function photosUploadToDrive(file, date){
   const folderId = await photosGetFolder();
   if(!folderId) throw new Error('No folder');
@@ -2119,10 +2119,18 @@ async function photosUploadToDrive(file, date){
   const form = new FormData();
   form.append('metadata', new Blob([JSON.stringify(meta)],{type:'application/json'}));
   form.append('file', file);
-  const r = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name,webContentLink,thumbnailLink', {
+  const r = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name', {
     method:'POST', headers:{Authorization:`Bearer ${gAccessToken}`}, body:form
   });
-  return await r.json();
+  const created = await r.json();
+  if(!created.id) throw new Error('Upload failed');
+
+  // Convert file to base64 and store locally as cache for fast display
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = e => resolve({ id: created.id, name: created.name, dataUrl: e.target.result });
+    reader.readAsDataURL(file);
+  });
 }
 
 // Delete a photo from Drive
@@ -2169,7 +2177,7 @@ async function photosHandleFiles(files){
     try {
       const result = await photosUploadToDrive(file, date);
       if(!photosIndex[date]) photosIndex[date] = [];
-      photosIndex[date].push({ driveId: result.id, name: file.name, ts: Date.now() });
+      photosIndex[date].push({ driveId: result.id, name: file.name, ts: Date.now(), dataUrl: result.dataUrl });
       photosSaveIndex();
     } catch(e){ console.error('Photo upload error:', e); }
   }
@@ -2231,16 +2239,29 @@ function photosRenderGrid(date){
     wrap.appendChild(del);
     grid.appendChild(wrap);
 
-    // Fetch image as blob (works with Authorization header)
-    photosGetBlobUrl(record.driveId).then(blobUrl => {
-      if(!blobUrl){ placeholder.textContent = '⚠️'; return; }
+    // Use cached dataUrl if available (instant), else fetch from Drive
+    if(record.dataUrl){
       const img = document.createElement('img');
-      img.src   = blobUrl;
+      img.src   = record.dataUrl;
       img.alt   = record.name;
       img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in;';
-      img.onclick = () => photosLightboxBlob(blobUrl, record.name, date);
+      img.onclick = () => photosLightboxBlob(record.dataUrl, record.name, date);
       placeholder.replaceWith(img);
-    });
+    } else {
+      // Fetch from Drive (cross-device case)
+      photosGetBlobUrl(record.driveId).then(blobUrl => {
+        if(!blobUrl){ placeholder.textContent = '⚠️'; return; }
+        // Cache it locally for next time
+        record.dataUrl = blobUrl;
+        photosSaveIndex();
+        const img = document.createElement('img');
+        img.src   = blobUrl;
+        img.alt   = record.name;
+        img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in;';
+        img.onclick = () => photosLightboxBlob(blobUrl, record.name, date);
+        placeholder.replaceWith(img);
+      });
+    }
   });
 }
 
