@@ -610,33 +610,33 @@ button, input, textarea, select, a,
         <div class="card">
           <div class="card-title">🥇 Today's Top 3</div>
           <ul class="checklist">
-            <li><input type="checkbox" class="cl-cb" onchange="markDone(this)"><input type="text" class="cl-text" value="🥇 Must happen today..."></li>
-            <li><input type="checkbox" class="cl-cb" onchange="markDone(this)"><input type="text" class="cl-text" value="🥈 Important but flexible..."></li>
-            <li><input type="checkbox" class="cl-cb" onchange="markDone(this)"><input type="text" class="cl-text" value="🥉 Nice to get done..."></li>
+            <li><input type="checkbox" class="cl-cb" id="top3-1-cb" onchange="markDone(this)"><input type="text" class="cl-text" id="top3-1" value="🥇 Must happen today..."></li>
+            <li><input type="checkbox" class="cl-cb" id="top3-2-cb" onchange="markDone(this)"><input type="text" class="cl-text" id="top3-2" value="🥈 Important but flexible..."></li>
+            <li><input type="checkbox" class="cl-cb" id="top3-3-cb" onchange="markDone(this)"><input type="text" class="cl-text" id="top3-3" value="🥉 Nice to get done..."></li>
           </ul>
         </div>
         <div class="card">
           <div class="card-title">💆 Morning Mood Check-In</div>
           <div class="mood-selector" id="mood-selector">
-            <button class="mood-btn" onclick="selectMood(this)">😴<span class="mlabel">Tired</span></button>
-            <button class="mood-btn" onclick="selectMood(this)">😐<span class="mlabel">Meh</span></button>
-            <button class="mood-btn" onclick="selectMood(this)">😊<span class="mlabel">Good</span></button>
-            <button class="mood-btn" onclick="selectMood(this)">✨<span class="mlabel">Amazing</span></button>
-            <button class="mood-btn" onclick="selectMood(this)">💪<span class="mlabel">Powerful</span></button>
+            <button class="mood-btn" id="mood-tired" onclick="selectMood(this)">😴<span class="mlabel">Tired</span></button>
+            <button class="mood-btn" id="mood-meh" onclick="selectMood(this)">😐<span class="mlabel">Meh</span></button>
+            <button class="mood-btn" id="mood-good" onclick="selectMood(this)">😊<span class="mlabel">Good</span></button>
+            <button class="mood-btn" id="mood-amazing" onclick="selectMood(this)">✨<span class="mlabel">Amazing</span></button>
+            <button class="mood-btn" id="mood-powerful" onclick="selectMood(this)">💪<span class="mlabel">Powerful</span></button>
           </div>
         </div>
         <div class="card">
           <div class="card-title">💧 Water Tracker</div>
           <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Click each drop — goal: 8/day</p>
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
-            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
-            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
-            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
-            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
-            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
-            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
-            <span onclick="this.style.opacity=this.style.opacity<.7?'1':'.3';this.style.transform=this.style.opacity>'0.5'?'scale(1.1)':'scale(1)'" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+            <span id="water-1" onclick="toggleWater(this)" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+            <span id="water-2" onclick="toggleWater(this)" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+            <span id="water-3" onclick="toggleWater(this)" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+            <span id="water-4" onclick="toggleWater(this)" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+            <span id="water-5" onclick="toggleWater(this)" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+            <span id="water-6" onclick="toggleWater(this)" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+            <span id="water-7" onclick="toggleWater(this)" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
+            <span id="water-8" onclick="toggleWater(this)" style="font-size:26px;cursor:pointer;opacity:.3;transition:all .2s;">💧</span>
           </div>
         </div>
       </div>
@@ -668,16 +668,16 @@ button, input, textarea, select, a,
           <div id="cycle-calendar" style="overflow-y:auto;max-height:280px;"></div>
           <div style="font-size:12px;color:var(--text-muted);margin:12px 0 6px;font-weight:500;">Today's symptoms:</div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;" id="symptom-tags">
-            <span class="symptom-tag" onclick="this.classList.toggle('active')">😴 Fatigue</span>
-            <span class="symptom-tag" onclick="this.classList.toggle('active')">🤕 Cramps</span>
-            <span class="symptom-tag" onclick="this.classList.toggle('active')">😤 Mood swings</span>
-            <span class="symptom-tag" onclick="this.classList.toggle('active')">🤢 Nausea</span>
-            <span class="symptom-tag" onclick="this.classList.toggle('active')">🎯 Focused</span>
-            <span class="symptom-tag" onclick="this.classList.toggle('active')">⚡ Energetic</span>
-            <span class="symptom-tag" onclick="this.classList.toggle('active')">💧 Bloating</span>
-            <span class="symptom-tag" onclick="this.classList.toggle('active')">🤯 Headache</span>
-            <span class="symptom-tag" onclick="this.classList.toggle('active')">🌙 Low energy</span>
-            <span class="symptom-tag" onclick="this.classList.toggle('active')">❤️ Loving</span>
+            <span class="symptom-tag" id="symptom-fatigue" onclick="this.classList.toggle('active')">😴 Fatigue</span>
+            <span class="symptom-tag" id="symptom-cramps" onclick="this.classList.toggle('active')">🤕 Cramps</span>
+            <span class="symptom-tag" id="symptom-mood-swings" onclick="this.classList.toggle('active')">😤 Mood swings</span>
+            <span class="symptom-tag" id="symptom-nausea" onclick="this.classList.toggle('active')">🤢 Nausea</span>
+            <span class="symptom-tag" id="symptom-focused" onclick="this.classList.toggle('active')">🎯 Focused</span>
+            <span class="symptom-tag" id="symptom-energetic" onclick="this.classList.toggle('active')">⚡ Energetic</span>
+            <span class="symptom-tag" id="symptom-bloating" onclick="this.classList.toggle('active')">💧 Bloating</span>
+            <span class="symptom-tag" id="symptom-headache" onclick="this.classList.toggle('active')">🤯 Headache</span>
+            <span class="symptom-tag" id="symptom-low-energy" onclick="this.classList.toggle('active')">🌙 Low energy</span>
+            <span class="symptom-tag" id="symptom-loving" onclick="this.classList.toggle('active')">❤️ Loving</span>
           </div>
           <div class="period-stats">
             <div class="period-stat"><div class="ps-val" id="next-period">—</div><div class="ps-lbl">Next period (days)</div></div>
@@ -805,10 +805,10 @@ button, input, textarea, select, a,
         </div>
         <div class="card">
           <div class="card-title">📝 Daily Journal</div>
-          <div class="callout callout-rose"><strong>What would make today a 10/10?</strong><textarea class="editable-area" placeholder="Write freely..." style="margin-top:8px;min-height:55px;"></textarea></div>
-          <div class="callout callout-sage"><strong>How can I show up as my highest self?</strong><textarea class="editable-area" placeholder="Write freely..." style="margin-top:8px;min-height:55px;"></textarea></div>
-          <div class="callout callout-purple"><strong>Tonight I'm proud that I...</strong><textarea class="editable-area" placeholder="Write freely..." style="margin-top:8px;min-height:55px;"></textarea></div>
-          <div class="callout callout-gold"><strong>Brain Dump:</strong><textarea class="editable-area" placeholder="No filter, no judgment..." style="margin-top:8px;min-height:75px;"></textarea></div>
+          <div class="callout callout-rose"><strong>What would make today a 10/10?</strong><textarea class="editable-area" id="dp-ten" placeholder="Write freely..." style="margin-top:8px;min-height:55px;"></textarea></div>
+          <div class="callout callout-sage"><strong>How can I show up as my highest self?</strong><textarea class="editable-area" id="dp-highest" placeholder="Write freely..." style="margin-top:8px;min-height:55px;"></textarea></div>
+          <div class="callout callout-purple"><strong>Tonight I'm proud that I...</strong><textarea class="editable-area" id="dp-proud" placeholder="Write freely..." style="margin-top:8px;min-height:55px;"></textarea></div>
+          <div class="callout callout-gold"><strong>Brain Dump:</strong><textarea class="editable-area" id="dp-dump" placeholder="No filter, no judgment..." style="margin-top:8px;min-height:75px;"></textarea></div>
         </div>
       </div>
       <div>
@@ -829,20 +829,20 @@ button, input, textarea, select, a,
     <div class="grid-2" style="margin-bottom:18px;">
       <div class="card">
         <div class="card-title">🎨 This Month's Theme</div>
-        <input type="text" class="editable" placeholder="e.g. The Build Season..." style="font-size:15px;font-family:'Playfair Display',serif;font-style:italic;">
-        <div class="field-label">Body Intention</div><input type="text" class="editable" placeholder="Your body intention...">
-        <div class="field-label">Business Intention</div><input type="text" class="editable" placeholder="Your business intention...">
-        <div class="field-label">Soul Intention</div><input type="text" class="editable" placeholder="Your soul intention...">
+        <input type="text" class="editable" id="month-theme" placeholder="e.g. The Build Season..." style="font-size:15px;font-family:'Playfair Display',serif;font-style:italic;">
+        <div class="field-label">Body Intention</div><input type="text" class="editable" id="month-body" placeholder="Your body intention...">
+        <div class="field-label">Business Intention</div><input type="text" class="editable" id="month-business" placeholder="Your business intention...">
+        <div class="field-label">Soul Intention</div><input type="text" class="editable" id="month-soul" placeholder="Your soul intention...">
       </div>
       <div class="card">
         <div class="card-title">💎 Non-Negotiables</div>
         <ul class="checklist">
-          <li><input type="checkbox" class="cl-cb" onchange="markDone(this)"><input type="text" class="cl-text" placeholder="Non-negotiable 1..."></li>
-          <li><input type="checkbox" class="cl-cb" onchange="markDone(this)"><input type="text" class="cl-text" placeholder="Non-negotiable 2..."></li>
-          <li><input type="checkbox" class="cl-cb" onchange="markDone(this)"><input type="text" class="cl-text" placeholder="Non-negotiable 3..."></li>
+          <li><input type="checkbox" class="cl-cb" id="month-nn1-cb" onchange="markDone(this)"><input type="text" class="cl-text" id="month-nn1" placeholder="Non-negotiable 1..."></li>
+          <li><input type="checkbox" class="cl-cb" id="month-nn2-cb" onchange="markDone(this)"><input type="text" class="cl-text" id="month-nn2" placeholder="Non-negotiable 2..."></li>
+          <li><input type="checkbox" class="cl-cb" id="month-nn3-cb" onchange="markDone(this)"><input type="text" class="cl-text" id="month-nn3" placeholder="Non-negotiable 3..."></li>
         </ul>
         <div class="field-label" style="margin-top:18px;">What I'm releasing this month</div>
-        <textarea class="editable-area" placeholder="What is no longer serving you?"></textarea>
+        <textarea class="editable-area" id="month-releasing" placeholder="What is no longer serving you?"></textarea>
       </div>
     </div>
     <div class="card">
@@ -856,8 +856,8 @@ button, input, textarea, select, a,
     <div class="card">
       <div class="card-title">📊 Monthly Review</div>
       <div class="grid-2">
-        <div><div class="callout callout-sage"><strong>Biggest win:</strong><textarea class="editable-area" placeholder="Celebrate yourself..." style="margin-top:8px;min-height:55px;"></textarea></div><div class="callout callout-gold"><strong>Biggest lesson:</strong><textarea class="editable-area" placeholder="What will you take forward..." style="margin-top:8px;min-height:55px;"></textarea></div></div>
-        <div><div class="callout callout-blue"><strong>I want more of:</strong><textarea class="editable-area" placeholder="More of..." style="margin-top:8px;min-height:55px;"></textarea></div><div class="callout callout-rose"><strong>I want less of:</strong><textarea class="editable-area" placeholder="Less of..." style="margin-top:8px;min-height:55px;"></textarea></div></div>
+        <div><div class="callout callout-sage"><strong>Biggest win:</strong><textarea class="editable-area" id="month-win" placeholder="Celebrate yourself..." style="margin-top:8px;min-height:55px;"></textarea></div><div class="callout callout-gold"><strong>Biggest lesson:</strong><textarea class="editable-area" id="month-lesson" placeholder="What will you take forward..." style="margin-top:8px;min-height:55px;"></textarea></div></div>
+        <div><div class="callout callout-blue"><strong>I want more of:</strong><textarea class="editable-area" id="month-more" placeholder="More of..." style="margin-top:8px;min-height:55px;"></textarea></div><div class="callout callout-rose"><strong>I want less of:</strong><textarea class="editable-area" id="month-less" placeholder="Less of..." style="margin-top:8px;min-height:55px;"></textarea></div></div>
       </div>
     </div>
   </div>
@@ -944,7 +944,7 @@ button, input, textarea, select, a,
 
   <!-- GOALS & VISION -->
   <div class="tab-page" id="tab-goals">
-    <div class="card"><div class="card-title">🌟 My Vision Statement</div><div class="callout callout-soft" style="margin-bottom:14px;font-family:'Cormorant Garamond',serif;font-size:15px;">Write in present tense as if it has already happened. Be bold.</div><textarea class="editable-area" placeholder="In 12 months, I am..." style="min-height:110px;font-family:'Cormorant Garamond',serif;font-size:16px;"></textarea></div>
+    <div class="card"><div class="card-title">🌟 My Vision Statement</div><div class="callout callout-soft" style="margin-bottom:14px;font-family:'Cormorant Garamond',serif;font-size:15px;">Write in present tense as if it has already happened. Be bold.</div><textarea class="editable-area" id="vision-statement" placeholder="In 12 months, I am..." style="min-height:110px;font-family:'Cormorant Garamond',serif;font-size:16px;"></textarea></div>
     <div class="section-heading">🎯 Annual Goals</div>
     <div class="grid-2">
       <div class="callout callout-sage"><strong>💚 Body & Health</strong><br><textarea class="editable-area" placeholder="Your health goals..." style="margin-top:8px;background:transparent;border-color:rgba(157,181,160,.4);"></textarea></div>
@@ -954,7 +954,7 @@ button, input, textarea, select, a,
     </div>
     <div class="section-heading">🎨 Vision Board</div>
     <div class="card"><p style="font-size:12px;color:var(--text-muted);margin-bottom:14px;">Click each slot to upload your vision images.</p><div class="vision-grid" id="vision-board"></div></div>
-    <div class="card" style="margin-top:18px;"><div class="card-title">💌 Letter to Future Me</div><textarea class="editable-area" placeholder="Dear [your name],&#10;&#10;It's [date one year from now] and I want to tell you..." style="min-height:180px;font-family:'Cormorant Garamond',serif;font-size:15px;line-height:1.8;"></textarea></div>
+    <div class="card" style="margin-top:18px;"><div class="card-title">💌 Letter to Future Me</div><textarea class="editable-area" id="letter-future" placeholder="Dear [your name],&#10;&#10;It's [date one year from now] and I want to tell you..." style="min-height:180px;font-family:'Cormorant Garamond',serif;font-size:15px;line-height:1.8;"></textarea></div>
   </div>
 
 </main>
@@ -1115,8 +1115,29 @@ buildCal();
 
 // ─── VISION BOARD ───
 const vb=document.getElementById('vision-board');
-for(let i=0;i<12;i++){const s=document.createElement('label');s.className='vision-slot';s.innerHTML=`<input type="file" accept="image/*" onchange="loadVision(this)"><span style="font-size:20px;">✦</span><p style="font-size:10px;color:var(--text-muted);">Add vision</p>`;vb.appendChild(s);}
-function loadVision(inp){if(inp.files&&inp.files[0]){const r=new FileReader();r.onload=e=>{const s=inp.parentElement;s.innerHTML=`<img src="${e.target.result}" alt="vision"><input type="file" accept="image/*" onchange="loadVision(this)">`;};r.readAsDataURL(inp.files[0]);}}
+for(let i=0;i<12;i++){const s=document.createElement('label');s.className='vision-slot';s.innerHTML=`<input type="file" accept="image/*" onchange="loadVision(this,${i})"><span style="font-size:20px;">✦</span><p style="font-size:10px;color:var(--text-muted);">Add vision</p>`;vb.appendChild(s);}
+restoreVisionBoard();
+// Vision board images stored in localStorage (Drive upload for vision is a future enhancement)
+function loadVision(inp, idx){
+  if(inp.files&&inp.files[0]){
+    const r=new FileReader();
+    r.onload=e=>{
+      const s=inp.parentElement;
+      s.innerHTML=`<img src="${e.target.result}" alt="vision"><input type="file" accept="image/*" onchange="loadVision(this,${idx})">`;
+      // Store in localStorage for persistence on this device
+      localStorage.setItem('tge_vision_'+idx, e.target.result);
+    };
+    r.readAsDataURL(inp.files[0]);
+  }
+}
+
+function restoreVisionBoard(){
+  const slots = document.querySelectorAll('.vision-slot');
+  slots.forEach((s, i) => {
+    const saved = localStorage.getItem('tge_vision_'+i);
+    if(saved) s.innerHTML=`<img src="${saved}" alt="vision"><input type="file" accept="image/*" onchange="loadVision(this,${i})">`;
+  });
+}
 
 // ─── SPOTIFY ───
 function handleSpotify(ta){
@@ -1422,7 +1443,7 @@ document.addEventListener('click',e=>{if(!e.target.closest('.emoji-btn')&&!e.tar
 
 // ─── GOOGLE AUTH & DRIVE SYNC ───
 const GCP_CLIENT_ID = '923686960381-j8t333navbaroq6fcutt74b2lsqkl0nk.apps.googleusercontent.com';
-const DRIVE_SCOPE   = 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/userinfo.profile email';
+const DRIVE_SCOPE   = 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/userinfo.profile email openid';
 const SAVE_FILENAME = 'tge-planner-data.json';
 
 let gTokenClient = null;
@@ -1586,7 +1607,12 @@ async function loadFromDrive(){
   // First: instantly restore from localStorage backup (feels instant on refresh)
   try {
     const localBackup = localStorage.getItem('tge_save_backup');
-    if(localBackup) applyData(JSON.parse(localBackup));
+    if(localBackup){
+      const bd = JSON.parse(localBackup);
+      rebuildDynamicStructure(bd);
+      applyData(bd);
+      restoreExtras(bd);
+    }
   } catch(e){}
 
   try {
@@ -1600,7 +1626,9 @@ async function loadFromDrive(){
 
     // Apply Drive data (overrides localStorage backup with latest)
     if(data.planner){
+      rebuildDynamicStructure(data.planner);
       applyData(data.planner);
+      restoreExtras(data.planner);
       localStorage.setItem('tge_save_backup', JSON.stringify(data.planner));
     }
     if(data.diary){
@@ -1610,18 +1638,117 @@ async function loadFromDrive(){
       const dd = document.getElementById('diary-date');
       if(dd && dd.value) diaryLoadDate(dd.value);
     }
-    console.log('Data loaded from Google Drive ✓');
+    // Restore photo index from Drive
+    if(data.photos){
+      photosLoadIndex(data.photos);
+      const pd = document.getElementById('photos-date');
+      if(pd && pd.value) photosRenderGrid(pd.value);
+    }
   } catch(e){
     console.error('Drive load error:', e);
   }
   if(btn){ btn.disabled=false; btn.innerHTML=ICON_SAVE; }
 }
 
+function toggleWater(el){
+  const active = parseFloat(el.style.opacity) < 0.7;
+  el.style.opacity = active ? '1' : '.3';
+  el.style.transform = active ? 'scale(1.1)' : 'scale(1)';
+}
+
 // ─── SAVE SYSTEM ───
 function gatherData(){
   const data = {};
-  document.querySelectorAll('input[id], textarea[id]').forEach(el => { if(el.id) data[el.id]=el.value; });
-  document.querySelectorAll('input[type="checkbox"][id]').forEach(el => { if(el.id) data[el.id+'_checked']=el.checked; });
+
+  // All inputs and textareas with IDs
+  document.querySelectorAll('input[id], textarea[id]').forEach(el => {
+    if(el.id && el.type !== 'checkbox') data[el.id] = el.value;
+  });
+
+  // All checkboxes with IDs
+  document.querySelectorAll('input[type="checkbox"][id]').forEach(el => {
+    if(el.id) data[el.id+'_checked'] = el.checked;
+  });
+
+  // Water drops
+  for(let i=1;i<=8;i++){
+    const el=document.getElementById('water-'+i);
+    if(el) data['water-'+i+'_active'] = parseFloat(el.style.opacity) > 0.7;
+  }
+
+  // Mood buttons — save which one is selected
+  const activeMood = document.querySelector('.mood-btn.active');
+  data['mood-selected'] = activeMood ? activeMood.id : '';
+
+  // Symptom tags — save which are active
+  document.querySelectorAll('.symptom-tag[id]').forEach(el => {
+    data[el.id+'_active'] = el.classList.contains('active');
+  });
+
+  // Habit tracker checkboxes — save by day/habit index
+  document.querySelectorAll('.habit-check').forEach((cb, idx) => {
+    data['habit-cb-'+idx] = cb.checked;
+  });
+
+  // Dynamic checklist items (morning ritual, evening etc) built by buildList
+  ['morning-ritual-list','evening-list','morning-nonneg-list','morning-extras-list','evening-ritual-list','sunday-list'].forEach(listId => {
+    const list = document.getElementById(listId);
+    if(!list) return;
+    list.querySelectorAll('li').forEach((li, i) => {
+      const cb  = li.querySelector('input[type="checkbox"]');
+      const txt = li.querySelector('input[type="text"]');
+      if(cb)  data[listId+'-cb-'+i]  = cb.checked;
+      if(txt) data[listId+'-txt-'+i] = txt.value;
+    });
+  });
+
+  // Schedule rows
+  const schedBody = document.getElementById('schedule-body');
+  if(schedBody){
+    schedBody.querySelectorAll('tr').forEach((tr, i) => {
+      const inp = tr.querySelector('input[type="text"]');
+      const cb  = tr.querySelector('input[type="checkbox"]');
+      if(inp) data['sched-act-'+i] = inp.value;
+      if(cb)  data['sched-cb-'+i]  = cb.checked;
+    });
+  }
+
+  // Income log rows
+  const incBody = document.getElementById('income-tbody');
+  if(incBody){
+    incBody.querySelectorAll('tr').forEach((tr, i) => {
+      tr.querySelectorAll('input, select').forEach((el, j) => {
+        data['income-'+i+'-'+j] = el.value;
+      });
+    });
+  }
+
+  // Savings dream cards — save all inputs per card
+  document.querySelectorAll('.dream-card').forEach((card, i) => {
+    card.querySelectorAll('input, textarea').forEach((el, j) => {
+      data['dream-'+i+'-'+j] = el.value;
+    });
+    // Save emoji
+    const emoji = card.querySelector('.emoji-btn');
+    if(emoji) data['dream-'+i+'-emoji'] = emoji.childNodes[0]?.textContent?.trim() || '';
+  });
+
+  // Monthly calendar day notes (all months stored in localStorage)
+  const calNotes = {};
+  for(let i=0;i<localStorage.length;i++){
+    const k=localStorage.key(i);
+    if(k&&k.startsWith('cal_')) calNotes[k]=localStorage.getItem(k);
+  }
+  data['__calNotes'] = JSON.stringify(calNotes);
+
+  // Cycle manual day overrides
+  data['__cycleOverrides'] = JSON.stringify(manualOverrides);
+
+  // Dynamic row counts (so receiver knows how many to create)
+  data['__incomeRowCount']  = document.getElementById('income-tbody')?.querySelectorAll('tr').length || 0;
+  data['__dreamCardCount']  = document.querySelectorAll('.dream-card').length || 0;
+  data['__schedRowCount']   = document.getElementById('schedule-body')?.querySelectorAll('tr').length || 0;
+
   data._savedAt = new Date().toISOString();
   return data;
 }
@@ -1629,14 +1756,135 @@ function gatherData(){
 function applyData(data){
   if(!data) return;
   Object.entries(data).forEach(([key,val])=>{
+    if(key === '_savedAt') return;
+
     if(key.endsWith('_checked')){
       const el=document.getElementById(key.replace('_checked',''));
       if(el&&el.type==='checkbox'){ el.checked=val; el.closest('li')&&el.closest('li').classList.toggle('done',val); }
+
+    } else if(key.endsWith('_active') && key.startsWith('water-')){
+      const el=document.getElementById(key.replace('_active',''));
+      if(el){ el.style.opacity=val?'1':'.3'; el.style.transform=val?'scale(1.1)':'scale(1)'; }
+
+    } else if(key.endsWith('_active') && key.startsWith('symptom-')){
+      const el=document.getElementById(key.replace('_active',''));
+      if(el){ el.classList.toggle('active', val); }
+
+    } else if(key === 'mood-selected'){
+      document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('active'));
+      if(val){ const mb=document.getElementById(val); if(mb) mb.classList.add('active'); }
+
+    } else if(key.startsWith('habit-cb-')){
+      const idx = parseInt(key.replace('habit-cb-',''));
+      const cbs = document.querySelectorAll('.habit-check');
+      if(cbs[idx]){ cbs[idx].checked=val; }
+      if(val) updateHabitReveal();
+
+    } else if(key.match(/^(morning-ritual-list|evening-list|morning-nonneg-list|morning-extras-list|evening-ritual-list|sunday-list)-(cb|txt)-\d+$/)){
+      const parts = key.split('-');
+      const idx   = parseInt(parts[parts.length-1]);
+      const type  = parts[parts.length-2];
+      const listId= key.substring(0, key.lastIndexOf('-'+type+'-'+idx));
+      const list  = document.getElementById(listId);
+      if(!list) return;
+      const li = list.querySelectorAll('li')[idx];
+      if(!li) return;
+      if(type==='cb'){ const cb=li.querySelector('input[type="checkbox"]'); if(cb){ cb.checked=val; li.classList.toggle('done',val); } }
+      if(type==='txt'){ const txt=li.querySelector('input[type="text"]'); if(txt) txt.value=val; }
+
+    } else if(key.startsWith('sched-act-')){
+      const idx = parseInt(key.replace('sched-act-',''));
+      const rows = document.getElementById('schedule-body')?.querySelectorAll('tr');
+      if(rows&&rows[idx]){ const inp=rows[idx].querySelector('input[type="text"]'); if(inp) inp.value=val; }
+
+    } else if(key.startsWith('sched-cb-')){
+      const idx = parseInt(key.replace('sched-cb-',''));
+      const rows = document.getElementById('schedule-body')?.querySelectorAll('tr');
+      if(rows&&rows[idx]){ const cb=rows[idx].querySelector('input[type="checkbox"]'); if(cb) cb.checked=val; }
+
+    } else if(key.match(/^income-\d+-\d+$/)){
+      const [,i,j] = key.split('-').map(Number);
+      const rows = document.getElementById('income-tbody')?.querySelectorAll('tr');
+      if(rows&&rows[i]){ const els=rows[i].querySelectorAll('input,select'); if(els[j]) els[j].value=val; }
+
+    } else if(key.match(/^dream-\d+-\d+$/)){
+      const [,i,j] = key.split('-').map(Number);
+      const cards = document.querySelectorAll('.dream-card');
+      if(cards[i]){ const els=cards[i].querySelectorAll('input,textarea'); if(els[j]) els[j].value=val; }
+
+    } else if(key.match(/^dream-\d+-emoji$/)){
+      const i = parseInt(key.split('-')[1]);
+      const cards = document.querySelectorAll('.dream-card');
+      if(cards[i]){ const eb=cards[i].querySelector('.emoji-btn'); if(eb&&eb.childNodes[0]) eb.childNodes[0].textContent=val; }
+
     } else {
       const el=document.getElementById(key);
       if(el&&el.tagName!=='BUTTON') el.value=val;
     }
   });
+
+  // Recalculate derived displays after restore
+  updateSavingsSummary();
+  updateHabitReveal();
+}
+
+// Restore dynamic structure BEFORE applying data
+function rebuildDynamicStructure(data){
+  // Income rows
+  const targetIncome = parseInt(data['__incomeRowCount']) || 0;
+  const tb = document.getElementById('income-tbody');
+  if(tb){
+    while(tb.querySelectorAll('tr').length < targetIncome) addIncomeRow();
+  }
+
+  // Dream cards (beyond initial 3)
+  const targetDreams = parseInt(data['__dreamCardCount']) || 0;
+  while(document.querySelectorAll('.dream-card').length < targetDreams) addDreamCard();
+
+  // Schedule rows (already built by buildSchedule, just ensure count matches)
+  const targetSched = parseInt(data['__schedRowCount']) || 0;
+  const sb = document.getElementById('schedule-body');
+  if(sb){
+    while(sb.querySelectorAll('tr').length < targetSched){
+      const tr = document.createElement('tr');
+      const timeDiv = document.createElement('td');
+      timeDiv.style.cssText='color:var(--text-muted);font-size:12px;white-space:nowrap;padding:10px 12px;';
+      timeDiv.textContent='—';
+      const actTd = document.createElement('td');
+      actTd.style.width='100%';
+      const actInp = document.createElement('input');
+      actInp.type='text'; actInp.placeholder='Add activity...';
+      actInp.style.cssText="border:none;font-family:'Jost',sans-serif;font-size:13px;width:100%;outline:none;background:transparent;";
+      actTd.appendChild(actInp);
+      const cbTd = document.createElement('td');
+      const cb = document.createElement('input');
+      cb.type='checkbox'; cb.className='habit-check'; cb.style.cssText='width:18px;height:18px;cursor:pointer;accent-color:var(--mocha);';
+      cbTd.appendChild(cb);
+      tr.append(timeDiv, actTd, cbTd);
+      sb.appendChild(tr);
+    }
+  }
+}
+
+// Restore calendar notes and cycle overrides
+function restoreExtras(data){
+  // Calendar notes
+  try {
+    const calNotes = JSON.parse(data['__calNotes']||'{}');
+    Object.entries(calNotes).forEach(([k,v])=>{ if(k.startsWith('cal_')) localStorage.setItem(k,v); });
+    // Rebuild calendar to show restored notes
+    if(typeof buildCal === 'function') buildCal();
+  } catch(e){ console.error('Cal notes restore error:',e); }
+
+  // Cycle overrides
+  try {
+    const overrides = JSON.parse(data['__cycleOverrides']||'{}');
+    Object.assign(manualOverrides, overrides);
+    if(typeof buildCycleCalendar === 'function') buildCycleCalendar();
+  } catch(e){ console.error('Cycle overrides restore error:',e); }
+
+  // Vision board images (stored in localStorage, share across same browser — Drive sync for vision is a known limitation)
+  if(typeof restoreVisionBoard === 'function') restoreVisionBoard();
 }
 
 async function manualSave(){
@@ -1663,7 +1911,7 @@ async function manualSave(){
     }
 
     // Write to Google Drive + localStorage backup
-    await driveWriteFile({ planner:plannerData, diary:diaryData, _savedAt:new Date().toISOString() });
+    await driveWriteFile({ planner:plannerData, diary:diaryData, photos:photosIndex, _savedAt:new Date().toISOString() });
     localStorage.setItem('tge_save_backup', JSON.stringify(plannerData));
 
     // Success
@@ -1805,24 +2053,10 @@ function diaryShowHistory(){
   diaryLoadDate(today);
 })();
 
-// ─── PHOTO DUMP SYSTEM (IndexedDB) ───
-let photoDB = null;
-const PHOTO_DB_NAME = 'tge_photos';
-const PHOTO_STORE   = 'daily_photos';
-
-function photosOpenDB(){
-  return new Promise((resolve, reject) => {
-    const req = indexedDB.open(PHOTO_DB_NAME, 1);
-    req.onupgradeneeded = e => {
-      const db = e.target.result;
-      if (!db.objectStoreNames.contains(PHOTO_STORE)) {
-        db.createObjectStore(PHOTO_STORE, { keyPath: 'id', autoIncrement: true });
-      }
-    };
-    req.onsuccess  = e => { photoDB = e.target.result; resolve(photoDB); };
-    req.onerror    = () => reject(req.error);
-  });
-}
+// ─── PHOTO DUMP SYSTEM (Google Drive) ───
+const PHOTOS_FOLDER_NAME = 'TGE-Photos';
+let photosFolderId = null;
+let photosIndex = {}; // { 'YYYY-MM-DD': [{driveId, name, ts}] }
 
 function photosTodayKey(){
   const d = new Date();
@@ -1849,104 +2083,154 @@ function photosShowSaved(){
   setTimeout(() => { badge.style.display = 'none'; }, 2200);
 }
 
-function photosHandleFiles(files){
+// Get or create the TGE-Photos folder in Drive
+async function photosGetFolder(){
+  if(photosFolderId) return photosFolderId;
+  // Check localStorage cache
+  const cached = localStorage.getItem('tge_photos_folder_id');
+  if(cached){ photosFolderId=cached; return cached; }
+
+  if(!gAccessToken) return null;
+  const q = encodeURIComponent(`name='${PHOTOS_FOLDER_NAME}' and mimeType='application/vnd.google-apps.folder' and trashed=false`);
+  const r = await fetch(`https://www.googleapis.com/drive/v3/files?q=${q}&fields=files(id)`, {headers:{Authorization:`Bearer ${gAccessToken}`}});
+  const d = await r.json();
+  if(d.files&&d.files.length>0){
+    photosFolderId = d.files[0].id;
+    localStorage.setItem('tge_photos_folder_id', photosFolderId);
+    return photosFolderId;
+  }
+  // Create folder
+  const cr = await fetch('https://www.googleapis.com/drive/v3/files', {
+    method:'POST',
+    headers:{Authorization:`Bearer ${gAccessToken}`,'Content-Type':'application/json'},
+    body: JSON.stringify({name:PHOTOS_FOLDER_NAME, mimeType:'application/vnd.google-apps.folder'})
+  });
+  const cd = await cr.json();
+  photosFolderId = cd.id;
+  localStorage.setItem('tge_photos_folder_id', photosFolderId);
+  return photosFolderId;
+}
+
+// Upload a single image file to Drive
+async function photosUploadToDrive(file, date){
+  const folderId = await photosGetFolder();
+  if(!folderId) throw new Error('No folder');
+  const meta = {name:`tge-photo-${date}-${Date.now()}-${file.name}`, parents:[folderId]};
+  const form = new FormData();
+  form.append('metadata', new Blob([JSON.stringify(meta)],{type:'application/json'}));
+  form.append('file', file);
+  const r = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name,webContentLink,thumbnailLink', {
+    method:'POST', headers:{Authorization:`Bearer ${gAccessToken}`}, body:form
+  });
+  return await r.json();
+}
+
+// Delete a photo from Drive
+async function photosDeleteFromDrive(driveId){
+  if(!gAccessToken||!driveId) return;
+  await fetch(`https://www.googleapis.com/drive/v3/files/${driveId}`, {method:'DELETE',headers:{Authorization:`Bearer ${gAccessToken}`}});
+}
+
+// Get a viewable URL for a Drive file
+function photosGetUrl(driveId){
+  return `https://www.googleapis.com/drive/v3/files/${driveId}?alt=media&access_token=${gAccessToken}`;
+}
+
+// Save photo index to localStorage (index is also saved in Drive JSON via manualSave)
+function photosSaveIndex(){
+  localStorage.setItem('tge_photos_index', JSON.stringify(photosIndex));
+}
+
+// Load photo index from localStorage or Drive data
+function photosLoadIndex(data){
+  if(data) { photosIndex = data; localStorage.setItem('tge_photos_index', JSON.stringify(data)); return; }
+  try { const raw=localStorage.getItem('tge_photos_index'); if(raw) photosIndex=JSON.parse(raw); } catch(e){}
+}
+
+async function photosHandleFiles(files){
   if(!files||!files.length) return;
+  if(!gAccessToken){ alert('Please sign in to save photos.'); return; }
   const date = document.getElementById('photos-date').value || photosTodayKey();
   const images = Array.from(files).filter(f => f.type.startsWith('image/'));
   if(!images.length) return;
 
-  // Check current count first, then add up to the remaining slots
-  const tx0  = photoDB.transaction(PHOTO_STORE, 'readonly');
-  const req0 = tx0.objectStore(PHOTO_STORE).getAll();
-  req0.onsuccess = () => {
-    const existing = req0.result.filter(r => r.date === date).length;
-    const slots    = 10 - existing;
-    if(slots <= 0){
-      alert('You\'ve reached the 10 photo limit for this day. Remove a photo to add more.');
-      return;
-    }
-    const toAdd = images.slice(0, slots);
-    if(images.length > slots){
-      alert(`Only ${slots} slot${slots>1?'s':''} remaining — adding the first ${slots} photo${slots>1?'s':''}.`);
-    }
-    toAdd.forEach(file => {
-      const reader = new FileReader();
-      reader.onload = e => {
-        const record = { date, dataUrl: e.target.result, name: file.name, ts: Date.now() };
-        const tx  = photoDB.transaction(PHOTO_STORE, 'readwrite');
-        const req = tx.objectStore(PHOTO_STORE).add(record);
-        req.onsuccess = () => {
-          photosShowSaved();
-          photosRenderGrid(date);
-        };
-      };
-      reader.readAsDataURL(file);
-    });
-    document.getElementById('photos-file-input').value = '';
-  };
+  const existing = (photosIndex[date]||[]).length;
+  const slots = 10 - existing;
+  if(slots <= 0){ alert('You\'ve reached the 10 photo limit for this day.'); return; }
+  const toAdd = images.slice(0, slots);
+  if(images.length > slots) alert(`Only ${slots} slot${slots>1?'s':''} remaining — adding the first ${slots}.`);
+
+  // Show uploading state
+  const counter = document.getElementById('photos-counter');
+  const origText = counter ? counter.textContent : '';
+  if(counter) counter.textContent = 'Uploading...';
+
+  for(const file of toAdd){
+    try {
+      const result = await photosUploadToDrive(file, date);
+      if(!photosIndex[date]) photosIndex[date] = [];
+      photosIndex[date].push({ driveId: result.id, name: file.name, ts: Date.now() });
+      photosSaveIndex();
+    } catch(e){ console.error('Photo upload error:', e); }
+  }
+
+  document.getElementById('photos-file-input').value = '';
+  photosShowSaved();
+  photosRenderGrid(date);
 }
 
 function photosRenderGrid(date){
   const grid = document.getElementById('photos-grid');
   if(!grid) return;
   grid.innerHTML = '';
-  const tx  = photoDB.transaction(PHOTO_STORE, 'readonly');
-  const req = tx.objectStore(PHOTO_STORE).getAll();
-  req.onsuccess = () => {
-    const all   = req.result.filter(r => r.date === date);
-    const count = all.length;
-    const full  = count >= 10;
+  const all  = (photosIndex[date]||[]);
+  const count = all.length;
+  const full  = count >= 10;
 
-    // Update dropzone state
-    const dz = document.getElementById('photos-dropzone');
-    if(dz){
-      dz.style.opacity       = full ? '0.45' : '1';
-      dz.style.pointerEvents = full ? 'none' : 'auto';
-      dz.style.cursor        = full ? 'not-allowed' : 'pointer';
-    }
+  const dz = document.getElementById('photos-dropzone');
+  if(dz){ dz.style.opacity=full?'0.45':'1'; dz.style.pointerEvents=full?'none':'auto'; dz.style.cursor=full?'not-allowed':'pointer'; }
+  const counter = document.getElementById('photos-counter');
+  if(counter) counter.textContent = count+'/10 photos';
 
-    // Update counter
-    const counter = document.getElementById('photos-counter');
-    if(counter) counter.textContent = count+'/10 photos';
+  if(count === 0){
+    grid.style.display = 'block';
+    grid.innerHTML = '<p style="font-size:12px;color:var(--text-muted);text-align:center;padding:12px 0;">No photos for this day yet — drop some in above ✦</p>';
+    return;
+  }
+  grid.style.display = 'flex';
+  const tileSize = 'calc(25% - 8px)';
 
-    if(count === 0){
-      grid.style.display = 'block';
-      grid.innerHTML = '<p style="font-size:12px;color:var(--text-muted);text-align:center;padding:12px 0;">No photos for this day yet — drop some in above ✦</p>';
-      return;
-    }
+  all.sort((a,b)=>a.ts-b.ts).forEach(record => {
+    const wrap = document.createElement('div');
+    wrap.style.cssText = `flex:0 0 ${tileSize};min-width:${tileSize};position:relative;border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:1/1;background:var(--ivory);box-shadow:0 2px 8px var(--shadow);scroll-snap-align:start;`;
+    const img  = document.createElement('img');
+    img.alt    = record.name;
+    img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in;';
+    img.onclick = () => photosLightbox(record.driveId, record.name, date);
+    // Load image from Drive using current token
+    img.src = photosGetUrl(record.driveId);
+    img.onerror = () => { img.src=''; img.style.background='var(--ivory)'; };
 
-    grid.style.display = 'flex';
-
-    // Fixed tile size: 4 visible at a time, scrollable
-    const tileSize = 'calc(25% - 8px)';
-
-    all.sort((a,b)=>a.ts-b.ts).forEach(record => {
-      const wrap = document.createElement('div');
-      wrap.style.cssText = `flex:0 0 ${tileSize};min-width:${tileSize};position:relative;border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:1/1;background:var(--ivory);box-shadow:0 2px 8px var(--shadow);scroll-snap-align:start;`;
-      const img  = document.createElement('img');
-      img.src    = record.dataUrl;
-      img.alt    = record.name;
-      img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in;';
-      img.onclick     = () => photosLightbox(record.dataUrl, record.name, record.date);
-      // delete button — always visible on mobile (no hover)
-      const del  = document.createElement('button');
-      del.innerHTML = '✕';
-      del.title   = 'Remove photo';
-      del.style.cssText = 'position:absolute;top:5px;right:5px;background:rgba(61,43,43,.75);color:white;border:none;border-radius:50%;width:22px;height:22px;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;';
-      del.onclick = (e) => { e.stopPropagation(); photosDelete(record.id, date); };
-      wrap.append(img, del);
-      grid.appendChild(wrap);
-    });
-  };
+    const del  = document.createElement('button');
+    del.innerHTML = '✕';
+    del.title   = 'Remove photo';
+    del.style.cssText = 'position:absolute;top:5px;right:5px;background:rgba(61,43,43,.75);color:white;border:none;border-radius:50%;width:22px;height:22px;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;';
+    del.onclick = (e) => { e.stopPropagation(); photosDelete(record.driveId, date); };
+    wrap.append(img, del);
+    grid.appendChild(wrap);
+  });
 }
 
-function photosDelete(id, date){
-  const tx = photoDB.transaction(PHOTO_STORE, 'readwrite');
-  tx.objectStore(PHOTO_STORE).delete(id);
-  tx.oncomplete = () => photosRenderGrid(date);
+async function photosDelete(driveId, date){
+  photosIndex[date] = (photosIndex[date]||[]).filter(r=>r.driveId!==driveId);
+  photosSaveIndex();
+  photosRenderGrid(date);
+  // Delete from Drive in background
+  photosDeleteFromDrive(driveId).catch(e=>console.error('Delete error:',e));
 }
 
-function photosLightbox(src, name, date){
+function photosLightbox(driveId, name, date){
+  const src = photosGetUrl(driveId);
   const ov = document.createElement('div');
   ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;';
   const caption = document.createElement('div');
@@ -1981,11 +2265,12 @@ function photosNavDay(delta){
   photosLoadDate(newStr);
 }
 
-// Init photos on load
-photosOpenDB().then(() => {
+// Init photos — load index and show today
+(function initPhotos(){
+  photosLoadIndex(null); // load from localStorage first
   const today = photosTodayKey();
   photosLoadDate(today);
-});
+})();
 
 // ─── MOBILE SIDEBAR TOGGLE ───
 function toggleSidebar(){
