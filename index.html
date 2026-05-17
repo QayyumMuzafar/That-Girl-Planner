@@ -2182,9 +2182,32 @@ async function photosHandleFiles(files){
     } catch(e){ console.error('Photo upload error:', e); }
   }
 
+  for(const file of toAdd){
+    try {
+      const result = await photosUploadToDrive(file, date);
+      if(!photosIndex[date]) photosIndex[date] = [];
+      photosIndex[date].push({ driveId: result.id, name: file.name, ts: Date.now(), dataUrl: result.dataUrl });
+      photosSaveIndex();
+    } catch(e){ console.error('Photo upload error:', e); }
+  }
+
   document.getElementById('photos-file-input').value = '';
   photosShowSaved();
   photosRenderGrid(date);
+
+  // Auto-push updated photo index to Drive immediately (no need to hit Save)
+  if(gAccessToken){
+    try {
+      const plannerData = gatherData();
+      const diaryData   = {};
+      for(let i=0;i<localStorage.length;i++){
+        const k=localStorage.key(i);
+        if(k&&k.startsWith('tge_diary_')){ try{ diaryData[k.replace('tge_diary_','')]=JSON.parse(localStorage.getItem(k)); }catch(e){} }
+      }
+      await driveWriteFile({ planner:plannerData, diary:diaryData, photos:photosIndex, _savedAt:new Date().toISOString() });
+      console.log('Photo index auto-synced to Drive ✓');
+    } catch(e){ console.error('Photo auto-sync error:', e); }
+  }
 }
 
 // Fetch a Drive image as a blob and return an object URL
@@ -2271,6 +2294,18 @@ async function photosDelete(driveId, date){
   photosRenderGrid(date);
   // Delete from Drive in background
   photosDeleteFromDrive(driveId).catch(e=>console.error('Delete error:',e));
+  // Auto-sync index to Drive
+  if(gAccessToken){
+    try {
+      const plannerData = gatherData();
+      const diaryData   = {};
+      for(let i=0;i<localStorage.length;i++){
+        const k=localStorage.key(i);
+        if(k&&k.startsWith('tge_diary_')){ try{ diaryData[k.replace('tge_diary_','')]=JSON.parse(localStorage.getItem(k)); }catch(e){} }
+      }
+      await driveWriteFile({ planner:plannerData, diary:diaryData, photos:photosIndex, _savedAt:new Date().toISOString() });
+    } catch(e){ console.error('Photo delete sync error:', e); }
+  }
 }
 
 function photosLightboxBlob(blobUrl, name, date){
