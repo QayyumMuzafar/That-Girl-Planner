@@ -2179,11 +2179,24 @@ async function photosHandleFiles(files){
   photosRenderGrid(date);
 }
 
+// Fetch a Drive image as a blob and return an object URL
+async function photosGetBlobUrl(driveId){
+  try {
+    const r = await fetch(
+      `https://www.googleapis.com/drive/v3/files/${driveId}?alt=media`,
+      {headers:{Authorization:`Bearer ${gAccessToken}`}}
+    );
+    if(!r.ok) return null;
+    const blob = await r.blob();
+    return URL.createObjectURL(blob);
+  } catch(e){ return null; }
+}
+
 function photosRenderGrid(date){
   const grid = document.getElementById('photos-grid');
   if(!grid) return;
   grid.innerHTML = '';
-  const all  = (photosIndex[date]||[]);
+  const all   = (photosIndex[date]||[]);
   const count = all.length;
   const full  = count >= 10;
 
@@ -2203,21 +2216,31 @@ function photosRenderGrid(date){
   all.sort((a,b)=>a.ts-b.ts).forEach(record => {
     const wrap = document.createElement('div');
     wrap.style.cssText = `flex:0 0 ${tileSize};min-width:${tileSize};position:relative;border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:1/1;background:var(--ivory);box-shadow:0 2px 8px var(--shadow);scroll-snap-align:start;`;
-    const img  = document.createElement('img');
-    img.alt    = record.name;
-    img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in;';
-    img.onclick = () => photosLightbox(record.driveId, record.name, date);
-    // Load image from Drive using current token
-    img.src = photosGetUrl(record.driveId);
-    img.onerror = () => { img.src=''; img.style.background='var(--ivory)'; };
 
-    const del  = document.createElement('button');
+    // Placeholder while loading
+    const placeholder = document.createElement('div');
+    placeholder.style.cssText = 'width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:20px;';
+    placeholder.textContent = '⏳';
+    wrap.appendChild(placeholder);
+
+    const del = document.createElement('button');
     del.innerHTML = '✕';
     del.title   = 'Remove photo';
-    del.style.cssText = 'position:absolute;top:5px;right:5px;background:rgba(61,43,43,.75);color:white;border:none;border-radius:50%;width:22px;height:22px;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;';
+    del.style.cssText = 'position:absolute;top:5px;right:5px;background:rgba(61,43,43,.75);color:white;border:none;border-radius:50%;width:22px;height:22px;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;';
     del.onclick = (e) => { e.stopPropagation(); photosDelete(record.driveId, date); };
-    wrap.append(img, del);
+    wrap.appendChild(del);
     grid.appendChild(wrap);
+
+    // Fetch image as blob (works with Authorization header)
+    photosGetBlobUrl(record.driveId).then(blobUrl => {
+      if(!blobUrl){ placeholder.textContent = '⚠️'; return; }
+      const img = document.createElement('img');
+      img.src   = blobUrl;
+      img.alt   = record.name;
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in;';
+      img.onclick = () => photosLightboxBlob(blobUrl, record.name, date);
+      placeholder.replaceWith(img);
+    });
   });
 }
 
@@ -2229,15 +2252,14 @@ async function photosDelete(driveId, date){
   photosDeleteFromDrive(driveId).catch(e=>console.error('Delete error:',e));
 }
 
-function photosLightbox(driveId, name, date){
-  const src = photosGetUrl(driveId);
+function photosLightboxBlob(blobUrl, name, date){
   const ov = document.createElement('div');
   ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;';
   const caption = document.createElement('div');
   caption.style.cssText = 'color:rgba(255,255,255,.5);font-family:"Jost",sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;';
   caption.textContent = photosFormatLabel(date);
   const img = document.createElement('img');
-  img.src   = src;
+  img.src   = blobUrl;
   img.style.cssText = 'max-width:90vw;max-height:80vh;border-radius:12px;object-fit:contain;box-shadow:0 8px 40px rgba(0,0,0,.4);';
   const close = document.createElement('button');
   close.innerHTML = '✕ Close';
@@ -2246,6 +2268,12 @@ function photosLightbox(driveId, name, date){
   ov.onclick = e => { if(e.target===ov) document.body.removeChild(ov); };
   ov.append(caption, img, close);
   document.body.appendChild(ov);
+}
+
+function photosLightbox(driveId, name, date){
+  photosGetBlobUrl(driveId).then(blobUrl => {
+    if(blobUrl) photosLightboxBlob(blobUrl, name, date);
+  });
 }
 
 function photosLoadDate(dateStr){
