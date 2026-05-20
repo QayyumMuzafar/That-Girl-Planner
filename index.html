@@ -1612,6 +1612,10 @@ async function loadFromDrive(){
       rebuildDynamicStructure(bd);
       applyData(bd);
       restoreExtras(bd);
+      // If the backup is from a previous day, wipe daily fields so today starts fresh
+      if(bd._dailyDate && bd._dailyDate !== diaryTodayKey()){
+        clearDailyPlannerFields();
+      }
     }
   } catch(e){}
 
@@ -1630,6 +1634,10 @@ async function loadFromDrive(){
       applyData(data.planner);
       restoreExtras(data.planner);
       localStorage.setItem('tge_save_backup', JSON.stringify(data.planner));
+      // If the saved data is from a previous day, wipe daily fields so today starts fresh
+      if(data.planner._dailyDate && data.planner._dailyDate !== diaryTodayKey()){
+        clearDailyPlannerFields();
+      }
     }
     if(data.diary){
       Object.entries(data.diary).forEach(([date,entry])=>{
@@ -1660,9 +1668,13 @@ function toggleWater(el){
 function gatherData(){
   const data = {};
 
+  // diary-date and photos-date are navigation controls — they always reset to today on load,
+  // so never persist them (persisting causes stale "May 17" after a new day opens).
+  const SKIP_IDS = new Set(['diary-date', 'photos-date']);
+
   // All inputs and textareas with IDs
   document.querySelectorAll('input[id], textarea[id]').forEach(el => {
-    if(el.id && el.type !== 'checkbox') data[el.id] = el.value;
+    if(el.id && el.type !== 'checkbox' && !SKIP_IDS.has(el.id)) data[el.id] = el.value;
   });
 
   // All checkboxes with IDs
@@ -1749,6 +1761,8 @@ function gatherData(){
   data['__dreamCardCount']  = document.querySelectorAll('.dream-card').length || 0;
   data['__schedRowCount']   = document.getElementById('schedule-body')?.querySelectorAll('tr').length || 0;
 
+  // Track which calendar day the daily planner fields belong to
+  data._dailyDate = diaryTodayKey();
   data._savedAt = new Date().toISOString();
   return data;
 }
@@ -1866,7 +1880,52 @@ function rebuildDynamicStructure(data){
   }
 }
 
-// Restore calendar notes and cycle overrides
+// Clear all "today-only" fields so a new day starts fresh.
+// Cycle tracker, habits tracker, goals, income, dreams, monthly data — NOT cleared.
+function clearDailyPlannerFields(){
+  // ── Dashboard: Today's Intention & Word
+  ['daily-intention','word-today'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+
+  // ── Dashboard: Top 3 (reset to placeholder defaults)
+  const TOP3_DEFAULTS=['🥇 Must happen today...','🥈 Important but flexible...','🥉 Nice to get done...'];
+  ['top3-1','top3-2','top3-3'].forEach((id,i)=>{const el=document.getElementById(id);if(el)el.value=TOP3_DEFAULTS[i];});
+  ['top3-1-cb','top3-2-cb','top3-3-cb'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){el.checked=false;el.closest('li')?.classList.remove('done');}
+  });
+
+  // ── Dashboard: Mood
+  document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('selected'));
+
+  // ── Dashboard: Water drops
+  for(let i=1;i<=8;i++){
+    const el=document.getElementById('water-'+i);
+    if(el){el.style.opacity='.3';el.style.transform='scale(1)';}
+  }
+
+  // ── Daily Planner: Journal prompts
+  ['dp-ten','dp-highest','dp-proud','dp-dump'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+
+  // ── Daily Planner: Morning Ritual checklist (checkbox states only — keep item text)
+  document.querySelectorAll('#morning-ritual-list .cl-cb').forEach(cb=>{
+    cb.checked=false;cb.closest('li')?.classList.remove('done');
+  });
+
+  // ── Daily Planner: Evening Wind-Down checklist
+  document.querySelectorAll('#evening-list .cl-cb').forEach(cb=>{
+    cb.checked=false;cb.closest('li')?.classList.remove('done');
+  });
+
+  // ── Daily Planner: Schedule (activity text + done checkboxes)
+  document.querySelectorAll('#schedule-body input[type="text"]').forEach(inp=>inp.value='');
+  document.querySelectorAll('#schedule-body input[type="checkbox"]').forEach(cb=>cb.checked=false);
+
+  // ── Daily Planner: Spotify embed
+  const sc=document.getElementById('spotify-container');if(sc)sc.innerHTML='';
+  const si=document.getElementById('spotify-input');if(si)si.value='';
+}
+
+
 function restoreExtras(data){
   // Calendar notes
   try {
